@@ -2,13 +2,13 @@ import Card from "../Card/Card";
 
 const Column = () => {
   return (
-    <div className="main__column column">
-      <div className="column__title">
-        <p>Без статуса</p>
+    <>
+      <div className="main__column column">
+        <div className="column__title">
+          <p>Без статуса</p>
+        </div>
+        <Card />
       </div>
-
-      <Card />
-
       <div className="main__column">
         <div className="column__title">
           <p>Нужно сделать</p>
@@ -33,7 +33,7 @@ const Column = () => {
         </div>
         <Card />
       </div>
-    </div>
+    </>
   );
 };
 

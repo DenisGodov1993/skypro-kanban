@@ -1,5 +1,4 @@
 // import { useState } from "react";
-// import reactLogo from "./assets/react.svg";
 // import reactLogo from "/assets/react.svg";
 // import viteLogo from "/vite.svg";
 import "./App.css";
@@ -7,25 +6,20 @@ import "./App.css";
 import PopUser from "./components/popups/PopUser/PopUser";
 import PopNewCard from "./components/popups/PopNewCard/PopNewCard";
 import PopBrowse from "./components/popups/PopBrowse/PopBrowse";
-// import Calendar from "./components/Calendar/Calendar";
 
 import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
-// import Column from "./components/Column/Column";
-// import Card from "./components/Card/Card";
 
 function App() {
   // const [count, setCount] = useState(0);
 
   return (
-    <>
+    <div className="wrapper">
       <PopUser />
 
       <PopNewCard />
 
       <PopBrowse />
-
-      {/* <Calendar /> */}
 
       {/* <div>
         <a href="https://vite.dev" target="_blank">
@@ -51,18 +45,12 @@ function App() {
       <Header />
 
       <Main />
-
-      {/* <Column /> */}
-
-      {/* <Card /> */}
-
-    </>
+      
+    </div>
   );
 }
 
 export default App;
-
-
 
 // import { useState } from "react";
 // // import reactLogo from "./assets/react.svg";

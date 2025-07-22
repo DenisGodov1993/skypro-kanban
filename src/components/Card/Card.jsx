@@ -1,3 +1,5 @@
+// import "./Card.css";
+
 const Card = () => {
   const text = "Название задачи";
   const theme = "Research";

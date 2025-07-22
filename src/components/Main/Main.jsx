@@ -1,5 +1,4 @@
 import Column from "../Column/Column";
-// import Card from "./components/Card/Card";
 
 const Main = () => {
   return (
@@ -16,7 +15,3 @@ const Main = () => {
 };
 
 export default Main;
-
-
-
-{/* <Card /> */}
