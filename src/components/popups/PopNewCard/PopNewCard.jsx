@@ -1,4 +1,4 @@
-// import Calendar from "./components/Calendar/Calendar";
+import Calendar from "../../Calendar/Calendar";
 
 const popNewCard = () => {
   return (
@@ -43,9 +43,9 @@ const popNewCard = () => {
                 </div>
               </form>
 
-              {/* <Calendar /> */}
+              <Calendar />
 
-              <div className="pop-new-card__calendar calendar">
+              {/* <div className="pop-new-card__calendar calendar">
                 <p className="calendar__ttl subttl">Даты</p>
                 <div className="calendar__block">
                   <div className="calendar__nav">
@@ -147,7 +147,7 @@ const popNewCard = () => {
                     </p>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="pop-new-card__categories categories">
               <p className="categories__p subttl">Категория</p>

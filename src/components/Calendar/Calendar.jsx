@@ -85,7 +85,7 @@ const Calendar = () => {
           </div>
         </div>
       </div>
-      <div className="pop-new-card__calendar calendar">
+      {/* <div className="pop-new-card__calendar calendar">
         <p className="calendar__ttl subttl">Даты</p>
         <div className="calendar__block">
           <div className="calendar__nav">
@@ -170,7 +170,7 @@ const Calendar = () => {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };
