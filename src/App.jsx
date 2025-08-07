@@ -10,17 +10,16 @@ import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
 
 function App() {
- const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
-   useEffect(() => {
-      setTimeout(() => {
-         setLoading(false);
-      }, 3000);
-   }, [loading]);
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  }, [loading]);
 
   return (
     <div className="wrapper">
-
       <PopUser />
 
       <PopNewCard />
@@ -30,7 +29,6 @@ function App() {
       <Header />
 
       <Main loading={loading} />
-
     </div>
   );
 }
