@@ -821,7 +821,8 @@ body {
   padding: 0;
 }
 .header__pop-user-set {
-  display: none;
+  /* display: none; */
+  display: block;
   position: absolute;
   top: 61px;
   right: 0;
@@ -854,6 +855,20 @@ body {
   margin: 0 auto;
   display: block;
 }
+
+/* новой стиль */
+.loading {
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  height: 100vh;
+}
+
+.loading-text {
+  font-size: 24px;     
+  font-weight: bold;      
+}
+/* конец нового стиля */
 
 .column__title {
   padding: 0 10px;
