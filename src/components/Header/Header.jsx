@@ -56,6 +56,61 @@ const Header = () => {
 };
 export default Header;
 
+// выносим попап в отдельный компонент
+// import { useState } from "react";
+// import PopUser2 from "../popups/PopUser/PopUser2";
+
+// const Header = () => {
+//   const [open, setOpen] = useState(false);
+
+//   const togglePopup = () => {
+//     setOpen((prev) => !prev);
+//   };
+
+//   return (
+//     <header className="header">
+//       <div className="container">
+//         <div className="header__block">
+//           <div className="header__logo _show _light">
+//             <a href="#" target="_self">
+//               <img src="images/logo.png" alt="logo" />
+//             </a>
+//           </div>
+//           <div className="header__logo _dark">
+//             <a href="#" target="_self">
+//               <img src="images/logo_dark.png" alt="logo" />
+//             </a>
+//           </div>
+//           <nav className="header__nav">
+//             <button className="header__btn-main-new _hover01" id="btnMainNew">
+//               <a href="#popNewCard">Создать новую задачу</a>
+//             </button>
+
+//             <a
+//               href="#user-set-target"
+//               onClick={togglePopup}
+//               className="header__user _hover02"
+//             >
+//               Ivan Ivanov
+//             </a>
+
+//             {/* <button
+//               onClick={togglePopup}
+//               className="header__user _hover02"
+//             >
+//               Ivan Ivanov
+//             </button> */}
+
+//             {open && <PopUser2 onClose={togglePopup} />}
+//           </nav>
+//         </div>
+//       </div>
+//     </header>
+//   );
+// };
+
+// export default Header;
+
 // const Header = () => {
 //   return (
 //     <header className="header">
