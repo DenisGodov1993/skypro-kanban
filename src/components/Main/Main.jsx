@@ -1,5 +1,12 @@
 import Column from "../Column/Column";
-// import { SHeader, Container } from "./Main.styled";
+import {
+  SLoading,
+  SLoadingText,
+  SMain,
+  SContainer,
+  SMainBlock,
+  SMainContent,
+} from "./Main.styled";
 
 const Main = ({ loading }) => {
   const statuses = [
@@ -11,25 +18,21 @@ const Main = ({ loading }) => {
   ];
 
   return loading ? (
-    <div className="loading">
-      <p className="loading-text">Данные загружаются . . . </p>
-    </div>
+    <SLoading>
+      <SLoadingText>Данные загружаются . . . </SLoadingText>
+    </SLoading>
   ) : (
-    <main className="main">
-      <div className="container">
-        <div className="main__block">
-          <div className="main__content">
+    <SMain>
+      <SContainer>
+        <SMainBlock>
+          <SMainContent>
             {statuses.map((title) => (
-              <Column
-                key={title}
-                loading={loading}
-                title={title}
-              />
+              <Column key={title} loading={loading} title={title} />
             ))}
-          </div>
-        </div>
-      </div>
-    </main>
+          </SMainContent>
+        </SMainBlock>
+      </SContainer>
+    </SMain>
   );
 };
 

@@ -793,7 +793,21 @@ body {
   z-index: 2;
 } */
 
-.main {
+/* новой стиль */
+/* .loading {
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  height: 100vh;
+}
+
+.loading-text {
+  font-size: 24px;     
+  font-weight: bold;      
+} */
+/* конец нового стиля */
+
+/* .main {
   width: 100%;
   background-color: #EAEEF6;
 }
@@ -805,21 +819,7 @@ body {
 .main__content {
   width: 100%;
   display: flex;
-}
-
-/* новой стиль */
-.loading {
-  display: flex;
-  justify-content: center; 
-  align-items: center;     
-  height: 100vh;
-}
-
-.loading-text {
-  font-size: 24px;     
-  font-weight: bold;      
-}
-/* конец нового стиля */
+} */
 
 /* .main__column {
   width: 20%;
