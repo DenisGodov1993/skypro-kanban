@@ -1,39 +1,5 @@
-// import Column from "../Column/Column";
-
-// const Main = ({ loading }) => {
-//   const statuses = [
-//     "Без статуса",
-//     "Нужно сделать",
-//     "В работе",
-//     "Тестирование",
-//     "Готово",
-//   ];
-
-//   return (
-//     <main className="main">
-//       <div className="container">
-//         <div className="main__block">
-//           <div className="main__content">
-//             {statuses.map((title) => (
-//               <Column
-//                 key={title}
-//                 loading={loading}
-//                 title={title}
-//               />
-//             ))}
-//           </div>
-//         </div>
-//       </div>
-//     </main>
-//   );
-// };
-
-// export default Main;
-
-
-
-
 import Column from "../Column/Column";
+// import { SHeader, Container } from "./Main.styled";
 
 const Main = ({ loading }) => {
   const statuses = [
@@ -69,7 +35,39 @@ const Main = ({ loading }) => {
 
 export default Main;
 
+// import Column from "../Column/Column";
 
+// const Main = ({ loading }) => {
+//   const statuses = [
+//     "Без статуса",
+//     "Нужно сделать",
+//     "В работе",
+//     "Тестирование",
+//     "Готово",
+//   ];
+
+//   return (
+//     <main className="main">
+//       <div className="container">
+//         <div className="main__block">
+//           <div className="main__content">
+//             {statuses.map((title) => (
+//               <Column
+//                 key={title}
+//                 loading={loading}
+//                 title={title}
+//               />
+//             ))}
+//           </div>
+//         </div>
+//       </div>
+//     </main>
+//   );
+// };
+
+// export default Main;
+
+// ПЕРВОНАЧАЛЬНЫЙ КОД
 // import Column from "../Column/Column";
 
 // const Main = () => {

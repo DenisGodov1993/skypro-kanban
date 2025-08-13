@@ -1,5 +1,6 @@
 import Card from "../Card/Card";
 import { cardList } from "../../data.js";
+// import { SHeader, Container } from "./Column.styled";
 
 const Column = ({ title }) => {
   return (
@@ -20,6 +21,7 @@ const Column = ({ title }) => {
 
 export default Column;
 
+// ПЕРВОНАЧАЛЬНЫЙ КОД
 // import Card from "../Card/Card";
 
 // const Column = () => {
