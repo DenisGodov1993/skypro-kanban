@@ -806,11 +806,6 @@ body {
   width: 100%;
   display: flex;
 }
-.main__column {
-  width: 20%;
-  margin: 0 auto;
-  display: block;
-}
 
 /* новой стиль */
 .loading {
@@ -826,7 +821,12 @@ body {
 }
 /* конец нового стиля */
 
-.column__title {
+/* .main__column {
+  width: 20%;
+  margin: 0 auto;
+  display: block;
+} */
+/* .column__title {
   padding: 0 10px;
   margin: 15px 0;
 }
@@ -842,7 +842,7 @@ body {
   width: 100%;
   display: block;
   position: relative;
-}
+} */
 /* .cards__item {
   padding: 5px;
   animation-name: card-animation;
