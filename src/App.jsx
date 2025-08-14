@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import "./App.css";
+// import "./App.css";
+import { GlobalStyles } from "./GlobalStyles";
 
 import PopUser from "./components/popups/PopUser/PopUser";
 import PopNewCard from "./components/popups/PopNewCard/PopNewCard";
@@ -19,17 +20,20 @@ function App() {
   }, [loading]);
 
   return (
-    <div className="wrapper">
-      <PopUser />
+    <>
+      <GlobalStyles />
+      <div className="wrapper">
+        <PopUser />
 
-      <PopNewCard />
+        <PopNewCard />
 
-      <PopBrowse />
+        <PopBrowse />
 
-      <Header />
+        <Header />
 
-      <Main loading={loading} />
-    </div>
+        <Main loading={loading} />
+      </div>
+    </>
   );
 }
 

@@ -87,4 +87,4 @@ export const cardList = [
     status: "Готово",
     color: "green",
   },
-];
+]; 
