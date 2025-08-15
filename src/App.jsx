@@ -1,39 +1,54 @@
-import { useState } from "react";
-import { useEffect } from "react";
-import "./App.css";
-
-import PopUser from "./components/popups/PopUser/PopUser";
-import PopNewCard from "./components/popups/PopNewCard/PopNewCard";
-import PopBrowse from "./components/popups/PopBrowse/PopBrowse";
-
-import Header from "./components/Header/Header";
-import Main from "./components/Main/Main";
+import AppRoutes from "./components/AppRoutes/AppRoutes";
 
 function App() {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-  }, [loading]);
-
-  return (
-    <div className="wrapper">
-      <PopUser />
-
-      <PopNewCard />
-
-      <PopBrowse />
-
-      <Header />
-
-      <Main loading={loading} />
-    </div>
-  );
+  return <AppRoutes />;
 }
 
 export default App;
+
+
+// КОД ДО РОУТИНГА
+
+// import { useState } from "react";
+// import { useEffect } from "react";
+// // import "./App.css";
+// import { GlobalStyles } from "./GlobalStyles";
+
+// import PopUser from "./components/popups/PopUser/PopUser";
+// import PopNewCard from "./components/popups/PopNewCard/PopNewCard";
+// import PopBrowse from "./components/popups/PopBrowse/PopBrowse";
+
+// import Header from "./components/Header/Header";
+// import Main from "./components/Main/Main";
+
+// function App() {
+//   const [loading, setLoading] = useState(true);
+
+//   useEffect(() => {
+//     setTimeout(() => {
+//       setLoading(false);
+//     }, 3000);
+//   }, [loading]);
+
+//   return (
+//     <>
+//       <GlobalStyles />
+//       <div className="wrapper">
+//         <PopUser />
+
+//         <PopNewCard />
+
+//         <PopBrowse />
+
+//         <Header />
+
+//         <Main loading={loading} />
+//       </div>
+//     </>
+//   );
+// }
+
+// export default App;
 
 // import { useState } from "react";
 // import { useEffect } from "react";

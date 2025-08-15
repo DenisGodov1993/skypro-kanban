@@ -1,25 +1,27 @@
 import Card from "../Card/Card";
 import { cardList } from "../../data.js";
+import { SMainColumn, SColumnTitle, SCards } from "./Column.styled";
 
 const Column = ({ title }) => {
   return (
-    <div className="main__column">
-      <div className="column__title">
+    <SMainColumn>
+      <SColumnTitle>
         <p>{title}</p>
-      </div>
-      <div className="cards">
+      </SColumnTitle>
+      <SCards>
         {cardList
           .filter((card) => card.status === title)
           .map((card) => (
             <Card key={card.id} data={card} />
           ))}
-      </div>
-    </div>
+      </SCards>
+    </SMainColumn>
   );
 };
 
 export default Column;
 
+// ПЕРВОНАЧАЛЬНЫЙ КОД
 // import Card from "../Card/Card";
 
 // const Column = () => {
