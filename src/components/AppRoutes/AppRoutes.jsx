@@ -1,17 +1,53 @@
-// import { Route, Routes } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
+
+import MainPage from "../../pages/Main";
+import SignInPage from "../../pages/SignIn";
+import SignUpPage from "../../pages/SignUp";
+import ViewEditCardPage from "../../pages/ViewEditCard";
+import NotFoundPage from "../../pages/NotFound";
+
+function AppRoutes() {
+  const [loading, setLoading] = useState(true);
+  const [isAuth, setIsAuth] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  }, [loading]);
+
+  return (
+    <Routes>
+      <Route element={<PrivateRoute isAuth={isAuth} />}>
+        <Route
+          path="/"
+          element={<MainPage setIsAuth={setIsAuth} loading={loading} />}
+        ></Route>
+        <Route path="/card/:id" element={<ViewEditCardPage />} />
+        {/* <Route path="/addnewtask" element={<AddNewTaskPage/>} /> */}
+        {/* <Route path="/logout" element={<LogoutPage/>} /> */}
+      </Route>
+      <Route path="/sign-in" element={<SignInPage setIsAuth={setIsAuth} />} />
+      <Route path="/sign-up" element={<SignUpPage setIsAuth={setIsAuth} />} />
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
+  );
+}
+
+export default AppRoutes;
+
+// import { Routes, Route, Navigate } from "react-router-dom";
 // import { useState, useEffect } from "react";
-// // import { useEffect } from "react";
-// import { GlobalStyles } from "./GlobalStyles";
-
-// import PopUser from "./components/popups/PopUser/PopUser";
-// import PopNewCard from "./components/popups/PopNewCard/PopNewCard";
-// import PopBrowse from "./components/popups/PopBrowse/PopBrowse";
-
-// import Header from "./components/Header/Header";
-// import Main from "./components/Main/Main";
+// import MainPage from "../../pages/Main";
+// import SignInPage from "../../pages/SignIn";
+// import SignUpPage from "../../pages/SignUp";
 
 // function AppRoutes() {
 //   const [loading, setLoading] = useState(true);
+//   const [isAuth] = useState(false);
 
 //   useEffect(() => {
 //     setTimeout(() => {
@@ -21,51 +57,32 @@
 
 //   return (
 //     <Routes>
-//       <GlobalStyles />
-//       <div className="wrapper">
-//         <PopUser />
-
-//         <PopNewCard />
-
-//         <PopBrowse />
-
-//         <Header />
-
-//         <Main loading={loading} />
-//       </div>
+//       <Route
+//         path="/"
+//         element={isAuth ? <MainPage /> : <Navigate to="/sign-in" replace />}
+//       />
+//       <Route path="/sign-in" element={<SignInPage />} />
+//       <Route path="/sign-up" element={<SignUpPage />} />
 //     </Routes>
 //   );
 // }
 
 // export default AppRoutes;
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useEffect, useState } from "react";
-import MainPage from "../../pages/MainPage";
-import SignInPage from "../../pages/SignInPage";
-import SignUpPage from "../../pages/SignUpPage";
+// import { Routes, Route } from "react-router-dom";
 
-function AppRoutes() {
-   const [loading, setLoading] = useState(true);
+// import MainPage from "../../pages/Main.jsx";
+// import SignUpPage from "../../pages/SignUp.jsx";
+// import SignInPage from "../../pages/SignIn.jsx";
 
-   useEffect(() => {
-      setTimeout(() => {
-         setLoading(false);
-      }, 3000);
-   }, []);
+// export default function AppRoutes() {
+//   return (
+//     <Routes>
+//       <Route path="/" element={<MainPage />} />
+//       <Route path="/sign-up" element={<SignUpPage />} />
+//       <Route path="/sign-in" element={<SignInPage />} />
+//     </Routes>
+//   );
+// }
 
-   return (
-      <Router>
-         <Routes>
-            {/* Главная страница */}
-            <Route path="/" element={<MainPage loading={loading} />} />
-            {/* Страница входа */}
-            <Route path="/sign-in" element={<SignInPage />} />
-            {/* Страница регистрации */}
-            <Route path="/sign-up" element={<SignUpPage />} />
-         </Routes>
-      </Router>
-   );
-}
-
-export default AppRoutes
+// export default AppRoutes;

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   SHeader,
   Container,
@@ -11,7 +12,16 @@ import {
   PopupUserSet,
 } from "./Header.styled";
 
-const Header = () => {
+const Header = ({ setIsAuth }) => {
+
+  const navigate = useNavigate();
+  const handleLogout = (e) => {
+    e.preventDefault();
+    setIsAuth(false);
+    navigate("/sign-in");
+    // navigate("/");
+  };
+
   const [open, setOpen] = useState(false);
 
   const togglePopup = () => {
@@ -54,7 +64,7 @@ const Header = () => {
                   <p>Темная тема</p>
                   <input type="checkbox" className="checkbox" name="checkbox" />
                 </div>
-                <button type="button" className="_hover03">
+                <button onClick={handleLogout} type="button" className="_hover03">
                   <a href="#popExit">Выйти</a>
                 </button>
               </PopupUserSet>
@@ -67,6 +77,79 @@ const Header = () => {
 };
 
 export default Header;
+
+
+// КОД ДО РОУТИНГА
+
+// import { useState } from "react";
+// import {
+//   SHeader,
+//   Container,
+//   HeaderBlock,
+//   LogoLight,
+//   LogoDark,
+//   Nav,
+//   MainButton,
+//   UserLink,
+//   PopupUserSet,
+// } from "./Header.styled";
+
+// const Header = () => {
+//   const [open, setOpen] = useState(false);
+
+//   const togglePopup = () => {
+//     setOpen((prev) => !prev);
+//   };
+
+//   return (
+//     <SHeader>
+//       <Container>
+//         <HeaderBlock>
+//           <LogoLight className="_show _light">
+//             <a href="" target="_self">
+//               <img src="images/logo.png" alt="logo" />
+//             </a>
+//           </LogoLight>
+//           <LogoDark className="_dark">
+//             <a href="" target="_self">
+//               <img src="images/logo_dark.png" alt="logo" />
+//             </a>
+//           </LogoDark>
+
+//           <Nav>
+//             <MainButton className="_hover01" id="btnMainNew">
+//               <a href="#popNewCard">Создать новую задачу</a>
+//             </MainButton>
+
+//             <UserLink
+//               href="#user-set-target"
+//               onClick={togglePopup}
+//               className="_hover02"
+//             >
+//               Ivan Ivanov
+//             </UserLink>
+
+//             {open && (
+//               <PopupUserSet id="user-set-target">
+//                 <p className="pop-user-set__name">Ivan Ivanov</p>
+//                 <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
+//                 <div className="pop-user-set__theme">
+//                   <p>Темная тема</p>
+//                   <input type="checkbox" className="checkbox" name="checkbox" />
+//                 </div>
+//                 <button type="button" className="_hover03">
+//                   <a href="#popExit">Выйти</a>
+//                 </button>
+//               </PopupUserSet>
+//             )}
+//           </Nav>
+//         </HeaderBlock>
+//       </Container>
+//     </SHeader>
+//   );
+// };
+
+// export default Header;
 
 
 // код до стилизации компонента
