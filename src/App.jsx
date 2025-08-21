@@ -1,11 +1,16 @@
+import { GlobalStyles } from "./GlobalStyles";
 import AppRoutes from "./components/AppRoutes/AppRoutes";
 
 function App() {
-  return <AppRoutes />;
+  return (
+    <>
+      <GlobalStyles />
+      <AppRoutes />;
+    </>
+  );
 }
 
 export default App;
-
 
 // КОД ДО РОУТИНГА
 

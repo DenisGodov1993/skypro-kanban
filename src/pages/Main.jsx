@@ -1,16 +1,17 @@
-import { GlobalStyles } from "./GlobalStyles";
-// import styled from "styled-components";
+import { Outlet } from "react-router-dom";
+
+import Main from "../components/Main/Main";
+import Header from "../components/Header/Header";
+
 import PopUser from "../components/popups/PopUser/PopUser";
 import PopNewCard from "../components/popups/PopNewCard/PopNewCard";
 import PopBrowse from "../components/popups/PopBrowse/PopBrowse";
-import Header from "../components/Header";
-// import Main from "./components/Main/Main";
-import Main from "../components/Main";
 
-function MainPage(loading) {
+// setIsAuth
+
+function MainPage({ loading }) {
   return (
     <>
-      <GlobalStyles />
       <div className="wrapper">
         <PopUser />
 
@@ -21,7 +22,10 @@ function MainPage(loading) {
         <Header />
 
         <Main loading={loading} />
+        {/* setIsAuth={setIsAuth} */}
+        
       </div>
+      <Outlet />
     </>
   );
 }
