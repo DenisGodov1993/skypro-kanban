@@ -43,7 +43,8 @@ export const GlobalStyles = createGlobalStyle`
   body {
     width: 100%;
     height: 100%;
-    font-family: "Roboto", Arial, Helvetica, sans-serif;
+     font-family: "Roboto", sans-serif;
+    /* font-family: "Roboto", Arial, Helvetica, sans-serif; */
     color: #000000;
   }
 

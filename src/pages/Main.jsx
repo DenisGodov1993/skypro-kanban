@@ -7,9 +7,7 @@ import PopUser from "../components/popups/PopUser/PopUser";
 import PopNewCard from "../components/popups/PopNewCard/PopNewCard";
 import PopBrowse from "../components/popups/PopBrowse/PopBrowse";
 
-// setIsAuth
-
-function MainPage({ loading }) {
+function MainPage({ loading, setIsAuth }) {
   return (
     <>
       <div className="wrapper">
@@ -19,11 +17,9 @@ function MainPage({ loading }) {
 
         <PopBrowse />
 
-        <Header />
+        <Header setIsAuth={setIsAuth} />
 
         <Main loading={loading} />
-        {/* setIsAuth={setIsAuth} */}
-        
       </div>
       <Outlet />
     </>

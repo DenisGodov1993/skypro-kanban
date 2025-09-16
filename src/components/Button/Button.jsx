@@ -1,3 +1,5 @@
+import { SButton } from "./Button.styled";
+
 const BaseButton = ({
   onClick,
   type = "primary", // primary | secondary | danger
@@ -16,7 +18,7 @@ const BaseButton = ({
   };
 
   return (
-    <button
+    <SButton
       onClick={onClick}
       className={`${baseStyles} ${typeStyles[type]} ${
         fullWidth ? "w-full" : ""
@@ -24,8 +26,9 @@ const BaseButton = ({
       {...props}
     >
       {text}
-    </button>
+    </SButton>
   );
 };
 
 export default BaseButton;
+

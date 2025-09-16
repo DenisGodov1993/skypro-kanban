@@ -65,7 +65,8 @@ const Header = ({ setIsAuth }) => {
                   <input type="checkbox" className="checkbox" name="checkbox" />
                 </div>
                 <button onClick={handleLogout} type="button" className="_hover03">
-                  <a href="#popExit">Выйти</a>
+                  <Link to="/popuser">Выйти</Link>
+                  {/* <a href="#popExit">Выйти</a> */}
                 </button>
               </PopupUserSet>
             )}
@@ -77,6 +78,105 @@ const Header = ({ setIsAuth }) => {
 };
 
 export default Header;
+
+// import { useState } from "react";
+// import { useNavigate } from "react-router-dom";
+// import {
+//   SHeader,
+//   Container,
+//   HeaderBlock,
+//   LogoLight,
+//   LogoDark,
+//   Nav,
+//   MainButton,
+//   UserLink,
+//   PopupUserSet,
+// } from "./Header.styled";
+
+// import PopUser from "../popups/PopUser/PopUser";
+
+// const Header = ({ setIsAuth }) => {
+//   const navigate = useNavigate();
+
+//   const [openUserMenu, setOpenUserMenu] = useState(false); // меню пользователя
+//   const [showExitModal, setShowExitModal] = useState(false); // модалка выхода
+
+//   const togglePopup = () => {
+//     setOpenUserMenu((prev) => !prev);
+//   };
+
+//   const handleLogoutConfirm = () => {
+//     setIsAuth(false); // сбрасываем авторизацию
+//     setShowExitModal(false);
+//     navigate("/sign-in"); // редиректим на страницу входа
+//   };
+
+//   return (
+//     <>
+//       <SHeader>
+//         <Container>
+//           <HeaderBlock>
+//             <LogoLight className="_show _light">
+//               <a href="/" target="_self">
+//                 <img src="images/logo.png" alt="logo" />
+//               </a>
+//             </LogoLight>
+//             <LogoDark className="_dark">
+//               <a href="/" target="_self">
+//                 <img src="images/logo_dark.png" alt="logo" />
+//               </a>
+//             </LogoDark>
+
+//             <Nav>
+//               <MainButton className="_hover01" id="btnMainNew">
+//                 <a href="#popNewCard">Создать новую задачу</a>
+//               </MainButton>
+
+//               <UserLink
+//                 href="#user-set-target"
+//                 onClick={togglePopup}
+//                 className="_hover02"
+//               >
+//                 Ivan Ivanov
+//               </UserLink>
+
+//               {openUserMenu && (
+//                 <PopupUserSet id="user-set-target">
+//                   <p className="pop-user-set__name">Ivan Ivanov</p>
+//                   <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
+//                   <div className="pop-user-set__theme">
+//                     <p>Темная тема</p>
+//                     <input
+//                       type="checkbox"
+//                       className="checkbox"
+//                       name="checkbox"
+//                     />
+//                   </div>
+//                   <button
+//                     type="button"
+//                     className="_hover03"
+//                     onClick={() => setShowExitModal(true)} // 👈 открываем модалку
+//                   >
+//                     Выйти
+//                   </button>
+//                 </PopupUserSet>
+//               )}
+//             </Nav>
+//           </HeaderBlock>
+//         </Container>
+//       </SHeader>
+
+//       {/* Модальное окно выхода */}
+//       <PopUser
+//         isOpen={showExitModal}
+//         onConfirm={handleLogoutConfirm}
+//         onCancel={() => setShowExitModal(false)}
+//       />
+//     </>
+//   );
+// };
+
+// export default Header;
 
 
 // КОД ДО РОУТИНГА

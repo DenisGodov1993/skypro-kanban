@@ -6,7 +6,9 @@ import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import MainPage from "../../pages/Main";
 import SignInPage from "../../pages/SignIn";
 import SignUpPage from "../../pages/SignUp";
-import ViewEditCardPage from "../../pages/ViewEditCard";
+import PopBrowsePage from "../../pages/PopBrowse";
+import PopNewCardPage from "../../pages/PopNewCard";
+import PopUserPage from "../../pages/PopUser";
 import NotFoundPage from "../../pages/NotFound";
 
 function AppRoutes() {
@@ -26,9 +28,9 @@ function AppRoutes() {
           path="/"
           element={<MainPage setIsAuth={setIsAuth} loading={loading} />}
         ></Route>
-        <Route path="/card/:id" element={<ViewEditCardPage />} />
-        {/* <Route path="/addnewtask" element={<AddNewTaskPage/>} /> */}
-        {/* <Route path="/logout" element={<LogoutPage/>} /> */}
+        <Route path="/card/:id" element={<PopBrowsePage />} />
+        <Route path="/popnewcard" element={<PopNewCardPage />} />
+        <Route path="/popuser" element={<PopUserPage />} />
       </Route>
       <Route path="/sign-in" element={<SignInPage setIsAuth={setIsAuth} />} />
       <Route path="/sign-up" element={<SignUpPage setIsAuth={setIsAuth} />} />
