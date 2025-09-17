@@ -1,0 +1,165 @@
+import { Link, useNavigate } from "react-router-dom";
+import BaseButton from "../Button/Button";
+import BaseInput from "../Input/Input";
+
+import {
+  SWrapper,
+  SContainerSignIn,
+  SModal,
+  SModalBlock,
+  SModalTtl,
+  SModalFormLogin,
+  SFormGroup,
+} from "./AuthForm.styled";
+
+const AuthForm = ({ isSignUp, setIsAuth }) => {
+  const navigate = useNavigate();
+  const handleLogin = (e) => {
+    e.preventDefault();
+    setIsAuth(true);
+    navigate("/");
+  };
+
+  return (
+    <SWrapper className="wrapper">
+      <SContainerSignIn className="container-signin">
+        <SModal className="modal">
+          <SModalBlock className="modal__block">
+            <SModalTtl className="modal__ttl">
+              <h2 className="title">{isSignUp ? "Регистрация" : "Вход"}</h2>
+            </SModalTtl>
+            <SModalFormLogin
+              className="modal__form-login"
+              id="formLogIn"
+              action="#"
+            >
+              {isSignUp && (
+                <BaseInput
+                  tag="input"
+                  className="modal__input"
+                  type="text"
+                  name="name"
+                  id="formname"
+                  placeholder="Имя"
+                />
+              )}
+              <BaseInput
+                tag="input"
+                className="auth-input"
+                type="text"
+                name="login"
+                id="formlogin"
+                placeholder="Эл. почта"
+              />
+              <BaseInput
+                tag="input"
+                type="password"
+                name="password"
+                id="formpassword"
+                placeholder="Пароль"
+              />
+              <BaseButton
+                onClick={handleLogin}
+                type="secondary"
+                fullWidth={true}
+                className="button-enter"
+                text={isSignUp ? "Зарегистрироваться" : "Войти"}
+              />
+              {!isSignUp && (
+                <SFormGroup className="form-group">
+                  <p>Нужно зарегистрироваться?</p>
+                  <Link to="/sign-up">Регистрируйтесь здесь</Link>
+                </SFormGroup>
+              )}
+              {isSignUp && (
+                <SFormGroup className="form-group">
+                  <p>
+                    Уже есть аккаунт? <Link to="/sign-in">Войдите здесь</Link>
+                  </p>
+                </SFormGroup>
+              )}
+            </SModalFormLogin>
+          </SModalBlock>
+        </SModal>
+      </SContainerSignIn>
+    </SWrapper>
+  );
+};
+
+export default AuthForm;
+
+// import { Link, useNavigate } from "react-router-dom";
+// import BaseButton from "../Button/Button";
+// import BaseInput from "../Input/Input";
+
+// const AuthForm = ({ isSignUp, setIsAuth }) => {
+//   const navigate = useNavigate();
+//   const handleLogin = (e) => {
+//     e.preventDefault();
+//     setIsAuth(true);
+//     navigate("/");
+//   };
+
+//   return (
+//     <div className="bg">
+//       <div className="modal">
+//         <div className="logo">SkyPro-Kanban</div>
+//         <div className="wrapper">
+//           <h2 className="title">{isSignUp ? "Регистрация" : "Вход"}</h2>
+//           <form className="form" id="form" action="#">
+//             <div className="input-wrapper">
+//               {isSignUp && (
+//                 <BaseInput
+//                   tag="input"
+//                   className="auth-input"
+//                   type="text"
+//                   name="name"
+//                   id="formname"
+//                   placeholder="Имя"
+//                 />
+//               )}
+//               <BaseInput
+//                 tag="input"
+//                 className="auth-input"
+//                 type="text"
+//                 name="login"
+//                 id="formlogin"
+//                 placeholder="Эл. почта"
+//               />
+//               <BaseInput
+//                 tag="input"
+//                 type="password"
+//                 name="password"
+//                 id="formpassword"
+//                 placeholder="Пароль"
+//               />
+//             </div>
+
+//             <BaseButton
+//               onClick={handleLogin}
+//               type="secondary"
+//               fullWidth={true}
+//               className="button-enter"
+//               text={isSignUp ? "Зарегистрироваться" : "Войти"}
+//             />
+//             {!isSignUp && (
+//               <div className="form-group">
+//                 <p>Нужно зарегистрироваться?</p>
+//                 <Link to="/sign-up">Регистрируйтесь здесь</Link>
+//               </div>
+//             )}
+//             {isSignUp && (
+//               <div className="form-group">
+//                 <p>
+//                   Уже есть аккаунт? <Link to="/sign-in">Войдите здесь</Link>
+//                 </p>
+//               </div>
+//             )}
+//           </form>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default AuthForm;

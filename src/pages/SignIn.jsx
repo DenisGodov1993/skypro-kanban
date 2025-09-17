@@ -1,7 +1,7 @@
-import SignIn from "../../components/SignIn";
+import SignIn from "../components/SignIn/SignIn";
 
-const SignInPage = () => {
-    return <SignIn />;
+const SignInPage = ({ setIsAuth }) => {
+    return <SignIn setIsAuth={setIsAuth} />;
 };
 
-export default SignInPage;
+export default SignInPage; 
