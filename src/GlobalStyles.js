@@ -526,7 +526,8 @@ export const GlobalStyles = createGlobalStyle`
 }
 
 .pop-browse {
-  display: none;
+  /* display: none; недели у меня прошли, чтобы я понял, что надо убрать нон на блок*/ 
+  /* display: block; */
   width: 100%;
   height: 100%;
   min-width: 375px;

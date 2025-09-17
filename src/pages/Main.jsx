@@ -5,7 +5,7 @@ import Header from "../components/Header/Header";
 
 import PopUser from "../components/popups/PopUser/PopUser";
 import PopNewCard from "../components/popups/PopNewCard/PopNewCard";
-import PopBrowse from "../components/popups/PopBrowse/PopBrowse";
+// import PopBrowse from "../components/popups/PopBrowse/PopBrowse";
 
 function MainPage({ loading, setIsAuth }) {
   return (
@@ -15,7 +15,7 @@ function MainPage({ loading, setIsAuth }) {
 
         <PopNewCard />
 
-        <PopBrowse />
+        {/* <PopBrowse /> */}
 
         <Header setIsAuth={setIsAuth} />
 

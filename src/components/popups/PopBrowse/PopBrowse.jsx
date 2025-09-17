@@ -1,7 +1,235 @@
-import Calendar from "../../Calendar/Calendar";
+// import Calendar from "../../Calendar/Calendar";
+
+// import { useMemo } from "react";
+// import { useParams } from "react-router-dom";
+// import { cardList } from "../../../data";
+
+// const PopBrowse = () => {
+//   const { id } = useParams();
+
+//   const task = useMemo(
+//     () => cardList.find(item => item.id === Number(id)),
+//     [id]
+//   );
+
+//   if (!task) return <p>Задача с id {id} не найдена</p>;
+
+//   return (
+//     <div>
+//       <h2>{task.title}</h2>
+//       <p>Тема: {task.theme}</p>
+//       <p>Статус: {task.status}</p>
+//       <Calendar />
+//       <textarea readOnly value={task.description || ""} />
+//     </div>
+//   );
+// };
+
+// export default PopBrowse;
+
+// import Calendar from "../../Calendar/Calendar";
+
+// import { useMemo } from "react";
+// import { Link, useParams } from "react-router-dom";
+// import { cardList } from "../../../data";
+
+// const PopBrowse = () => {
+//   const { id } = useParams();
+
+//   const task = useMemo(
+//     () => cardList.find((item) => item.id === Number(id)),
+//     [id]
+//   );
+
+//   // if (!task) {
+//   //   return <p>Задача с id {id} не найдена</p>;
+//   // }
+
+//   // console.log("params id =", id);
+//   // console.log("task =", task);
+
+//   return (
+//     // <div className="pop-browse" id="popBrowse">
+//     // <div className="pop-browse" id="id">
+//     <div className="pop-browse" id="popBrowse">
+//       <div className="pop-browse__container">
+//         <div className="pop-browse__block">
+//           <div className="pop-browse__content">
+//             <div className="pop-browse__top-block">
+//               <h3 className="pop-browse__ttl">{task.title}</h3>
+//               {/* <h3 className="pop-browse__ttl">Название задачи</h3> */}
+//               {/* <div className="categories__theme theme-top _orange _active-category">
+//                 <p className="_orange">Web Design</p>
+//               </div> */}
+//               <div
+//                 className={`categories__theme theme-top _${task.color} _active-category`}
+//               >
+//                 <p className={`_${task.color}`}>{task.theme}</p>
+//               </div>
+//             </div>
+//             {/* Статус */}
+//             <div className="pop-browse__status status">
+//               <p className="status__p subttl">Статус</p>
+//               <div className="status__themes">
+//                 <div className="status__theme _hide">
+//                   {/* <p>Без статуса</p> */}
+//                   <p>{task.status}</p>
+//                 </div>
+//                 <div className="status__theme _gray">
+//                   {/* <p className="_gray">Нужно сделать</p> */}
+//                   <p>{task.status}</p>
+//                 </div>
+//                 <div className="status__theme _hide">
+//                   {/* <p>В работе</p> */}
+//                   <p>{task.status}</p>
+//                 </div>
+//                 <div className="status__theme _hide">
+//                   {/* <p>Тестирование</p> */}
+//                   <p>{task.status}</p>
+//                 </div>
+//                 <div className="status__theme _hide">
+//                   {/* <p>Готово</p> */}
+//                   <p>{task.status}</p>
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* Описание + календарь */}
+//             <div className="pop-browse__wrap">
+//               <form
+//                 className="pop-browse__form form-browse"
+//                 id="formBrowseCard"
+//                 // action="#"
+//               >
+//                 <div className="form-browse__block">
+//                   <label htmlFor="textArea01" className="subttl">
+//                     Описание задачи
+//                   </label>
+//                   <textarea
+//                     className="form-browse__area"
+//                     name="text"
+//                     id="textArea01"
+//                     readOnly
+//                     value={task.description || ""}
+//                     // defaultValue={task.description}
+//                     // placeholder="Введите описание задачи..."
+//                     // defaultValue=""
+//                   />
+//                   {/* <textarea
+//                       className="form-browse__area"
+//                       name="text"
+//                       id="textArea01"
+//                       readOnly=""
+//                       placeholder="Введите описание задачи..."
+//                       defaultValue={""}
+//                     /> */}
+//                 </div>
+//               </form>
+//               <Calendar />
+//             </div>
+
+//             <div className="theme-down__categories theme-down">
+//               <p className="categories__p subttl">Категория</p>
+//               {/* <div className="categories__theme _orange _active-category">
+//                 <p className="_orange">Web Design</p>
+//               </div> */}
+//               <div
+//                 className={`categories__theme _${task.color} _active-category`}
+//               >
+//                 <p className={`_${task.color}`}>{task.theme}</p>{" "}
+//               </div>
+//             </div>
+//             {/* Кнопки */}
+//             <div className="pop-browse__btn-browse ">
+//               <div className="btn-group">
+//                 {/* <button className="btn-browse__edit _btn-bor _hover03">
+//                   <a href="#">Редактировать задачу</a>
+//                 </button> */}
+//                 <Link to="/">
+//                   <button
+//                     className="btn-browse__edit _btn-bor _hover03"
+//                     text="Редактировать задачу"
+//                   />{" "}
+//                 </Link>
+//                 {/* <button className="btn-browse__delete _btn-bor _hover03">
+//                   <a href="#">Удалить задачу</a>
+//                 </button> */}
+//                 <Link to="/">
+//                   <button
+//                     className="btn-browse__delete _btn-bor _hover03"
+//                     text="Удалить задачу"
+//                   />{" "}
+//                 </Link>
+//               </div>
+//               {/* <button className="btn-browse__close _btn-bg _hover01">
+//                 <a href="#">Закрыть</a>
+//               </button> */}
+//               <Link to="/">
+//                 <button
+//                   className="btn-browse__close _btn-bg _hover01"
+//                   text="Закрыть"
+//                 />{" "}
+//               </Link>
+//             </div>
+//             <div className="pop-browse__btn-edit _hide">
+//               <div className="btn-group">
+//                 {/* <button className="btn-edit__edit _btn-bg _hover01">
+//                   <a href="#">Сохранить</a>
+//                 </button> */}
+//                 <Link to="/">
+//                   <button
+//                     className="btn-edit__edit _btn-bg _hover01"
+//                     text="Сохранить"
+//                   />{" "}
+//                 </Link>
+//                 {/* <button className="btn-edit__edit _btn-bor _hover03">
+//                   <a href="#">Отменить</a>
+//                 </button> */}
+//                 <Link to="/">
+//                   <button
+//                     className="btn-edit__edit _btn-bor _hover03"
+//                     // type="secondary"
+//                     text="Отменить"
+//                   />{" "}
+//                 </Link>
+//                 {/* <button
+//                   className="btn-edit__delete _btn-bor _hover03"
+//                   id="btnDelete"
+//                 >
+//                   <a href="#">Удалить задачу</a>
+//                 </button> */}
+//                 <Link to="/">
+//                   <button
+//                     className="btn-edit__delete _btn-bor _hover03"
+//                     id="btnDelete"
+//                     // type="secondary"
+//                     text="Удалить задачу"
+//                   />{" "}
+//                 </Link>
+//               </div>
+//               {/* <button className="btn-edit__close _btn-bg _hover01">
+//                 <a href="#">Закрыть</a>
+//               </button> */}
+//               <Link to="/">
+//                 <button
+//                   className="btn-edit__close _btn-bg _hover01"
+//                   // type="secondary"
+//                   text="Закрыть"
+//                 />{" "}
+//               </Link>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default PopBrowse;
 
 import { useMemo } from "react";
 import { useParams } from "react-router-dom";
+import Calendar from "../../Calendar/Calendar";
 import { cardList } from "../../../data";
 
 const PopBrowse = () => {
@@ -12,49 +240,39 @@ const PopBrowse = () => {
     [id]
   );
 
-  // if (!task) {
-  //   return <p>Задача с id {id} не найдена</p>;
-  // }
+  if (!task) {
+    return <p>Задача с id {id} не найдена</p>;
+  }
 
   return (
+    // <Card word={word} open={true} />
     <div className="pop-browse" id="popBrowse">
-      {/* <SPopBrowse> </SPopBrowse> */}
       <div className="pop-browse__container">
         <div className="pop-browse__block">
           <div className="pop-browse__content">
+            {/* Заголовок + тема */}
             <div className="pop-browse__top-block">
-              {/* <h3 className="pop-browse__ttl">{task.title}</h3> */}
-              <h3 className="pop-browse__ttl">Название задачи</h3>
-              <div className="categories__theme theme-top _orange _active-category">
-                <p className="_orange">Web Design</p>
+              <h3 className="pop-browse__ttl">{task.title}</h3>
+              <div
+                className={`categories__theme theme-top _${task.color} _active-category`}
+              >
+                <p className={`_${task.color}`}>{task.theme}</p>
               </div>
             </div>
+
+            {/* Статус */}
             <div className="pop-browse__status status">
               <p className="status__p subttl">Статус</p>
               <div className="status__themes">
-                <div className="status__theme _hide">
-                  <p>Без статуса</p>
-                </div>
-                <div className="status__theme _gray">
-                  <p className="_gray">Нужно сделать</p>
-                </div>
-                <div className="status__theme _hide">
-                  <p>В работе</p>
-                </div>
-                <div className="status__theme _hide">
-                  <p>Тестирование</p>
-                </div>
-                <div className="status__theme _hide">
-                  <p>Готово</p>
+                <div className={`status__theme _${task.color}`}>
+                  <p className={`_${task.color}`}>{task.status}</p>
                 </div>
               </div>
             </div>
+
+            {/* Описание + календарь */}
             <div className="pop-browse__wrap">
-              <form
-                className="pop-browse__form form-browse"
-                id="formBrowseCard"
-                action="#"
-              >
+              <form className="pop-browse__form form-browse" id="formBrowseCard">
                 <div className="form-browse__block">
                   <label htmlFor="textArea01" className="subttl">
                     Описание задачи
@@ -63,20 +281,26 @@ const PopBrowse = () => {
                     className="form-browse__area"
                     name="text"
                     id="textArea01"
-                    readOnly=""
-                    placeholder="Введите описание задачи..."
-                    defaultValue={""}
+                    readOnly
+                    defaultValue={task.description}
                   />
                 </div>
               </form>
+
               <Calendar />
             </div>
+
+            {/* Категория (дублируем theme) */}
             <div className="theme-down__categories theme-down">
               <p className="categories__p subttl">Категория</p>
-              <div className="categories__theme _orange _active-category">
-                <p className="_orange">Web Design</p>
+              <div
+                className={`categories__theme _${task.color} _active-category`}
+              >
+                <p className={`_${task.color}`}>{task.theme}</p>
               </div>
             </div>
+
+            {/* Кнопки */}
             <div className="pop-browse__btn-browse ">
               <div className="btn-group">
                 <button className="btn-browse__edit _btn-bor _hover03">
@@ -90,25 +314,6 @@ const PopBrowse = () => {
                 <a href="#">Закрыть</a>
               </button>
             </div>
-            <div className="pop-browse__btn-edit _hide">
-              <div className="btn-group">
-                <button className="btn-edit__edit _btn-bg _hover01">
-                  <a href="#">Сохранить</a>
-                </button>
-                <button className="btn-edit__edit _btn-bor _hover03">
-                  <a href="#">Отменить</a>
-                </button>
-                <button
-                  className="btn-edit__delete _btn-bor _hover03"
-                  id="btnDelete"
-                >
-                  <a href="#">Удалить задачу</a>
-                </button>
-              </div>
-              <button className="btn-edit__close _btn-bg _hover01">
-                <a href="#">Закрыть</a>
-              </button>
-            </div>
           </div>
         </div>
       </div>
@@ -117,102 +322,6 @@ const PopBrowse = () => {
 };
 
 export default PopBrowse;
-
-// import { useMemo } from "react";
-// import { useParams } from "react-router-dom";
-// import Calendar from "../../Calendar/Calendar";
-// import { cardList } from "../../../data";
-
-// const PopBrowse = () => {
-//   const { id } = useParams();
-
-//   const task = useMemo(
-//     () => cardList.find((item) => item.id === Number(id)),
-//     [id]
-//   );
-
-//   if (!task) {
-//     return <p>Задача с id {id} не найдена</p>;
-//   }
-
-//   return (
-//     // <Card word={word} open={true} />
-//     <div className="pop-browse" id="popBrowse">
-//       <div className="pop-browse__container">
-//         <div className="pop-browse__block">
-//           <div className="pop-browse__content">
-//             {/* Заголовок + тема */}
-//             <div className="pop-browse__top-block">
-//               <h3 className="pop-browse__ttl">{task.title}</h3>
-//               <div
-//                 className={`categories__theme theme-top _${task.color} _active-category`}
-//               >
-//                 <p className={`_${task.color}`}>{task.theme}</p>
-//               </div>
-//             </div>
-
-//             {/* Статус */}
-//             <div className="pop-browse__status status">
-//               <p className="status__p subttl">Статус</p>
-//               <div className="status__themes">
-//                 <div className={`status__theme _${task.color}`}>
-//                   <p className={`_${task.color}`}>{task.status}</p>
-//                 </div>
-//               </div>
-//             </div>
-
-//             {/* Описание + календарь */}
-//             <div className="pop-browse__wrap">
-//               <form className="pop-browse__form form-browse" id="formBrowseCard">
-//                 <div className="form-browse__block">
-//                   <label htmlFor="textArea01" className="subttl">
-//                     Описание задачи
-//                   </label>
-//                   <textarea
-//                     className="form-browse__area"
-//                     name="text"
-//                     id="textArea01"
-//                     readOnly
-//                     defaultValue={task.description}
-//                   />
-//                 </div>
-//               </form>
-
-//               <Calendar />
-//             </div>
-
-//             {/* Категория (дублируем theme) */}
-//             <div className="theme-down__categories theme-down">
-//               <p className="categories__p subttl">Категория</p>
-//               <div
-//                 className={`categories__theme _${task.color} _active-category`}
-//               >
-//                 <p className={`_${task.color}`}>{task.theme}</p>
-//               </div>
-//             </div>
-
-//             {/* Кнопки */}
-//             <div className="pop-browse__btn-browse ">
-//               <div className="btn-group">
-//                 <button className="btn-browse__edit _btn-bor _hover03">
-//                   <a href="#">Редактировать задачу</a>
-//                 </button>
-//                 <button className="btn-browse__delete _btn-bor _hover03">
-//                   <a href="#">Удалить задачу</a>
-//                 </button>
-//               </div>
-//               <button className="btn-browse__close _btn-bg _hover01">
-//                 <a href="#">Закрыть</a>
-//               </button>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default PopBrowse;
 
 // import { Link, useParams } from "react-router-dom";
 // import { useMemo } from "react";
