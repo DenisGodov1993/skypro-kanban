@@ -3,7 +3,7 @@ import { SButton } from "./Button.styled";
 const BaseButton = ({
   onClick,
   type = "primary", // primary | secondary | danger
-  text,
+  text, 
   fullWidth = false,
   className = "",
   ...props
@@ -31,4 +31,3 @@ const BaseButton = ({
 };
 
 export default BaseButton;
-

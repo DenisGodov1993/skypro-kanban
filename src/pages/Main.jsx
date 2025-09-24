@@ -1,14 +1,12 @@
+import { useCallback, useEffect, useState } from "react";
+import { fetchKanban } from "../services/api";
 import { Outlet } from "react-router-dom";
-
 import Main from "../components/Main/Main";
 import Header from "../components/Header/Header";
 
-import PopUser from "../components/popups/PopUser/PopUser";
-import PopNewCard from "../components/popups/PopNewCard/PopNewCard";
+// import PopUser from "../components/popups/PopUser/PopUser";
+// import PopNewCard from "../components/popups/PopNewCard/PopNewCard";
 // import PopBrowse from "../components/popups/PopBrowse/PopBrowse";
-
-import { useCallback, useEffect, useState } from "react";
-import { fetchKanban } from "../services/api";
 
 const MainPage = ({ setIsAuth }) => {
   const [loading, setLoading] = useState(false);
@@ -36,18 +34,11 @@ const MainPage = ({ setIsAuth }) => {
   return (
     <>
       <div className="wrapper">
-        <PopUser />
-
-        <PopNewCard />
-
+        {/* <PopUser /> */}
+        {/* <PopNewCard /> */}
         {/* <PopBrowse /> */}
 
         <Header setIsAuth={setIsAuth} />
-
-        {/* <Header  /> */}
-
-        {/* setIsAuth={setIsAuth} */}
-
         <Main error={error} cardList={cardList} loading={loading} />
       </div>
       <Outlet />
@@ -56,6 +47,12 @@ const MainPage = ({ setIsAuth }) => {
 };
 
 export default MainPage;
+
+
+
+
+
+
 
 // ДО РАБОТЫ С API
 
