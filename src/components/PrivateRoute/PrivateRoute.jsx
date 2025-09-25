@@ -14,4 +14,3 @@ const PrivateRoute = ({ isAuth }) => {
 };
 
 export default PrivateRoute;
-

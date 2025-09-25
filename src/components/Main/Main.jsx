@@ -8,7 +8,7 @@ import {
   SMainContent,
 } from "./Main.styled";
 
-const Main = ({ loading }) => {
+const Main = ({ loading, cardList, error }) => {
   const statuses = [
     "Без статуса",
     "Нужно сделать",
@@ -27,11 +27,12 @@ const Main = ({ loading }) => {
         <SMainBlock>
           <SMainContent>
             {statuses.map((title) => (
-              <Column key={title} loading={loading} title={title} />
+              <Column cardList={cardList} key={title} loading={loading} title={title} />
             ))}
           </SMainContent>
         </SMainBlock>
       </SContainer> 
+      <p>{error}</p>
     </SMain>
   );
 };
