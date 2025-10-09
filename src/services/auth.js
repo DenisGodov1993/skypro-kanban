@@ -16,7 +16,7 @@ export async function signUp(userData) {
   } catch (error) {
     throw new Error(error.response?.data?.error || "Ошибка регистрации");
   }
-}
+} 
 
 
 

@@ -1,16 +1,16 @@
 export const cardList = [
   {
     id: 1,
-    theme: "Web Design",
+    topic: "Web Design",
     title: "Название задачи",
-    description: "Введите описание задачи...",
+    // description: "Введите описание задачи...",
     date: "30.10.23",
     status: "Без статуса",
     color: "orange",
   },
   {
     id: 2, 
-    theme: "Research",
+    topic: "Research",
     title: "Название задачи",
     // description: "Описание",
     date: "30.10.23",
@@ -19,7 +19,7 @@ export const cardList = [
   },
   {
     id: 3,
-    theme: "Web Design",
+    topic: "Web Design",
     title: "Название задачи",
     // description: "Описание",
     date: "30.10.23",
@@ -28,7 +28,7 @@ export const cardList = [
   },
   {
     id: 4,
-    theme: "Copywriting",
+    topic: "Copywriting",
     title: "Название задачи",
     // description: "Описание",
     date: "30.10.23",
@@ -37,7 +37,7 @@ export const cardList = [
   },
   {
     id: 5,
-    theme: "Web Design",
+    topic: "Web Design",
     title: "Название задачи",
     // description: "Описание",
     date: "30.10.23",
@@ -46,7 +46,7 @@ export const cardList = [
   },
   {
     id: 6,
-    theme: "Research",
+    topic: "Research",
     title: "Название задачи",
     // description: "Описание",
     date: "30.10.23",
@@ -55,7 +55,7 @@ export const cardList = [
   },
   {
     id: 7,
-    theme: "Research",
+    topic: "Research",
     title: "Название задачи",
     // description: "Описание",
     date: "30.10.23",
@@ -64,7 +64,7 @@ export const cardList = [
   },
   {
     id: 8,
-    theme: "Copywriting",
+    topic: "Copywriting",
     title: "Название задачи",
     // description: "Описание",
     date: "30.10.23",
@@ -73,7 +73,7 @@ export const cardList = [
   },
   {
     id: 9,
-    theme: "Web Design",
+    topic: "Web Design",
     title: "Название задачи",
     // description: "Описание",
     date: "30.10.23",
@@ -82,7 +82,7 @@ export const cardList = [
   },
   {
     id: 10,
-    theme: "Research",
+    topic: "Research",
     title: "Название задачи",
     // description: "Описание",
     date: "30.10.23",
@@ -91,7 +91,7 @@ export const cardList = [
   },
   {
     id: 11,
-    theme: "Research",
+    topic: "Research",
     title: "Название задачи",
     // description: "Описание",
     date: "30.10.23",

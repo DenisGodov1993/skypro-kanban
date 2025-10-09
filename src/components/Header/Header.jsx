@@ -34,7 +34,7 @@ const Header = ({ setIsAuth }) => {
         <HeaderBlock>
           <LogoLight className="_show _light">
             <a href="" target="_self">
-              <img src="images/logo.png" alt="logo" />
+              <img src="images/logo.svg" alt="logo" />
             </a>
           </LogoLight>
           <LogoDark className="_dark">
