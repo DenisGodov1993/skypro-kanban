@@ -16,10 +16,10 @@ export const TasksProvider = ({ children }) => {
       setLoading(true);
       try {
         const data = await fetchKanban(user.token);
-        if (data) setTasks(data);
+        setTasks(data);
       } catch (err) {
-        setError(err.message);
         console.error("Ошибка загрузки задач:", err.message);
+        setError(err.message);
       } finally {
         setLoading(false);
       }
@@ -34,6 +34,44 @@ export const TasksProvider = ({ children }) => {
     </TasksContext.Provider>
   );
 };
+
+
+// import { useContext, useState, useEffect } from "react";
+// import { fetchKanban } from "../services/api";
+// import { TasksContext } from "./TasksContext";
+// import { AuthContext } from "./AuthContext";
+
+// export const TasksProvider = ({ children }) => {
+//   const [tasks, setTasks] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState("");
+//   const { user } = useContext(AuthContext);
+
+//   useEffect(() => {
+//     if (!user?.token) return;
+
+//     const loadTasks = async () => {
+//       setLoading(true);
+//       try {
+//         const data = await fetchKanban(user.token);
+//         if (data) setTasks(data);
+//       } catch (err) {
+//         setError(err.message);
+//         console.error("Ошибка загрузки задач:", err.message);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     loadTasks();
+//   }, [user?.token]);
+
+//   return (
+//     <TasksContext.Provider value={{ tasks, setTasks, loading, error }}>
+//       {children}
+//     </TasksContext.Provider>
+//   );
+// };
 
 
 // import { useContext, useState, useEffect } from "react";

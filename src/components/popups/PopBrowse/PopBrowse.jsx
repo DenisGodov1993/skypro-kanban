@@ -1,7 +1,4 @@
 
-
-
-
 import { useParams, useNavigate } from "react-router-dom";
 import { useContext, useMemo, useState, useEffect } from "react";
 import Calendar from "../../Calendar/Calendar";
@@ -12,172 +9,246 @@ import { editTask, deleteTask } from "../../../services/api";
 const PopBrowse = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-
   const { tasks, setTasks } = useContext(TasksContext);
   const { user } = useContext(AuthContext);
 
   const [isEditing, setIsEditing] = useState(false);
   const [editableTask, setEditableTask] = useState(null);
 
-  // Находим задачу по id или _id
   const task = useMemo(
     () => tasks.find((item) => item._id === id || item.id?.toString() === id),
     [id, tasks]
   );
 
-  // При загрузке задачи — делаем копию для редактирования
   useEffect(() => {
-    if (task) {
-      setEditableTask({ ...task });
-    }
+    if (task) setEditableTask({ ...task });
   }, [task]);
 
-  // Обработка изменения полей
   const handleInputChange = (e, field) => {
-    setEditableTask({
-      ...editableTask,
-      [field]: e.target.value,
-    });
+    setEditableTask({ ...editableTask, [field]: e.target.value });
   };
 
-  // Включить режим редактирования
   const startEditing = () => setIsEditing(true);
 
-  // Сохранить изменения
   const saveChanges = async () => {
     try {
-      const updatedTasks = await editTask(task._id || task.id, editableTask);
+      const updatedTasks = await editTask(task._id || task.id, editableTask, user.token);
       setTasks(updatedTasks);
       setIsEditing(false);
-      alert("Изменения успешно сохранены!");
+      alert("Изменения сохранены!");
     } catch (error) {
-      console.error("Ошибка при сохранении изменений:", error.message);
-      alert("Не удалось сохранить изменения.");
+      console.error(error);
+      alert("Ошибка сохранения задачи");
     }
   };
 
-  // Удалить задачу
   const handleDelete = async () => {
     if (!window.confirm("Удалить задачу?")) return;
     try {
-      const updatedTasks = await deleteTask(task._id || task.id);
+      const updatedTasks = await deleteTask(task._id || task.id, user.token);
       setTasks(updatedTasks);
-      alert("Задача удалена");
-      navigate("/"); // возвращаемся на главную
+      navigate("/");
     } catch (error) {
-      console.error("Ошибка при удалении:", error.message);
-      alert("Не удалось удалить задачу.");
+      alert("Ошибка удаления задачи");
     }
   };
 
-  // Закрыть просмотр
   const handleClose = () => navigate("/");
 
-  if (!task) {
-    return <p>Задача с id {id} не найдена</p>;
-  }
+  if (!task) return <p>Задача не найдена</p>;
 
   return (
     <div className="pop-browse">
       <div className="pop-browse__container">
-        <div className="pop-browse__block">
-          <div className="pop-browse__content">
-
-            {/* Заголовок + тема */}
-            <div className="pop-browse__top-block">
-              {isEditing ? (
-                <input
-                  type="text"
-                  value={editableTask.title}
-                  onChange={(e) => handleInputChange(e, "title")}
-                  className="pop-browse__ttl-input"
-                />
-              ) : (
-                <h3 className="pop-browse__ttl">{task.title}</h3>
-              )}
-              <div className={`categories__theme theme-top _${task.color}`}>
-                <p className={`_${task.color}`}>{task.topic}</p>
-              </div>
-            </div>
-
-            {/* Статус */}
-            <div className="pop-browse__status status">
-              <p className="status__p subttl">Статус</p>
-              <div className="status__themes">
-                <div className={`status__theme _${task.color}`}>
-                  <p className={`_${task.color}`}>{task.status}</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Описание + календарь */}
-            <div className="pop-browse__wrap">
-              <form className="pop-browse__form form-browse">
-                <div className="form-browse__block">
-                  <label htmlFor="textArea01" className="subttl">
-                    Описание задачи
-                  </label>
-                  <textarea
-                    id="textArea01"
-                    className="form-browse__area"
-                    value={editableTask?.description || ""}
-                    readOnly={!isEditing}
-                    onChange={(e) => handleInputChange(e, "description")}
-                  />
-                </div>
-              </form>
-              <Calendar />
-            </div>
-
-            {/* Категория */}
-            <div className="theme-down__categories theme-down">
-              <p className="categories__p subttl">Категория</p>
-              <div className={`categories__theme _${task.color}`}>
-                <p className={`_${task.color}`}>{task.topic}</p>
-              </div>
-            </div>
-
-            {/* Кнопки */}
-            <div className="pop-browse__btn-browse">
-              <div className="btn-group">
-                {!isEditing ? (
-                  <button
-                    className="btn-browse__edit _btn-bor _hover03"
-                    onClick={startEditing}
-                  >
-                    Редактировать задачу
-                  </button>
-                ) : (
-                  <button
-                    className="btn-browse__save _btn-bg _hover01"
-                    onClick={saveChanges}
-                  >
-                    Сохранить изменения
-                  </button>
-                )}
-                <button
-                  className="btn-browse__delete _btn-bor _hover03"
-                  onClick={handleDelete}
-                >
-                  Удалить задачу
-                </button>
-              </div>
-              <button
-                className="btn-browse__close _btn-bg _hover01"
-                onClick={handleClose}
-              >
-                Закрыть
-              </button>
-            </div>
-
-          </div>
-        </div>
+        {/* ... остальная разметка как у тебя ... */}
+        <button onClick={saveChanges}>Сохранить</button>
+        <button onClick={handleDelete}>Удалить</button>
+        <button onClick={handleClose}>Закрыть</button>
       </div>
     </div>
   );
 };
 
 export default PopBrowse;
+
+
+
+// import { useParams, useNavigate } from "react-router-dom";
+// import { useContext, useMemo, useState, useEffect } from "react";
+// import Calendar from "../../Calendar/Calendar";
+// import { TasksContext } from "../../../context/TasksContext";
+// import { AuthContext } from "../../../context/AuthContext";
+// import { editTask, deleteTask } from "../../../services/api";
+
+// const PopBrowse = () => {
+//   const { id } = useParams();
+//   const navigate = useNavigate();
+
+//   const { tasks, setTasks } = useContext(TasksContext);
+//   const { user } = useContext(AuthContext);
+
+//   const [isEditing, setIsEditing] = useState(false);
+//   const [editableTask, setEditableTask] = useState(null);
+
+//   // Находим задачу по id или _id
+//   const task = useMemo(
+//     () => tasks.find((item) => item._id === id || item.id?.toString() === id),
+//     [id, tasks]
+//   );
+
+//   // При загрузке задачи — делаем копию для редактирования
+//   useEffect(() => {
+//     if (task) {
+//       setEditableTask({ ...task });
+//     }
+//   }, [task]);
+
+//   // Обработка изменения полей
+//   const handleInputChange = (e, field) => {
+//     setEditableTask({
+//       ...editableTask,
+//       [field]: e.target.value,
+//     });
+//   };
+
+//   // Включить режим редактирования
+//   const startEditing = () => setIsEditing(true);
+
+//   // Сохранить изменения
+//   const saveChanges = async () => {
+//     try {
+//       const updatedTasks = await editTask(task._id || task.id, editableTask);
+//       setTasks(updatedTasks);
+//       setIsEditing(false);
+//       alert("Изменения успешно сохранены!");
+//     } catch (error) {
+//       console.error("Ошибка при сохранении изменений:", error.message);
+//       alert("Не удалось сохранить изменения.");
+//     }
+//   };
+
+//   // Удалить задачу
+//   const handleDelete = async () => {
+//     if (!window.confirm("Удалить задачу?")) return;
+//     try {
+//       const updatedTasks = await deleteTask(task._id || task.id);
+//       setTasks(updatedTasks);
+//       alert("Задача удалена");
+//       navigate("/"); // возвращаемся на главную
+//     } catch (error) {
+//       console.error("Ошибка при удалении:", error.message);
+//       alert("Не удалось удалить задачу.");
+//     }
+//   };
+
+//   // Закрыть просмотр
+//   const handleClose = () => navigate("/");
+
+//   if (!task) {
+//     return <p>Задача с id {id} не найдена</p>;
+//   }
+
+//   return (
+//     <div className="pop-browse">
+//       <div className="pop-browse__container">
+//         <div className="pop-browse__block">
+//           <div className="pop-browse__content">
+
+//             {/* Заголовок + тема */}
+//             <div className="pop-browse__top-block">
+//               {isEditing ? (
+//                 <input
+//                   type="text"
+//                   value={editableTask.title}
+//                   onChange={(e) => handleInputChange(e, "title")}
+//                   className="pop-browse__ttl-input"
+//                 />
+//               ) : (
+//                 <h3 className="pop-browse__ttl">{task.title}</h3>
+//               )}
+//               <div className={`categories__theme theme-top _${task.color}`}>
+//                 <p className={`_${task.color}`}>{task.topic}</p>
+//               </div>
+//             </div>
+
+//             {/* Статус */}
+//             <div className="pop-browse__status status">
+//               <p className="status__p subttl">Статус</p>
+//               <div className="status__themes">
+//                 <div className={`status__theme _${task.color}`}>
+//                   <p className={`_${task.color}`}>{task.status}</p>
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* Описание + календарь */}
+//             <div className="pop-browse__wrap">
+//               <form className="pop-browse__form form-browse">
+//                 <div className="form-browse__block">
+//                   <label htmlFor="textArea01" className="subttl">
+//                     Описание задачи
+//                   </label>
+//                   <textarea
+//                     id="textArea01"
+//                     className="form-browse__area"
+//                     value={editableTask?.description || ""}
+//                     readOnly={!isEditing}
+//                     onChange={(e) => handleInputChange(e, "description")}
+//                   />
+//                 </div>
+//               </form>
+//               <Calendar />
+//             </div>
+
+//             {/* Категория */}
+//             <div className="theme-down__categories theme-down">
+//               <p className="categories__p subttl">Категория</p>
+//               <div className={`categories__theme _${task.color}`}>
+//                 <p className={`_${task.color}`}>{task.topic}</p>
+//               </div>
+//             </div>
+
+//             {/* Кнопки */}
+//             <div className="pop-browse__btn-browse">
+//               <div className="btn-group">
+//                 {!isEditing ? (
+//                   <button
+//                     className="btn-browse__edit _btn-bor _hover03"
+//                     onClick={startEditing}
+//                   >
+//                     Редактировать задачу
+//                   </button>
+//                 ) : (
+//                   <button
+//                     className="btn-browse__save _btn-bg _hover01"
+//                     onClick={saveChanges}
+//                   >
+//                     Сохранить изменения
+//                   </button>
+//                 )}
+//                 <button
+//                   className="btn-browse__delete _btn-bor _hover03"
+//                   onClick={handleDelete}
+//                 >
+//                   Удалить задачу
+//                 </button>
+//               </div>
+//               <button
+//                 className="btn-browse__close _btn-bg _hover01"
+//                 onClick={handleClose}
+//               >
+//                 Закрыть
+//               </button>
+//             </div>
+
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default PopBrowse;
 
 
 

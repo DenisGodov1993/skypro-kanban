@@ -1,17 +1,18 @@
-import { useContext } from "react";
+// import { useContext } from "react";
 import { Outlet } from "react-router-dom";
 import Main from "../components/Main/Main";
 import Header from "../components/Header/Header";
-import { TasksContext } from "../context/TasksContext";
+// import { TasksContext } from "../context/TasksContext";
 
 const MainPage = ({ setIsAuth }) => {
-  const { tasks, loading, error } = useContext(TasksContext);
+  // const { tasks, loading, error } = useContext(TasksContext);
 
   return (
     <>
       <div className="wrapper">
         <Header setIsAuth={setIsAuth} />
-        <Main error={error} tasks={tasks} loading={loading} />
+        {/* <Main error={error} tasks={tasks} loading={loading} /> */}
+        <Main />
       </div>
       <Outlet />
     </>

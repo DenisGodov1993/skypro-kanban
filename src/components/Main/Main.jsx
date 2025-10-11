@@ -1,17 +1,18 @@
 import Column from "../Column/Column";
 import {
-  SLoading,
-  SLoadingText,
+  // SLoading,
+  // SLoadingText,
   SMain,
   SContainer,
   SMainBlock,
   SMainContent,
 } from "./Main.styled";
-import { useContext } from "react";
-import { TasksContext } from "../../context/TasksContext";
+// import { useContext } from "react";
+// import { TasksContext } from "../../context/TasksContext";
+// import { useState } from "react";
 
 const Main = () => {
-  const { tasks, loading, error } = useContext(TasksContext);
+  // const { tasks, loading, error } = useContext(TasksContext);
 
   // Статусы колонок
   const statuses = [
@@ -22,13 +23,15 @@ const Main = () => {
     "Готово",
   ];
 
-  if (loading) {
-    return (
-      <SLoading>
-        <SLoadingText>Данные загружаются . . .</SLoadingText>
-      </SLoading>
-    );
-  }
+  
+
+  // if (loading) {
+  //   return (
+  //     <SLoading>
+  //       <SLoadingText>Данные загружаются . . .</SLoadingText>
+  //     </SLoading>
+  //   );
+  // }
 
   return (
     <SMain>
@@ -41,12 +44,12 @@ const Main = () => {
           </SMainContent>
         </SMainBlock>
       </SContainer>
-
+{/* 
       {error && (
         <p style={{ color: "red", textAlign: "center", marginTop: "10px" }}>
           Ошибка: {error}
         </p>
-      )}
+      )} */}
     </SMain>
   );
 };

@@ -2,9 +2,6 @@ import API from "./axiosConfig";
 
 // Получение всех задач
 export async function fetchKanban(token) {
-  // const token = localStorage.getItem("token");
- 
-
   try {
     const { data } = await API(token).get("/kanban");
     console.log("Ответ от API:", data);
@@ -12,23 +9,10 @@ export async function fetchKanban(token) {
   } catch (error) {
     throw new Error(error.response?.data?.error || "Ошибка загрузки задач");
   }
-  
 }
 
-
-
-// export async function fetchKanban(token) {
-//   try {
-//     const { data } = await API(token).get("/kanban");
-//     return data.tasks;
-//   } catch (error) {
-//     throw new Error(error.response?.data?.error || "Ошибка загрузки задач");
-//   }
-// }
-
 // Создание задачи
-export async function postKanban(taskData) {
-  // const token = localStorage.getItem("token");
+export async function postKanban(taskData, token) {
   try {
     const { data } = await API(token).post("/kanban", taskData);
     return data.tasks;
@@ -37,10 +21,8 @@ export async function postKanban(taskData) {
   }
 }
 
-
 // Получение задачи по id
-export async function getTask(id) {
-  const token = localStorage.getItem("token");
+export async function getTask(id, token) {
   try {
     const { data } = await API(token).get(`/kanban/${id}`);
     return data.task;
@@ -50,8 +32,7 @@ export async function getTask(id) {
 }
 
 // Редактирование задачи
-export async function editTask(id, updatedTask) {
-  const token = localStorage.getItem("token");
+export async function editTask(id, updatedTask, token) {
   try {
     const { data } = await API(token).put(`/kanban/${id}`, updatedTask);
     return data.tasks;
@@ -61,8 +42,7 @@ export async function editTask(id, updatedTask) {
 }
 
 // Удаление задачи
-export async function deleteTask(id) {
-  const token = localStorage.getItem("token");
+export async function deleteTask(id, token) {
   try {
     const { data } = await API(token).delete(`/kanban/${id}`);
     return data.tasks;
@@ -70,6 +50,80 @@ export async function deleteTask(id) {
     throw new Error(error.response?.data?.error || "Ошибка удаления задачи");
   }
 }
+
+
+// import API from "./axiosConfig";
+
+// // Получение всех задач
+// export async function fetchKanban(token) {
+//   // const token = localStorage.getItem("token");
+ 
+
+//   try {
+//     const { data } = await API(token).get("/kanban");
+//     console.log("Ответ от API:", data);
+//     return data.tasks;
+//   } catch (error) {
+//     throw new Error(error.response?.data?.error || "Ошибка загрузки задач");
+//   }
+  
+// }
+
+
+
+// // export async function fetchKanban(token) {
+// //   try {
+// //     const { data } = await API(token).get("/kanban");
+// //     return data.tasks;
+// //   } catch (error) {
+// //     throw new Error(error.response?.data?.error || "Ошибка загрузки задач");
+// //   }
+// // }
+
+// // Создание задачи
+// export async function postKanban(taskData) {
+//   const token = localStorage.getItem("token");
+//   try {
+//     const { data } = await API(token).post("/kanban", taskData);
+//     return data.tasks;
+//   } catch (error) {
+//     throw new Error(error.response?.data?.error || "Ошибка создания задачи");
+//   }
+// }
+
+
+// // Получение задачи по id
+// export async function getTask(id) {
+//   const token = localStorage.getItem("token");
+//   try {
+//     const { data } = await API(token).get(`/kanban/${id}`);
+//     return data.task;
+//   } catch (error) {
+//     throw new Error(error.response?.data?.error || "Ошибка получения задачи");
+//   }
+// }
+
+// // Редактирование задачи
+// export async function editTask(id, updatedTask) {
+//   const token = localStorage.getItem("token");
+//   try {
+//     const { data } = await API(token).put(`/kanban/${id}`, updatedTask);
+//     return data.tasks;
+//   } catch (error) {
+//     throw new Error(error.response?.data?.error || "Ошибка редактирования задачи");
+//   }
+// }
+
+// // Удаление задачи
+// export async function deleteTask(id) {
+//   const token = localStorage.getItem("token");
+//   try {
+//     const { data } = await API(token).delete(`/kanban/${id}`);
+//     return data.tasks;
+//   } catch (error) {
+//     throw new Error(error.response?.data?.error || "Ошибка удаления задачи");
+//   }
+// }
 
 
 
