@@ -15,9 +15,10 @@ import {
   SFormGroup,
 } from "./AuthForm.styled";
 
-const AuthForm = ({ isSignUp }) => {
+const AuthForm = ({ isSignUp }) => { 
   const navigate = useNavigate();
   const { updateUserInfo } = useContext(AuthContext);
+  // Получаем setUser из хука useContext
 
   const [formData, setFormData] = useState({
     name: "",

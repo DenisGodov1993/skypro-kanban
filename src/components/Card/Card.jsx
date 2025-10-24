@@ -15,20 +15,20 @@ const Card = ({ data }) => {
   if (!data) return null;
 
   const { topic, title, date, color } = data;
-  const id = data._id || data.id;
-
-  // Временная проверка для отладки
-  console.log("🎴 Рендер карточки:", title);
+  // const id = data._id || data.id;
+  const task = data;
 
   return (
-    <SCardsItem style={{ border: "1px solid red", margin: "5px" }}>
+    <SCardsItem>
       <SCardsCard>
         <SCardGroup>
           <SCardTheme className={`card__theme _${color || "orange"}`}>
             <SCardThemeP className={color || "orange"}>{topic}</SCardThemeP>
           </SCardTheme>
 
-          <Link to={`/card/${id}`}>
+          {/* <Link to={`/card/${id}`}> */}
+          <Link to={`/card/${task._id || task.id}`}>
+
             <SCardBtn>
               <div />
               <div />
@@ -50,7 +50,6 @@ const Card = ({ data }) => {
 
 export default Card;
 
-
 // import { Link } from "react-router-dom";
 // import {
 //   SCardsItem,
@@ -70,8 +69,11 @@ export default Card;
 //   const { topic, title, date, color } = data;
 //   const id = data._id || data.id;
 
+//   // Временная проверка для отладки
+//   console.log("🎴 Рендер карточки:", title);
+
 //   return (
-//     <SCardsItem>
+//     <SCardsItem style={{ border: "1px solid red", margin: "5px" }}>
 //       <SCardsCard>
 //         <SCardGroup>
 //           <SCardTheme className={`card__theme _${color || "orange"}`}>
@@ -79,7 +81,7 @@ export default Card;
 //           </SCardTheme>
 
 //           <Link to={`/card/${id}`}>
-//             <SCardBtn>
+//             <SCardBtn> 
 //               <div />
 //               <div />
 //               <div />
@@ -99,6 +101,9 @@ export default Card;
 // };
 
 // export default Card;
+
+
+
 
 
 // import { Link } from "react-router-dom";

@@ -9,12 +9,33 @@ function App() {
       <TasksProvider>
         <GlobalStyles />
         <AppRoutes />
-      </TasksProvider>
+      </TasksProvider> 
     </AuthProvider>
   );
 }
 
 export default App;
+
+// import AuthProvider from "./context/AuthProvider";
+// import { TasksProvider } from "./context/TasksProvider";
+// import { GlobalStyles } from "./GlobalStyles";
+// // import AppRoutes from "./AppRoutes";
+// import AppRoutes from "./components/AppRoutes/AppRoutes";
+
+// function App() {
+//   return (
+//     <AuthProvider>
+//       <TasksProvider>
+//         <GlobalStyles />
+//         <AppRoutes />
+//       </TasksProvider>
+//     </AuthProvider>
+//   );
+// }
+
+// export default App;
+
+
 
 // import { GlobalStyles } from "./GlobalStyles";
 // import AppRoutes from "./components/AppRoutes/AppRoutes";

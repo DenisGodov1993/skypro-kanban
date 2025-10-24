@@ -7,3 +7,7 @@ const PopBrowsePage = () => {
 export default PopBrowsePage; 
 
 // // { setIsAuth } , setIsAuth={setIsAuth}
+
+
+
+ 

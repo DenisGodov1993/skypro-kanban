@@ -15,7 +15,7 @@ const BaseInput = ({
       as={tag} // input | textarea | select
       type={tag === "input" ? type : undefined}
       placeholder={placeholder}
-      className={`${baseStyles} ${className}`}
+      className={`${baseStyles} ${className}`} 
       {...props}
     />
   );

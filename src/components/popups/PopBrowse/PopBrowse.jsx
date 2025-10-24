@@ -1,279 +1,499 @@
-
+import { useState, useContext, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useContext, useMemo, useState, useEffect } from "react";
 import Calendar from "../../Calendar/Calendar";
 import { TasksContext } from "../../../context/TasksContext";
-import { AuthContext } from "../../../context/AuthContext";
-import { editTask, deleteTask } from "../../../services/api";
+import {
+  PopBrowseWrapper,
+  PopBrowseContainer,
+  PopBrowseBlock,
+  PopBrowseContent,
+  PopBrowseTopBlock,
+  PopBrowseTitle,
+  CategoriesTheme,
+  PopBrowseStatus,
+  StatusTitle,
+  StatusThemes,
+  StatusTheme,
+  PopBrowseWrap,
+  PopBrowseForm,
+  FormBlock,
+  FormArea,
+  ThemeDown,
+  ThemeCategory,
+  PopBrowseButtons,
+  Button,
+} from "./PopBrowse.styled";
 
-const PopBrowse = () => {
+
+// 🟡 1. Массив доступных цветов
+const colorsArray = [
+  { background: "#FFE4C2", color: "#FF6D00" }, // оранжевый
+  { background: "#B4FDD1", color: "#06B16E" }, // зелёный
+  { background: "#E9D4FF", color: "#9A48F1" }, // фиолетовый
+  { background: "#94A6BE", color: "#FFFFFF" }, // серый
+  { background: "#FFD6E8", color: "#E91E63" }, // розовый
+  { background: "#D1E8FF", color: "#0066CC" }, // голубой
+];
+
+
+// 🟢 2. Функция, которая выбирает цвет по названию темы
+function getColorForTheme(theme) {
+  if (!theme) return colorsArray[0]; // fallback
+  const hash = theme
+    .split("")
+    .reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  return colorsArray[hash % colorsArray.length];
+}
+
+
+const PopBrowse = ({ onClose }) => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { tasks, setTasks } = useContext(TasksContext);
-  const { user } = useContext(AuthContext);
+  const { tasks, updateTask, deleteTaskById } = useContext(TasksContext);
 
+  const task = tasks.find((item) => item._id === id);
   const [isEditing, setIsEditing] = useState(false);
-  const [editableTask, setEditableTask] = useState(null);
-
-  const task = useMemo(
-    () => tasks.find((item) => item._id === id || item.id?.toString() === id),
-    [id, tasks]
-  );
+  const [editableTask, setEditableTask] = useState(task || { name: "", text: "" });
 
   useEffect(() => {
     if (task) setEditableTask({ ...task });
   }, [task]);
 
-  const handleInputChange = (e, field) => {
-    setEditableTask({ ...editableTask, [field]: e.target.value });
-  };
+  if (!task)
+    return (
+      <PopBrowseWrapper>
+        <PopBrowseContainer>
+          <PopBrowseBlock>
+            <p>Задача с id {id} не найдена</p>
+          </PopBrowseBlock>
+        </PopBrowseContainer>
+      </PopBrowseWrapper>
+    );
 
-  const startEditing = () => setIsEditing(true);
+  // 🟣 Определяем цвет для темы
+  const color = getColorForTheme(task.theme);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEditableTask((prev) => ({ ...prev, [name]: value }));
+  };
 
   const saveChanges = async () => {
     try {
-      const updatedTasks = await editTask(task._id || task.id, editableTask, user.token);
-      setTasks(updatedTasks);
+      await updateTask(id, editableTask);
       setIsEditing(false);
-      alert("Изменения сохранены!");
+      onClose?.();
+      navigate("/tasks");
     } catch (error) {
-      console.error(error);
-      alert("Ошибка сохранения задачи");
+      console.error("Ошибка при сохранении:", error.message);
     }
   };
 
   const handleDelete = async () => {
-    if (!window.confirm("Удалить задачу?")) return;
     try {
-      const updatedTasks = await deleteTask(task._id || task.id, user.token);
-      setTasks(updatedTasks);
-      navigate("/");
+      await deleteTaskById(id);
+      onClose?.();
+      navigate("/tasks");
     } catch (error) {
-      alert("Ошибка удаления задачи");
+      console.error("Ошибка удаления:", error.message);
     }
   };
 
-  const handleClose = () => navigate("/");
-
-  if (!task) return <p>Задача не найдена</p>;
-
   return (
-    <div className="pop-browse">
-      <div className="pop-browse__container">
-        {/* ... остальная разметка как у тебя ... */}
-        <button onClick={saveChanges}>Сохранить</button>
-        <button onClick={handleDelete}>Удалить</button>
-        <button onClick={handleClose}>Закрыть</button>
-      </div>
-    </div>
+    <PopBrowseWrapper>
+      <PopBrowseContainer>
+        <PopBrowseBlock>
+          <PopBrowseContent>
+
+            {/* Заголовок + тема */}
+            <PopBrowseTopBlock>
+              <PopBrowseTitle>Название задачи</PopBrowseTitle>
+              <CategoriesTheme color={color}>{task.theme}Research</CategoriesTheme>
+            </PopBrowseTopBlock>
+
+            {/* Статус */}
+            <PopBrowseStatus>
+              <StatusTitle>Статус</StatusTitle>
+              <StatusThemes>
+                <StatusTheme color={color}>
+                  <p>{task.status}</p>
+                </StatusTheme>
+              </StatusThemes>
+            </PopBrowseStatus>
+
+            {/* Описание + календарь */}
+            <PopBrowseWrap>
+              <PopBrowseForm>
+                <FormBlock>
+                  <label htmlFor="textArea01">Описание задачи</label>
+                  <FormArea
+                    name="text"
+                    id="textArea01"
+                    value={editableTask.text || ""}
+                    onChange={handleChange}
+                    readOnly={!isEditing}
+                    placeholder="Введите описание задачи..."
+                  />
+                </FormBlock>
+              </PopBrowseForm>
+              <Calendar />
+            </PopBrowseWrap>
+
+            {/* Категория */}
+            <ThemeDown>
+              <p className="categories__p subttl">Категория</p>
+              <ThemeCategory color={color}>
+                <p>{task.theme}</p>
+              </ThemeCategory>
+            </ThemeDown>
+
+            {/* Кнопки */}
+            {!isEditing ? (
+              <PopBrowseButtons>
+                <Button onClick={() => setIsEditing(true)}>Редактировать задачу</Button>
+                <Button onClick={handleDelete}>Удалить задачу</Button>
+                <Button className="_btn-bg" onClick={() => onClose?.()}>Закрыть</Button>
+              </PopBrowseButtons>
+            ) : (
+              <PopBrowseButtons>
+                <Button onClick={saveChanges}>Сохранить</Button>
+                <Button onClick={() => setIsEditing(false)}>Отменить</Button>
+                <Button onClick={handleDelete}>Удалить задачу</Button>
+                <Button onClick={onClose}>Закрыть</Button>
+              </PopBrowseButtons>
+            )}
+          </PopBrowseContent>
+        </PopBrowseBlock>
+      </PopBrowseContainer>
+    </PopBrowseWrapper>
   );
 };
 
 export default PopBrowse;
 
 
-
+// import { useState, useContext, useEffect } from "react";
 // import { useParams, useNavigate } from "react-router-dom";
-// import { useContext, useMemo, useState, useEffect } from "react";
 // import Calendar from "../../Calendar/Calendar";
+// import { themeColors } from "../../../utils/themeColors";
 // import { TasksContext } from "../../../context/TasksContext";
-// import { AuthContext } from "../../../context/AuthContext";
-// import { editTask, deleteTask } from "../../../services/api";
+// import {
+//   PopBrowseWrapper,
+//   PopBrowseContainer,
+//   PopBrowseBlock,
+//   PopBrowseContent,
+//   PopBrowseTopBlock,
+//   PopBrowseTitle,
+//   CategoriesTheme,
+//   PopBrowseStatus,
+//   StatusTitle,
+//   StatusThemes,
+//   StatusTheme,
+//   PopBrowseWrap,
+//   PopBrowseForm,
+//   FormBlock,
+//   FormArea,
+//   ThemeDown,
+//   ThemeCategory,
+//   PopBrowseButtons,
+//   Button,
+// } from "./PopBrowse.styled";
 
-// const PopBrowse = () => {
+// const PopBrowse = ({ onClose }) => {
 //   const { id } = useParams();
-//   const navigate = useNavigate();
+//   const navigate = useNavigate(); //используем для переходов
+//   const { tasks, updateTask, deleteTaskById } = useContext(TasksContext);
 
-//   const { tasks, setTasks } = useContext(TasksContext);
-//   const { user } = useContext(AuthContext);
-
+//   const task = tasks.find((item) => item._id === id);
 //   const [isEditing, setIsEditing] = useState(false);
-//   const [editableTask, setEditableTask] = useState(null);
+//   const [editableTask, setEditableTask] = useState(task || { name: "", text: "" });
 
-//   // Находим задачу по id или _id
-//   const task = useMemo(
-//     () => tasks.find((item) => item._id === id || item.id?.toString() === id),
-//     [id, tasks]
-//   );
-
-//   // При загрузке задачи — делаем копию для редактирования
 //   useEffect(() => {
-//     if (task) {
-//       setEditableTask({ ...task });
-//     }
+//     if (task) setEditableTask({ ...task });
 //   }, [task]);
 
-//   // Обработка изменения полей
-//   const handleInputChange = (e, field) => {
-//     setEditableTask({
-//       ...editableTask,
-//       [field]: e.target.value,
-//     });
+//   if (!task)
+//     return (
+//       <PopBrowseWrapper>
+//         <PopBrowseContainer>
+//           <PopBrowseBlock>
+//             <p>Задача с id {id} не найдена</p>
+//           </PopBrowseBlock>
+//         </PopBrowseContainer>
+//       </PopBrowseWrapper>
+//     );
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setEditableTask((prev) => ({ ...prev, [name]: value }));
 //   };
 
-//   // Включить режим редактирования
-//   const startEditing = () => setIsEditing(true);
-
-//   // Сохранить изменения
 //   const saveChanges = async () => {
 //     try {
-//       const updatedTasks = await editTask(task._id || task.id, editableTask);
-//       setTasks(updatedTasks);
+//       await updateTask(id, editableTask);
 //       setIsEditing(false);
-//       alert("Изменения успешно сохранены!");
+//       onClose?.();
+//       navigate("/tasks"); // ✅ переход после сохранения
 //     } catch (error) {
-//       console.error("Ошибка при сохранении изменений:", error.message);
-//       alert("Не удалось сохранить изменения.");
+//       console.error("Ошибка при сохранении:", error.message);
 //     }
 //   };
 
-//   // Удалить задачу
 //   const handleDelete = async () => {
-//     if (!window.confirm("Удалить задачу?")) return;
 //     try {
-//       const updatedTasks = await deleteTask(task._id || task.id);
-//       setTasks(updatedTasks);
-//       alert("Задача удалена");
-//       navigate("/"); // возвращаемся на главную
+//       await deleteTaskById(id);
+//       onClose?.(); // закрываем модалку
+//       navigate("/tasks"); // ✅ переход после удаления
 //     } catch (error) {
-//       console.error("Ошибка при удалении:", error.message);
-//       alert("Не удалось удалить задачу.");
+//       console.error("Ошибка удаления:", error.message);
 //     }
 //   };
-
-//   // Закрыть просмотр
-//   const handleClose = () => navigate("/");
-
-//   if (!task) {
-//     return <p>Задача с id {id} не найдена</p>;
-//   }
 
 //   return (
-//     <div className="pop-browse">
-//       <div className="pop-browse__container">
-//         <div className="pop-browse__block">
-//           <div className="pop-browse__content">
-
+//     <PopBrowseWrapper>
+//       <PopBrowseContainer>
+//         <PopBrowseBlock>
+//           <PopBrowseContent>
 //             {/* Заголовок + тема */}
-//             <div className="pop-browse__top-block">
-//               {isEditing ? (
-//                 <input
-//                   type="text"
-//                   value={editableTask.title}
-//                   onChange={(e) => handleInputChange(e, "title")}
-//                   className="pop-browse__ttl-input"
-//                 />
-//               ) : (
-//                 <h3 className="pop-browse__ttl">{task.title}</h3>
-//               )}
-//               <div className={`categories__theme theme-top _${task.color}`}>
-//                 <p className={`_${task.color}`}>{task.topic}</p>
-//               </div>
-//             </div>
+//             <PopBrowseTopBlock>
+//               <PopBrowseTitle>Название задачи</PopBrowseTitle>
+//               {/* <CategoriesTheme ${themeColors} ></CategoriesTheme> */}
+//               <CategoriesTheme color={task.color}>{task.theme}</CategoriesTheme>
+//               {/* <div className={`categories__theme theme-top _${task.color} _active-category`}>
+//                 <p className={`_${task.color}`}>{task.theme}</p>
+//               </div> */}
+//             </PopBrowseTopBlock>
 
 //             {/* Статус */}
-//             <div className="pop-browse__status status">
-//               <p className="status__p subttl">Статус</p>
-//               <div className="status__themes">
-//                 <div className={`status__theme _${task.color}`}>
+//             <PopBrowseStatus>
+//               <StatusTitle>Статус</StatusTitle>
+//               {/* <StatusThemes>
+//                 <StatusTheme className={`_${task.color}`}>
 //                   <p className={`_${task.color}`}>{task.status}</p>
-//                 </div>
-//               </div>
-//             </div>
+//                 </StatusTheme>
+//               </StatusThemes> */}
+
+//               <StatusThemes>
+//                 <StatusTheme color={task.color}>
+//                   <p>{task.status}</p>
+//                 </StatusTheme>
+//               </StatusThemes>
+
+
+
+//             </PopBrowseStatus>
 
 //             {/* Описание + календарь */}
-//             <div className="pop-browse__wrap">
-//               <form className="pop-browse__form form-browse">
-//                 <div className="form-browse__block">
-//                   <label htmlFor="textArea01" className="subttl">
+//             <PopBrowseWrap>
+//               <PopBrowseForm>
+//                 <FormBlock>
+//                   <label htmlFor="textArea01">
 //                     Описание задачи
 //                   </label>
-//                   <textarea
+//                   <FormArea
+//                     name="text"
 //                     id="textArea01"
-//                     className="form-browse__area"
-//                     value={editableTask?.description || ""}
+//                     value={editableTask.text || ""}
+//                     onChange={handleChange}
 //                     readOnly={!isEditing}
-//                     onChange={(e) => handleInputChange(e, "description")}
+//                     placeholder="Введите описание задачи..."
 //                   />
-//                 </div>
-//               </form>
+//                 </FormBlock>
+//               </PopBrowseForm>
 //               <Calendar />
-//             </div>
+//             </PopBrowseWrap>
 
 //             {/* Категория */}
-//             <div className="theme-down__categories theme-down">
+//             <ThemeDown>
 //               <p className="categories__p subttl">Категория</p>
-//               <div className={`categories__theme _${task.color}`}>
-//                 <p className={`_${task.color}`}>{task.topic}</p>
-//               </div>
-//             </div>
+//               <ThemeCategory>
+//                 <p className={`_${task.color}`}>{task.theme}</p>
+//               </ThemeCategory>
+//             </ThemeDown>
 
 //             {/* Кнопки */}
-//             <div className="pop-browse__btn-browse">
-//               <div className="btn-group">
-//                 {!isEditing ? (
-//                   <button
-//                     className="btn-browse__edit _btn-bor _hover03"
-//                     onClick={startEditing}
-//                   >
-//                     Редактировать задачу
-//                   </button>
-//                 ) : (
-//                   <button
-//                     className="btn-browse__save _btn-bg _hover01"
-//                     onClick={saveChanges}
-//                   >
-//                     Сохранить изменения
-//                   </button>
-//                 )}
-//                 <button
-//                   className="btn-browse__delete _btn-bor _hover03"
-//                   onClick={handleDelete}
-//                 >
-//                   Удалить задачу
-//                 </button>
-//               </div>
-//               <button
-//                 className="btn-browse__close _btn-bg _hover01"
-//                 onClick={handleClose}
-//               >
-//                 Закрыть
-//               </button>
-//             </div>
-
-//           </div>
-//         </div>
-//       </div>
-//     </div>
+//             {!isEditing ? (
+//               <PopBrowseButtons>
+//                 <Button onClick={() => setIsEditing(true)}>Редактировать задачу</Button>
+//                 <Button onClick={handleDelete}>Удалить задачу</Button>
+//                 <Button className="_btn-bg" onClick={() => onClose?.()}>Закрыть</Button>
+//               </PopBrowseButtons>
+//             ) : (
+//               <PopBrowseButtons>
+//                 <Button onClick={saveChanges}>Сохранить</Button>
+//                 <Button onClick={() => setIsEditing(false)}>Отменить</Button>
+//                 <Button onClick={handleDelete}>Удалить задачу</Button>
+//                 <Button onClick={onClose} >Закрыть</Button>
+//               </PopBrowseButtons>
+//             )}
+//           </PopBrowseContent>
+//         </PopBrowseBlock>
+//       </PopBrowseContainer>
+//     </PopBrowseWrapper>
 //   );
 // };
 
 // export default PopBrowse;
 
 
-
-// import { useParams } from "react-router-dom";
-// import { useContext, useMemo } from "react";
+// import { useState, useContext, useEffect } from "react";
+// import { useParams, useNavigate } from "react-router-dom";
+// import Calendar from "../../Calendar/Calendar";
 // import { TasksContext } from "../../../context/TasksContext";
+// import {
+//   PopBrowseWrapper,
+//   PopBrowseContainer,
+//   PopBrowseBlock,
+//   PopBrowseContent,
+//   PopBrowseTopBlock,
+//   PopBrowseTitle,
+//   PopBrowseStatus,
+//   StatusTitle,
+//   StatusThemes,
+//   StatusTheme,
+//   PopBrowseWrap,
+//   PopBrowseForm,
+//   FormBlock,
+//   FormArea,
+//   ThemeDown,
+//   ThemeCategory,
+//   PopBrowseButtons,
+// } from "./PopBrowse.styled";
 
-// const PopBrowse = () => {
+// const PopBrowse = ({ onClose }) => {
 //   const { id } = useParams();
-//   const { tasks } = useContext(TasksContext);
+//   const { tasks, updateTask, deleteTaskById } = useContext(TasksContext);
+//   const navigate = useNavigate();
 
-//   const task = useMemo(
-//     () => tasks.find((item) => item._id === id || item.id?.toString() === id),
-//     [id, tasks]
-//   );
+//   const task = tasks.find((item) => item._id === id);
+
+//   // const [isEditing] = useState(false);
+//   const [isEditing, setIsEditing] = useState(false);
+//   const [editableTask, setEditableTask] = useState(task || { name: "", text: "" });
+  
+
+//   useEffect(() => {
+//     if (task) setEditableTask({ ...task });
+//   }, [task]);
 
 //   if (!task) return <p>Задача с id {id} не найдена</p>;
 
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setEditableTask((prev) => ({ ...prev, [name]: value }));
+//   };
+
+//   const saveChanges = async () => {
+//     try {
+//       await updateTask(id, editableTask);
+//       setIsEditing(false);
+//     } catch (error) {
+//       console.error("Ошибка при сохранении:", error.message);
+//     }
+//   };
+
+//   const handleDelete = async () => {
+//     try {
+//       await deleteTaskById(id);
+//       onClose(); // закрываем модалку после удаления
+//     } catch (error) {
+//       console.error("Ошибка удаления:", error.message);
+//     }
+//   };
+
+// //  if (!task) {
+
 //   return (
-//     <div className="pop-browse">
-//       <h3>{task.title}</h3>
-//       <p>Тема: {task.topic}</p>
-//       <p>Статус: {task.status}</p>
-//       <p>Описание: {task.description}</p>
-//     </div>
+//     <PopBrowseWrapper>
+//       <PopBrowseContainer>
+//         <PopBrowseBlock>
+//           <PopBrowseContent>
+//             {/* Заголовок + тема */}
+//             <PopBrowseTopBlock>
+//               {/* <PopBrowseTitle>{task.title}</PopBrowseTitle> */}
+//               <PopBrowseTitle>{editableTask.name}</PopBrowseTitle>
+//               <div
+//                 className={`categories__theme theme-top _${task.color} _active-category`}
+//               >
+//                 <p className={`_${task.color}`}>{task.theme}</p>
+//               </div>
+//             </PopBrowseTopBlock>
+
+//             {/* Статус */}
+//             <PopBrowseStatus>
+//               <StatusTitle className="subttl">Статус</StatusTitle>
+//               <StatusThemes>
+//                 <StatusTheme className={`_${task.color}`}>
+//                   <p className={`_${task.color}`}>{task.status}</p>
+//                 </StatusTheme>
+//               </StatusThemes>
+//             </PopBrowseStatus>
+
+//             {/* Описание + календарь */}
+//             <PopBrowseWrap>
+//               <PopBrowseForm>
+//                 <FormBlock>
+//                   <label htmlFor="textArea01" className="subttl">
+//                     Описание задачи
+//                   </label>
+//                   <FormArea
+//                     name="text"
+//                     id="textArea01"
+//                     value={editableTask.text}
+//                     onChange={handleChange}
+//                     readOnly={!isEditing}
+//                     // readOnly
+//                     // defaultValue={task.description}
+//                     placeholder="Введите описание задачи..."
+//                   />
+//                 </FormBlock>
+//               </PopBrowseForm>
+
+//               <Calendar />
+//             </PopBrowseWrap>
+
+//             {/* Категория */}
+//             <ThemeDown className="theme-down__categories">
+//               <p className="categories__p subttl">Категория</p>
+//               <ThemeCategory>
+//                 <p className={`_${task.color}`}>{task.theme}</p>
+//               </ThemeCategory>
+//             </ThemeDown>
+
+//             {/* Кнопки */}
+//             {!isEditing ? (
+//               <PopBrowseButtons>
+//                 <button onClick={() => setIsEditing(true)}>Редактировать задачу</button>
+//                 <button onClick={handleDelete}>Удалить задачу</button>
+//                 {/* <button onClick={onClose}>Закрыть</button> */}
+//                 <button onClick={() => onClose && onClose()}>Закрыть</button>
+
+//               </PopBrowseButtons>
+//             ) : (
+//               <PopBrowseButtons>
+//                 <button onClick={saveChanges}>Сохранить</button>
+//                 <button onClick={() => setIsEditing(false)}>Отменить</button>
+//                 <button onClick={handleDelete}>Удалить задачу</button>
+//                 <button onClick={onClose}>Закрыть</button>
+//               </PopBrowseButtons>
+//             // <PopBrowseButtons>
+//             //   <BtnGroup>
+//             //     <Button className="btn-browse__edit _btn-bor _hover03">
+//             //       <a href="#">Редактировать задачу</a>
+//             //     </Button>
+//             //     <Button className="btn-browse__delete _btn-bor _hover03">
+//             //       <a href="#">Удалить задачу</a>
+//             //     </Button>
+//             //   </BtnGroup>
+//             //   <Button className="_btn-bg _hover01">
+//             //     <a href="#">Закрыть</a>
+//             //   </Button>
+//             // </PopBrowseButtons>
+//             )}
+//           </PopBrowseContent>
+//         </PopBrowseBlock>
+//       </PopBrowseContainer>
+//     </PopBrowseWrapper>
 //   );
 // };
 
@@ -281,13 +501,152 @@ export default PopBrowse;
 
 
 
-// import { useParams } from "react-router-dom"; // Link
-// import { useContext, useEffect, useMemo, useState } from "react";
+// // import { useState, useContext, useEffect } from "react";
+// // import { useParams, useNavigate } from "react-router-dom";
 // import Calendar from "../../Calendar/Calendar";
-// // import { cardList } from "../../../data";
-// import { TasksContext } from "../../../context/TasksContext";
-// import { AuthContext } from "../../../context/AuthContext";
-// import { fetchKanban, editTask, deleteTask } from "../../../services/api";
+// import { useState } from "react";
+// // import { TasksContext } from "../../../context/TasksContext";
+// import {
+//   SPopBrowse,
+//   SPopBrowseContainer,
+//   SPopBrowseBlock,
+//   SPopBrowseContent,
+//   SPopBrowseTopBlock,
+//   SPopBrowseTtl,
+//   SCategoriesTheme,
+//   SPopBrowseStatus,
+//   SStatusPSubttl,
+//   SPopBrowseWrap,
+//   SPopBrowseForm,
+//   SFormBrowseBlock,
+//   SThemeDownCategories,
+//   SCategoriesPSubttl,
+//   SPopBrowseBtnBrowse,
+// } from "./PopBrowse.styled";
+
+// const PopBrowse = ({ onClose }) => {
+//   // const { id } = useParams();
+//   // const { tasks, updateTask, deleteTaskById } = useContext(TasksContext);
+//   // const navigate = useNavigate();
+
+//   // const task = tasks.find((item) => item._id === id);
+
+//   const [isEditing] = useState(false);
+//   // const [editableTask, setEditableTask] = useState(task || { name: "", text: "" });
+
+//   // useEffect(() => {
+//   //   if (task) setEditableTask({ ...task });
+//   // }, [task]);
+
+//   // if (!task) return <p>Задача с id {id} не найдена</p>;
+
+//   // const handleChange = (e) => {
+//   //   const { name, value } = e.target;
+//   //   setEditableTask((prev) => ({ ...prev, [name]: value }));
+//   // };
+
+//   // const saveChanges = async () => {
+//   //   try {
+//   //     await updateTask(id, editableTask);
+//   //     setIsEditing(false);
+//   //   } catch (error) {
+//   //     console.error("Ошибка при сохранении:", error.message);
+//   //   }
+//   // };
+
+//   // const handleDelete = async () => {
+//   //   try {
+//   //     await deleteTaskById(id);
+//   //     onClose(); // закрываем модалку после удаления
+//   //   } catch (error) {
+//   //     console.error("Ошибка удаления:", error.message);
+//   //   }
+//   // };
+
+//   return (
+//     <SPopBrowse>
+//       <SPopBrowseContainer>
+//         <SPopBrowseBlock>
+//           <SPopBrowseContent>
+//             {/* Заголовок */}
+//             <SPopBrowseTopBlock>
+//               <SPopBrowseTtl>Название задачи</SPopBrowseTtl>
+//               {/* <SPopBrowseTtl>{editableTask.name}</SPopBrowseTtl> */}
+//               <SCategoriesTheme>
+//                 <p className="_orange">Web Design</p>
+//               </SCategoriesTheme>
+//             </SPopBrowseTopBlock>
+
+//             {/* Статус */}
+//             <SPopBrowseStatus>
+//               <SStatusPSubttl>Статус</SStatusPSubttl>
+//               <div className="status__themes">
+//                 <div className="status__theme _gray">
+//                   <p>Нужно сделать</p>
+//                 </div>
+//               </div>
+//             </SPopBrowseStatus>
+
+//             {/* Описание и календарь */}
+//             <SPopBrowseWrap>
+//               <SPopBrowseForm>
+//                 <SFormBrowseBlock>
+//                   <label htmlFor="textArea01">Описание задачи</label>
+//                   <textarea
+//                     // id="textArea01"
+//                     // name="text"
+//                     // value={editableTask.text}
+//                     // onChange={handleChange}
+//                     // readOnly={!isEditing}
+//                     placeholder="Введите описание задачи..."
+//                   />
+//                 </SFormBrowseBlock>
+//               </SPopBrowseForm>
+//               <Calendar />
+//             </SPopBrowseWrap>
+
+//             {/* Категория */}
+//             <SThemeDownCategories>
+//               <SCategoriesPSubttl>Категория</SCategoriesPSubttl>
+//               <div className="categories__theme _orange _active-category">
+//                 <p className="_orange">Web Design</p>
+//               </div>
+//             </SThemeDownCategories>
+
+//             {/* Кнопки */}
+//             {!isEditing ? (
+//               <SPopBrowseBtnBrowse>
+//                 {/* <button onClick={() => setIsEditing(true)}>Редактировать задачу</button> */}
+//                 {/* <button onClick={handleDelete}>Удалить задачу</button> */}
+//                 <button onClick={onClose}>Закрыть</button>
+//               </SPopBrowseBtnBrowse>
+//             ) : (
+//               <SPopBrowseBtnBrowse>
+//                 {/* <button onClick={saveChanges}>Сохранить</button> */}
+//                 {/* <button onClick={() => setIsEditing(false)}>Отменить</button> */}
+//                 {/* <button onClick={handleDelete}>Удалить задачу</button> */}
+//                 <button onClick={onClose}>Закрыть</button>
+//               </SPopBrowseBtnBrowse>
+//             )}
+//           </SPopBrowseContent>
+//         </SPopBrowseBlock>
+//       </SPopBrowseContainer>
+//     </SPopBrowse>
+//   );
+// };
+
+// export default PopBrowse;
+
+
+
+// import { Link, useParams } from "react-router-dom";
+// import { useMemo } from "react";
+
+// import Calendar from "../../Calendar/Calendar";
+// import Button from "../../Button/Button";
+// // import Card from "../../Card/Card";
+// import { cardList } from "../../../data.js";
+
 // import {
 //   SPopBrowse,
 //   // SLoadingText,
@@ -298,64 +657,197 @@ export default PopBrowse;
 // } from "./PopBrowse.styled";
 
 // const PopBrowse = () => {
+//   const { id } = useParams ();
+//   const word = useMemo(
+//     () => cardList.find((w) => w.id === id) || { name: "", translation: "" },
+//     [id]
+//   );
+
+//   return (
+//     <SPopBrowse>
+//       <div className="pop-browse__container">
+//         <div className="pop-browse__block">
+//           <div className="pop-browse__content">
+
+//             <div className="pop-browse__top-block">
+//               <h3 className="pop-browse__ttl">Название задачи</h3>
+//               <div className="categories__theme theme-top _orange _active-category">
+//                 <p className="_orange">Web Design</p>
+//               </div>
+//             </div>
+
+//             <div className="pop-browse__status status">
+//               <p className="status__p subttl">Статус</p>
+//               <div className="status__themes">
+//                 <div className="status__theme _hide">
+//                   <p>Без статуса</p>
+//                 </div>
+//                 <div className="status__theme _gray">
+//                   <p className="_gray">Нужно сделать</p>
+//                 </div>
+//                 <div className="status__theme _hide">
+//                   <p>В работе</p>
+//                 </div>
+//                 <div className="status__theme _hide">
+//                   <p>Тестирование</p>
+//                 </div>
+//                 <div className="status__theme _hide">
+//                   <p>Готово</p>
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div className="pop-browse__wrap">
+//               <form
+//                 className="pop-browse__form form-browse"
+//                 id="formBrowseCard"
+//                 action="#"
+//               >
+//                 <div className="form-browse__block">
+//                   <label htmlFor="textArea01" className="subttl">
+//                     Описание задачи
+//                   </label>
+//                   <textarea
+//                     className="form-browse__area"
+//                     name="text"
+//                     id="textArea01"
+//                     readOnly=""
+//                     placeholder="Введите описание задачи..."
+//                     defaultValue={""}
+//                   />
+//                 </div>
+//               </form>
+//               <Calendar />
+//             </div>
+//             <div className="theme-down__categories theme-down">
+//               <p className="categories__p subttl">Категория</p>
+//               <div className="categories__theme _orange _active-category">
+//                 <p className="_orange">Web Design</p>
+//               </div>
+//             </div>
+//             <div className="pop-browse__btn-browse ">
+//               <div className="btn-group">
+//                 <button className="btn-browse__edit _btn-bor _hover03">
+//                   <a href="#">Редактировать задачу</a>
+//                 </button>
+//                 <button className="btn-browse__delete _btn-bor _hover03">
+//                   <a href="#">Удалить задачу</a>
+//                 </button>
+//               </div>
+//               <button className="btn-browse__close _btn-bg _hover01">
+//                 <a href="#">Закрыть</a>
+//               </button>
+//             </div>
+//             <div className="pop-browse__btn-edit _hide">
+//               <div className="btn-group">
+//                 <button className="btn-edit__edit _btn-bg _hover01">
+//                   <a href="#">Сохранить</a>
+//                 </button>
+
+//                 <Button className="btn-edit__edit _btn-bor _hover03" text="Отменить" />
+              
+//                 <Button className="btn-edit__delete _btn-bor _hover03"
+//                   id="btnDelete" text="Удалить задачу" />
+               
+//               </div>
+//               <Link to="/">
+//                   <Button className="btn-edit__close _btn-bg _hover01" type="secondary" text="Закрыть" />{" "}
+//               </Link>
+
+
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </SPopBrowse>
+//     // </div>
+//   );
+// };
+
+// export default PopBrowse;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import { useState, useContext, useEffect, useMemo } from "react";
+// import { useParams } from "react-router-dom";
+// import Calendar from "../../Calendar/Calendar";
+// import { TasksContext } from "../../../context/TasksContext";
+// import {
+//   SPopBrowse,
+//   SPopBrowseContainer,
+//   SPopBrowseBlock,
+//   SPopBrowseContent,
+//   SPopBrowseTopBlock,
+//   SPopBrowseTtl,
+//   SCategoriesTheme,
+//   SPopBrowseStatus,
+//   SStatusPSubttl,
+//   SPopBrowseWrap,
+//   SPopBrowseForm,
+//   SFormBrowseBlock,
+//   SThemeDownCategories,
+//   SCategoriesPSubttl,
+//   SPopBrowseBtnBrowse,
+//   // SMainContent,
+// } from "./PopBrowse.styled";
+
+// const PopBrowse = () => {
 //   const { id } = useParams();
-//   const { tasks, setTasks } = useContext(TasksContext);
-//   const { user } = useContext(AuthContext);
+//   const { tasks, updateTask, deleteTaskById } = useContext(TasksContext);
 
 //   const [isEditing, setIsEditing] = useState(false);
 //   const [editableTask, setEditableTask] = useState(null);
-//   // const [editableTask, setEditableTask] = useState({
-//   //   name: "",
-//   //   translation: "",
-//   // });
 
-//   const task = useMemo(
-//     () => tasks.find((item) => item.id === Number(id)),
-//     [id, tasks]
-//   );
+//   const task = useMemo(() => tasks.find((item) => item._id === id), [id, tasks]);
 
 //   useEffect(() => {
-//     if (task) {
-//       setEditableTask(task);
-//       // setEditableTask({
-//       //   name: task.name,
-//       //   translation: task.translation,
-//       // });
-//     }
+//     if (task) setEditableTask({ ...task });
 //   }, [task]);
 
-//   const startEditing = () => {
-//     setEditableTask({
-//       name: task.name,
-//       translation: task.translation,
-//     });
-//     // setIsEditing(false);
-//     setIsEditing(true);
-//   };
-
-//   const handleInputChange = (e, field) => {
-//     setEditableTask({
-//       ...editableTask,
-//       [field]: e.target.value,
-//     });
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setEditableTask((prev) => ({ ...prev, [name]: value }));
 //   };
 
 //   const saveChanges = async () => {
+//     if (!editableTask) return;
 //     try {
-//       // const userInfo = JSON.parse(localStorage.getItem("userInfo")) || {};
-
-//       const updatedTasks = await editTask({
-//         // token: userInfo.token,
-//         token: user.token,
-//         id: id,
-//         // id,
-//         task: editableTask,
-//       });
-
-//       setTasks(updatedTasks);
+//       await updateTask(id, editableTask);
 //       setIsEditing(false);
 //     } catch (error) {
-//       console.error("Ошибка при сохранении изменений:", error.message);
+//       console.error("Ошибка при сохранении:", error.message);
+//     }
+//   };
+
+//   const handleDelete = async () => {
+//     try {
+//       await deleteTaskById(id);
+//     } catch (error) {
+//       console.error("Ошибка удаления:", error.message);
 //     }
 //   };
 
@@ -364,20 +856,184 @@ export default PopBrowse;
 //   }
 
 //   return (
-//     // <Card word={word} open={true} />
-//     <div className="pop-browse" id="popBrowse">
-//       <div className="pop-browse__container">
-//         <div className="pop-browse__block">
-//           <div className="pop-browse__content">
-//             {/* Заголовок + тема */}
-//             <div className="pop-browse__top-block">
-//               <h3 className="pop-browse__ttl">{task.title}</h3>
-//               <div
-//                 className={`categories__theme theme-top _${task.color} _active-category`}
-//               >
-//                 <p className={`_${task.color}`}>{task.topic}</p>
+//     <SPopBrowse>
+//       <SPopBrowseContainer>
+//         <SPopBrowseBlock>
+//           <SPopBrowseContent>
+//             <SPopBrowseTopBlock>
+//               <SPopBrowseTtl>Название задачи</SPopBrowseTtl>
+//               <SCategoriesTheme>
+//               {/* <div className="categories__theme theme-top _orange _active-category"> */}
+//                 <p className="_orange">Web Design</p>
+//               </SCategoriesTheme> 
+//             </SPopBrowseTopBlock>
+//             <SPopBrowseStatus>
+//               <SStatusPSubttl>Статус</SStatusPSubttl>
+//               <div className="status__themes">
+//                 <div className="status__theme _hide">
+//                   <p>Без статуса</p>
+//                 </div>
+//                 <div className="status__theme _gray">
+//                   <p className="_gray">Нужно сделать</p>
+//                 </div>
+//                 <div className="status__theme _hide">
+//                   <p>В работе</p>
+//                 </div>
+//                 <div className="status__theme _hide">
+//                   <p>Тестирование</p>
+//                 </div>
+//                 <div className="status__theme _hide">
+//                   <p>Готово</p>
+//                 </div>
 //               </div>
+//             </SPopBrowseStatus>
+//             <SPopBrowseWrap>
+//               <SPopBrowseForm> 
+//                 <SFormBrowseBlock>
+//                   <label htmlFor="textArea01" className="subttl">
+//                     Описание задачи
+//                   </label>
+//                   <textarea
+//                     className="form-browse__area"
+//                     name="text"
+//                     id="textArea01"
+//                     readOnly=""
+//                     placeholder="Введите описание задачи..."
+//                     defaultValue={""}
+//                   />
+//                 </SFormBrowseBlock>
+//               </SPopBrowseForm>
+//               <Calendar /> 
+//             </SPopBrowseWrap>
+//             <SThemeDownCategories>
+//               <SCategoriesPSubttl>Категория</SCategoriesPSubttl>
+//               <div className="categories__theme _orange _active-category">
+//                 <p className="_orange">Web Design</p>
+//               </div>
+//             </SThemeDownCategories>
+//             <SPopBrowseBtnBrowse>
+//               <div className="btn-group">
+//                 <button className="btn-browse__edit _btn-bor _hover03">
+//                   <a href="#">Редактировать задачу</a>
+//                 </button>
+//                 <button className="btn-browse__delete _btn-bor _hover03">
+//                   <a href="#">Удалить задачу</a>
+//                 </button>
+//               </div>
+//               <button className="btn-browse__close _btn-bg _hover01">
+//                 <a href="#">Закрыть</a>
+//               </button>
+//             </SPopBrowseBtnBrowse>
+//             <div className="pop-browse__btn-edit _hide">
+//               <div className="btn-group">
+//                 <button className="btn-edit__edit _btn-bg _hover01">
+//                   <a href="#">Сохранить</a>
+//                 </button>
+
+//                 <Button className="btn-edit__edit _btn-bor _hover03" text="Отменить" />
+              
+//                 <Button className="btn-edit__delete _btn-bor _hover03"
+//                   id="btnDelete" text="Удалить задачу" />
+               
+//               </div>
+//               <Link to="/">
+//                   <Button className="btn-edit__close _btn-bg _hover01" type="secondary" text="Закрыть" />{" "}
+//               </Link>
 //             </div>
+
+//           </SPopBrowseContent>
+//         </SPopBrowseBlock>
+//       </SPopBrowseContainer>
+//     </SPopBrowse>
+//   );
+// };
+
+// export default PopBrowse;   
+  
+              
+           
+           
+      
+              // <SPopBrowseTtl>{editableTask?.title}</SPopBrowseTtl> 
+            {/* <h3>{editableTask?.title}</h3>
+            <p>Тема: {editableTask?.topic}</p>
+            <p>Статус: {editableTask?.status}</p>
+            <textarea
+              name="description"
+              value={editableTask?.description || ""}
+              onChange={handleChange}
+              readOnly={!isEditing}
+            />
+            <Calendar />
+            {isEditing ? (
+              <button onClick={saveChanges}>Сохранить</button>
+            ) : (
+              <button onClick={() => setIsEditing(true)}>Редактировать</button>
+            )}
+            <button onClick={handleDelete}>Удалить</button>
+            <button onClick={() => setIsEditing(false)}>Закрыть</button> */}
+//             </SPopBrowseTopBlock>
+//           </SPopBrowseContent>
+//         </SPopBrowseBlock>
+//       </SPopBrowseContainer>
+//     </SPopBrowse>
+//   );
+// };
+
+// export default PopBrowse;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import { useMemo } from "react";
+// import { useParams } from "react-router-dom";
+// import Calendar from "../../Calendar/Calendar";
+// import { cardList } from "../../../data";
+
+// const PopBrowse = () => {
+//   const { id } = useParams();
+
+//   const task = useMemo(
+//     () => cardList.find((item) => item.id === Number(id)),
+//     [id]
+//   );
+
+//   if (!task) {
+//     return <p>Задача с id {id} не найдена</p>;
+//   }
+
+  // return (
+  //   // <Card word={word} open={true} />
+  //   <div className="pop-browse" id="popBrowse">
+  //     <div className="pop-browse__container">
+  //       <div className="pop-browse__block">
+  //         <div className="pop-browse__content">
+  //           {/* Заголовок + тема */}
+  //           <div className="pop-browse__top-block">
+  //             <h3 className="pop-browse__ttl">{task.title}</h3>
+  //             <div
+  //               className={`categories__theme theme-top _${task.color} _active-category`}
+  //             >
+  //               <p className={`_${task.color}`}>{task.theme}</p>
+  //             </div>
+  //           </div>
 
 //             {/* Статус */}
 //             <div className="pop-browse__status status">
@@ -391,10 +1047,7 @@ export default PopBrowse;
 
 //             {/* Описание + календарь */}
 //             <div className="pop-browse__wrap">
-//               <form
-//                 className="pop-browse__form form-browse"
-//                 id="formBrowseCard"
-//               >
+//               <form className="pop-browse__form form-browse" id="formBrowseCard">
 //                 <div className="form-browse__block">
 //                   <label htmlFor="textArea01" className="subttl">
 //                     Описание задачи
@@ -418,7 +1071,7 @@ export default PopBrowse;
 //               <div
 //                 className={`categories__theme _${task.color} _active-category`}
 //               >
-//                 <p className={`_${task.color}`}>{task.topic}</p>
+//                 <p className={`_${task.color}`}>{task.theme}</p>
 //               </div>
 //             </div>
 
@@ -444,6 +1097,179 @@ export default PopBrowse;
 // };
 
 // export default PopBrowse;
+
+
+
+
+
+// import { useState, useContext, useEffect, useMemo } from "react";
+// import { useParams } from "react-router-dom";
+// import Calendar from "../../Calendar/Calendar";
+// import { TasksContext } from "../../../context/TasksContext";
+// // // import {
+// // //   SPopBrowse,
+// // //   // SLoadingText,
+// // //   // SMain,
+// // //   // SContainer,
+// // //   // SMainBlock,
+// // //   // SMainContent,
+// // // } from "./PopBrowse.styled";
+
+// const PopBrowse = () => {
+//   const { id } = useParams();
+//   const { tasks, updateTask, deleteTaskById } = useContext(TasksContext);
+
+//   const [isEditing, setIsEditing] = useState(false);
+//   const [editableTask, setEditableTask] = useState(null);
+
+//   const task = useMemo(() => tasks.find((item) => item._id === id), [id, tasks]);
+
+//   useEffect(() => {
+//     if (task) setEditableTask({ ...task });
+//   }, [task]);
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setEditableTask((prev) => ({ ...prev, [name]: value }));
+//   };
+
+//   const saveChanges = async () => {
+//     if (!editableTask) return;
+//     try {
+//       await updateTask(id, editableTask);
+//       setIsEditing(false);
+//     } catch (error) {
+//       console.error("Ошибка при сохранении:", error.message);
+//     }
+//   };
+
+//   const handleDelete = async () => {
+//     try {
+//       await deleteTaskById(id);
+//     } catch (error) {
+//       console.error("Ошибка удаления:", error.message);
+//     }
+//   };
+
+//   if (!task) {
+//     return <p>Задача с id {id} не найдена</p>;
+//   }
+
+//   return (
+//     <div className="pop-browse" id="popBrowse">
+//       <div className="pop-browse__container">
+//         <div className="pop-browse__block">
+//           <div className="pop-browse__content">
+//             <h3>{editableTask?.title}</h3>
+//             <p>Тема: {editableTask?.topic}</p>
+//             <p>Статус: {editableTask?.status}</p>
+//             <textarea
+//               name="description"
+//               value={editableTask?.description || ""}
+//               onChange={handleChange}
+//               readOnly={!isEditing}
+//             />
+//             <Calendar />
+//             {isEditing ? (
+//               <button onClick={saveChanges}>Сохранить</button>
+//             ) : (
+//               <button onClick={() => setIsEditing(true)}>Редактировать</button>
+//             )}
+//             <button onClick={handleDelete}>Удалить</button>
+//             <button onClick={() => setIsEditing(false)}>Закрыть</button>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default PopBrowse;
+
+
+// import { useMemo, useState, useContext, useEffect } from "react";
+// import { useParams } from "react-router-dom";
+// import Calendar from "../../Calendar/Calendar";
+// import { TasksContext } from "../../../context/TasksContext";
+// // import { AuthContext } from "../../../context/AuthContext";
+// import { editTask, deleteTask } from "../../../services/api";
+
+// const PopBrowse = () => {
+//   const { id } = useParams();
+//   const { tasks, setTasks } = useContext(TasksContext);
+//   // const { user } = useContext(AuthContext);
+
+//   const [isEditing, setIsEditing] = useState(false);
+//   const [editableTask, setEditableTask] = useState(null);
+
+//   const task = useMemo(
+//     () => tasks.find((item) => item._id === id),
+//     [id, tasks]
+//   );
+
+//   useEffect(() => {
+//     if (task) setEditableTask({ ...task });
+//   }, [task]);
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setEditableTask((prev) => ({ ...prev, [name]: value }));
+//   };
+
+//   const saveChanges = async () => {
+//     try {
+//       const updatedTasks = await editTask(id, editableTask);
+//       setTasks(updatedTasks);
+//       setIsEditing(false);
+//     } catch (error) {
+//       console.error("Ошибка при сохранении:", error.message);
+//     }
+//   };
+
+//   const handleDelete = async () => {
+//     try {
+//       const updatedTasks = await deleteTask(id);
+//       setTasks(updatedTasks);
+//     } catch (error) {
+//       console.error("Ошибка удаления:", error.message);
+//     }
+//   };
+
+//   if (!task) {
+//     return <p>Задача с id {id} не найдена</p>;
+//   }
+
+//   return (
+//     <div className="pop-browse" id="popBrowse">
+//       <div className="pop-browse__container">
+//         <div className="pop-browse__block">
+//           <div className="pop-browse__content">
+//             <h3>{task.title}</h3>
+//             <p>Тема: {task.topic}</p>
+//             <p>Статус: {task.status}</p>
+//             <textarea
+//               name="description"
+//               value={editableTask?.description || ""}
+//               onChange={handleChange}
+//               readOnly={!isEditing}
+//             />
+//             <Calendar />
+//             {isEditing ? (
+//               <button onClick={saveChanges}>Сохранить</button>
+//             ) : (
+//               <button onClick={() => setIsEditing(true)}>Редактировать</button>
+//             )}
+//             <button onClick={handleDelete}>Удалить</button>
+//             <button>Закрыть</button>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default PopBrowse;
+
 
 
 // import { useParams } from "react-router-dom"; // Link
@@ -620,7 +1446,7 @@ export default PopBrowse;
 // const PopBrowse = () => {
 //   const { id } = useParams();
 //   const { tasks, setTasks } = useContext(TasksContext);
-//   const { user } = useContext(AuthContext);
+//   // const { user } = useContext(AuthContext);
 
 //   const [isEditing, setIsEditing] = useState(false);
 //   const [editableTask, setEditableTask] = useState(null);
@@ -692,36 +1518,6 @@ export default PopBrowse;
 // };
 
 // export default PopBrowse;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -840,34 +1636,6 @@ export default PopBrowse;
 
 // export default PopBrowse;
 
-// import Calendar from "../../Calendar/Calendar";
-
-// import { useMemo } from "react";
-// import { useParams } from "react-router-dom";
-// import { cardList } from "../../../data";
-
-// const PopBrowse = () => {
-//   const { id } = useParams();
-
-//   const task = useMemo(
-//     () => cardList.find(item => item.id === Number(id)),
-//     [id]
-//   );
-
-//   if (!task) return <p>Задача с id {id} не найдена</p>;
-
-//   return (
-//     <div>
-//       <h2>{task.title}</h2>
-//       <p>Тема: {task.theme}</p>
-//       <p>Статус: {task.status}</p>
-//       <Calendar />
-//       <textarea readOnly value={task.description || ""} />
-//     </div>
-//   );
-// };
-
-// export default PopBrowse;
 
 // import Calendar from "../../Calendar/Calendar";
 
@@ -1205,43 +1973,7 @@ export default PopBrowse;
 
 // export default PopBrowse;
 
-// import { Link, useParams } from "react-router-dom";
-// import { useMemo } from "react";
 
-// import Button from "../Button/Button";
-// import Card from "../Card/Card";
-// // import Modal from "../Modal/Modal";
-// // import EditIcon from "../icons/EditIcon";
-// import { cardList } from "../../data.js";
-
-// const ViewEditCard = () => {
-//   const { id } = useParams ();
-//   const word = useMemo(
-//     () => cardList.find((w) => w.id === id) || { name: "", translation: "" },
-//     [id]
-//   );
-
-//   return (
-//     <Modal>
-//         <div className="modal-content">
-//             <Card word={word} open={true} />
-//             <div className="actions">
-//                 <Button type="icon">
-//                     <div style={{ display: "flex" }}>
-//                         <EditIcon />
-//                     </div>
-//                 </Button>
-//                 <Link to="/">
-//                   <Button type="secondary" text="Закрыть" />{" "}
-//                 </Link>
-//             </div>
-//             <Button text="Редактировать задачу" />
-//         </div>
-//     </Modal>
-//   );
-// };
-
-// export default ViewEditCard;
 
 // ДО РОУТИНГА
 

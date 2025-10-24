@@ -47,14 +47,14 @@ export const GlobalStyles = createGlobalStyle`
     /* font-family: "Roboto", Arial, Helvetica, sans-serif; */
     color: #000000;
   }
-
+/* 
   .wrapper {
     max-width: 100%;
     width: 100vw;
     min-height: 100vh;
     overflow: hidden;
-    background-color: #F1F1F1;
-  }
+    background-color: #F1F1F1; 
+  } */
 
   .container {
     max-width: 1260px;
@@ -92,6 +92,11 @@ export const GlobalStyles = createGlobalStyle`
  ._active-category {
   opacity: 1 !important;
  }
+
+
+
+
+
 
  .pop-wrap {
   position: relative;
@@ -198,6 +203,34 @@ export const GlobalStyles = createGlobalStyle`
   justify-content: space-between;
  }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  .pop-user-set__name {
   color: #000;
   font-size: 14px;
@@ -250,6 +283,27 @@ export const GlobalStyles = createGlobalStyle`
  .pop-user-set__theme input:checked[type=checkbox]::before {
   left: 12px;
  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  /* .pop-user-set button {
   width: 72px;
   height: 30px;
@@ -262,6 +316,8 @@ export const GlobalStyles = createGlobalStyle`
   color: #565EEF;
  } */
 
+  
+/* 
  .pop-new-card {
   display: none;
   width: 100%;
@@ -320,8 +376,8 @@ export const GlobalStyles = createGlobalStyle`
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-}
-.pop-new-card__form {
+} */
+/* .pop-new-card__form {
   max-width: 370px;
   width: 100%;
   display: block;
@@ -342,30 +398,30 @@ export const GlobalStyles = createGlobalStyle`
   font-size: 14px;
   line-height: 1;
   letter-spacing: -0.14px;
-}
-.form-new__input::-moz-placeholder, .form-new__area::-moz-placeholder {
+} */
+/* .form-new__input::-moz-placeholder, .form-new__area::-moz-placeholder {
   font-weight: 400;
   font-size: 14px;
   line-height: 1px;
   color: #94A6BE;
   letter-spacing: -0.14px;
-}
-.form-new__input::placeholder, .form-new__area::placeholder {
+} */
+/* .form-new__input::placeholder, .form-new__area::placeholder {
   font-weight: 400;
   font-size: 14px;
   line-height: 1px;
   color: #94A6BE;
   letter-spacing: -0.14px;
-}
-.form-new__input {
+} */
+/* .form-new__input {
   margin: 20px 0;
 }
 .form-new__area {
   max-width: 370px;
   margin-top: 14px;
   height: 200px;
-}
-.form-new__create {
+} */
+/* .form-new__create {
   width: 132px;
   height: 30px;
   background-color: #565EEF;
@@ -377,14 +433,18 @@ export const GlobalStyles = createGlobalStyle`
   line-height: 1;
   color: #FFFFFF;
   float: right;
-}
+} */
 
-.subttl {
+/* .subttl {
   color: #000;
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
-}
+} */
+
+
+
+/* 
 
 .calendar {
   width: 182px;
@@ -460,9 +520,11 @@ export const GlobalStyles = createGlobalStyle`
 }
 .calendar__period {
   padding: 0 7px;
-}
+} */
 
-.nav__actions {
+
+
+/* .nav__actions {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -495,7 +557,18 @@ export const GlobalStyles = createGlobalStyle`
 
 ._current {
   font-weight: 700;
-}
+} */
+
+
+
+
+
+
+
+
+
+
+
 
 .categories {
   margin-bottom: 20px;
@@ -525,10 +598,29 @@ export const GlobalStyles = createGlobalStyle`
   white-space: nowrap;
 }
 
-.pop-browse {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .pop-browse { */
   /* display: none; недели у меня прошли, чтобы я понял, что надо убрать нон на блок*/ 
   /* display: block; */
-  width: 100%;
+  /* width: 100%;
   height: 100%;
   min-width: 375px;
   min-height: 100vh;
@@ -536,8 +628,8 @@ export const GlobalStyles = createGlobalStyle`
   top: 0;
   left: 0;
   z-index: 7;
-}
-.pop-browse__container {
+} */
+/* .pop-browse__container {
   width: 100%;
   height: 100%;
   min-height: 100vh;
@@ -562,8 +654,8 @@ export const GlobalStyles = createGlobalStyle`
 .pop-browse__content {
   display: block;
   text-align: left;
-}
-.pop-browse__content .categories__theme {
+} */
+/* .pop-browse__content .categories__theme {
   opacity: 1;
 }
 .pop-browse__content .theme-down {
@@ -572,20 +664,23 @@ export const GlobalStyles = createGlobalStyle`
 }
 .pop-browse__content .theme-top {
   display: block;
-}
-.pop-browse__top-block {
+} */
+
+
+
+/* .pop-browse__top-block {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 18px;
-}
-.pop-browse__ttl {
+} */
+/* .pop-browse__ttl {
   color: #000;
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
-}
-.pop-browse__wrap {
+} */
+/* .pop-browse__wrap {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -595,8 +690,8 @@ export const GlobalStyles = createGlobalStyle`
   width: 100%;
   display: block;
   margin-bottom: 20px;
-}
-.pop-browse__btn-browse, .pop-browse__btn-edit {
+} */
+/* .pop-browse__btn-browse, .pop-browse__btn-edit {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
@@ -609,13 +704,13 @@ export const GlobalStyles = createGlobalStyle`
 }
 .pop-browse__btn-browse .btn-group button, .pop-browse__btn-edit .btn-group button {
   margin-right: 8px;
-}
+} */
 
-.form-browse__block {
+/* .form-browse__block {
   display: flex;
   flex-direction: column;
-}
-.form-browse__area {
+} */
+/* .form-browse__area {
   max-width: 370px;
   width: 100%;
   outline: none;
@@ -642,12 +737,12 @@ export const GlobalStyles = createGlobalStyle`
   line-height: 1px;
   color: #94A6BE;
   letter-spacing: -0.14px;
-}
-
+} */
+/* 
  .status {
   margin-bottom: 11px;
- }
- .status__p {
+ } */
+ /* .status__p {
   margin-bottom: 14px;
  }
  .status__themes {
@@ -669,8 +764,20 @@ export const GlobalStyles = createGlobalStyle`
   line-height: 1;
   letter-spacing: -0.14px;
  }
+ */
 
- ._btn-bor {
+
+
+
+
+
+
+
+
+
+
+
+ /* ._btn-bor {
   border-radius: 4px;
   border: 0.7px solid var(--palette-navy-60, #565EEF);
   outline: none;
@@ -698,7 +805,26 @@ export const GlobalStyles = createGlobalStyle`
 
  ._dark {
   display: none;
- }
+ } */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
  @media screen and (max-width: 1200px) {
   .main__block {
@@ -731,6 +857,18 @@ export const GlobalStyles = createGlobalStyle`
     padding: 15px 13px 19px;
   }
  }
+
+
+
+
+
+
+
+
+
+
+
+
  @media screen and (max-width: 660px) {
   .pop-new-card {
     top: 70px;
@@ -788,6 +926,26 @@ export const GlobalStyles = createGlobalStyle`
     display: block;
   }
  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  @media screen and (max-width: 495px) {
   .container {
     width: 100%;
@@ -860,6 +1018,32 @@ export const GlobalStyles = createGlobalStyle`
     height: 37px;
   }
  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  @media only screen and (max-width: 375px) {
   .pop-exit__block {
     padding: 50px 20px;

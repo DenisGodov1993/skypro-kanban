@@ -1,3 +1,59 @@
+// import { Routes, Route } from "react-router-dom";
+// // import MainPage from "./pages/Main";
+// import MainPage from "../../pages/Main";
+// // import CardPage from "./pages/CardPage";
+// import PopNewCardPage from "../../pages/PopNewCard";
+// import SignInPage from "../../pages/SignIn";
+// import SignUpPage from "../../pages/SignUp";
+// // import SignInPage from "./pages/SignInPage";
+// // import SignUpPage from "./pages/SignUpPage";
+
+// function AppRoutes() {
+//   return (
+//     <Routes>
+//       <Route path="/" element={<MainPage />}>
+//         <Route path="/card/:id" element={<PopBrowsePage />} />
+//       </Route> 
+//       <Route path="/signin" element={<SignInPage />} />
+//       <Route path="/signup" element={<SignUpPage />} />
+//     </Routes>
+//   );
+// }
+
+// export default AppRoutes;
+
+// import { Routes, Route } from "react-router-dom";
+// import PrivateRoute from "../PrivateRoute/PrivateRoute";
+// import MainPage from "../../pages/Main";
+// import SignInPage from "../../pages/SignIn";
+// import SignUpPage from "../../pages/SignUp";
+// import PopBrowsePage from "../../pages/PopBrowse";
+// import PopNewCardPage from "../../pages/PopNewCard";
+// import PopUserPage from "../../pages/PopUser";
+// import NotFoundPage from "../../pages/NotFound";
+
+// function AppRoutes() {
+//   return (
+//     <Routes>
+//       <Route element={<PrivateRoute />}>
+//         <Route path="/" element={<MainPage />}>
+//           <Route path="card/:id" element={<PopBrowsePage />} />
+//           <Route path="/popnewcard" element={<PopNewCardPage />} />
+//           <Route path="popuser" element={<PopUserPage />} />
+//         </Route>
+//         {/* <Route path="/card/add" element={<NewCardPage />} />
+//         <Route path="/card/:id" element={<CardPage />} /> */}
+//         <Route path="/popnewcard" element={<PopNewCardPage />} />
+//       </Route>
+//       <Route path="/sign-in" element={<SignInPage />} />
+//       <Route path="/sign-up" element={<SignUpPage />} />
+//       <Route path="*" element={<NotFoundPage />} />
+//     </Routes>
+//   );
+// }
+
+// export default AppRoutes;
+
 import { Routes, Route } from "react-router-dom";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import MainPage from "../../pages/Main";
@@ -11,6 +67,7 @@ import NotFoundPage from "../../pages/NotFound";
 function AppRoutes() {
   return (
     <Routes>
+      {/* Защищённые маршруты */}
       <Route element={<PrivateRoute />}>
         <Route path="/" element={<MainPage />}>
           <Route path="card/:id" element={<PopBrowsePage />} />
@@ -18,14 +75,50 @@ function AppRoutes() {
           <Route path="popuser" element={<PopUserPage />} />
         </Route>
       </Route>
+
+      {/* Публичные маршруты */}
       <Route path="/sign-in" element={<SignInPage />} />
       <Route path="/sign-up" element={<SignUpPage />} />
+
+      {/* 404 */}
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }
 
 export default AppRoutes;
+
+
+
+// import { Routes, Route } from "react-router-dom";
+// import PrivateRoute from "../PrivateRoute/PrivateRoute";
+// import MainPage from "../../pages/Main";
+// import SignInPage from "../../pages/SignIn";
+// import SignUpPage from "../../pages/SignUp";
+// import PopBrowsePage from "../../pages/PopBrowse";
+// import PopNewCardPage from "../../pages/PopNewCard";
+// import PopUserPage from "../../pages/PopUser";
+// import NotFoundPage from "../../pages/NotFound";
+
+// function AppRoutes() {
+//   return (
+//     <Routes>
+//       <Route element={<PrivateRoute />}>
+//         <Route path="/" element={<MainPage />}>
+//           <Route path="card/:id" element={<PopBrowsePage />} />
+//           <Route path="popnewcard" element={<PopNewCardPage />} />
+//           <Route path="popuser" element={<PopUserPage />} />
+//         </Route>
+//         {/* <Route path="/popnewcard" element={<PopNewCardPage />} /> */}
+//       </Route>
+//       <Route path="/sign-in" element={<SignInPage />} />
+//       <Route path="/sign-up" element={<SignUpPage />} />
+//       <Route path="*" element={<NotFoundPage />} />
+//     </Routes>
+//   );
+// }
+
+// export default AppRoutes; 
 
 // import { Routes, Route } from "react-router-dom";
 // // import { useEffect, useState } from "react";
