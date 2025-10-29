@@ -10,6 +10,7 @@ export async function fetchKanban({ token }) {
         Authorization: "Bearer " + token,
       },
     });
+    console.log("Полный ответ сервера:", data);
     return data.data.tasks;
 
   } catch (error) {
@@ -26,43 +27,43 @@ export async function postKanban({ token, task }) {
         "Content-Type": "",
       },
     });
-    return data.tasks;
+    return data.data.tasks;
   } catch (error) {
     throw new Error(error.message);
   }
 }
 
 // функция получения одной задачи по id
-export async function getCardList({ token, id }) {
+export async function getTask({ token, id }) {
   try {
     const data = await axios.get(API_URL + id, {
       headers: {
         Authorization: "Bearer " + token,
       },
     });
-    return data.data.cardList;
+    return data.data.task;
   } catch (error) {
     throw new Error(error.message);
   }
 }
 
 // функция для редактирования задачи
-export async function editTask({ token, id, cardList }) {
+export async function editTask({ token, id, task }) {
   try {
-    const data = await axios.put(API_URL + id, cardList, {
+    const data = await axios.put(API_URL + id, task, {
       headers: {
         Authorization: "Bearer " + token,
         "Content-Type": "",
       },
     });
-    return data.data.cardList;
+    return data.data.tasks;
   } catch (error) {
     throw new Error(error.message);
   }
 }
 
 // функция для удаления задачи
-export async function   deleteTask({ token, id }) {
+export async function deleteTask({ token, id }) {
   try {
     const data = await axios.delete(API_URL + id, {
       headers: {
@@ -70,7 +71,7 @@ export async function   deleteTask({ token, id }) {
         "Content-Type": "",
       },
     });
-    return data.tasks;
+    return data.data.tasks;
   } catch (error) {
     throw new Error(error.message);
   }

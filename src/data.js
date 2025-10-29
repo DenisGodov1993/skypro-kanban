@@ -99,3 +99,72 @@
 //     color: "green",
 //   },
 // ]; 
+
+
+
+
+
+
+
+
+//     <SPopNewCard>
+//       <SPopNewCardContainer>
+//         <SPopNewCardBlock>
+//           <SPopNewCardContent>
+//             <SPopNewCardTtl>Создание задачи</SPopNewCardTtl>
+//             <SPopNewCardClose onClick={onClose}>✖</SPopNewCardClose>
+
+//             <SPopNewCardWrap>
+//               <SPopNewCardForm id="formNewCard" onSubmit={handleSubmit}>
+//                 <SFormNewBlock>
+//                   <SSubttl htmlFor="formTitle">Название задачи</SSubttl>
+//                   <SFormNewInput
+//                     type="text"
+//                     id="formTitle"
+//                     name="name"
+//                     placeholder="Введите название задачи..."
+//                     autoFocus
+//                     value={title}
+//                     onChange={(e) => setTitle(e.target.value)}
+//                   />
+//                 </SFormNewBlock>
+
+//                 <SFormNewBlock>
+//                   <SSubttl htmlFor="textArea">Описание задачи</SSubttl>
+//                   <SFormNewArea
+//                     id="textArea"
+//                     name="text"
+//                     placeholder="Введите описание задачи..."
+//                     value={description}
+//                     onChange={(e) => setDescription(e.target.value)}
+//                   />
+//                 </SFormNewBlock>
+//               </SPopNewCardForm>
+//               <Calendar />
+//             </SPopNewCardWrap>
+
+//             <SPopNewCardCategories>
+//               <SCategoriesPSubttl>Категория</SCategoriesPSubttl>
+//               <SCategoriesThemes>
+//                 {categories.map((cat) => (
+//                   <div
+//                     key={cat.name}
+//                     className={`categories__theme ${
+//                       cat.name === category ? "_active-category" : ""
+//                     } ${cat.color}`}
+//                     onClick={() => setCategory(cat.name)}
+//                   >
+//                     <p className={cat.color}>{cat.name}</p>
+//                   </div>
+//                 ))}
+//               </SCategoriesThemes>
+//             </SPopNewCardCategories>
+
+//             <SFormNewCreate type="submit" onClick={handleSubmit}>
+//               Создать задачу
+//             </SFormNewCreate>
+//           </SPopNewCardContent>
+//         </SPopNewCardBlock>
+//       </SPopNewCardContainer>
+//     </SPopNewCard>
+//   );

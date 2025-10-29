@@ -1,3 +1,6 @@
+
+
+
 import Card from "../Card/Card";
 import { SMainColumn, SColumnTitle, SCards } from "./Column.styled";
 import { useContext, useMemo } from "react";
@@ -5,6 +8,7 @@ import { TasksContext } from "../../context/TasksContext";
 
 const Column = ({ title }) => {
   const { tasks } = useContext(TasksContext);
+  
 
   // Фильтруем задачи по статусу
   const filteredTasks = useMemo(

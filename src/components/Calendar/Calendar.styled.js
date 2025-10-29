@@ -96,6 +96,7 @@ export const CalendarCell = styled.div`
   letter-spacing: -0.2px;
   cursor: pointer;
   transition: all 0.2s ease;
+  
 
   &._other-month {
     opacity: 0;

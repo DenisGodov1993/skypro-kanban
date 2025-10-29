@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { fetchKanban, postKanban, editTask, deleteTask } from "../services/api";
+import { fetchKanban, postKanban, getTask, editTask, deleteTask } from "../services/api";
 import { AuthContext } from "./AuthContext";
 import { TasksContext } from "./TasksContext";
 
@@ -10,13 +10,16 @@ export const TasksProvider = ({ children }) => {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
+    // console.log("user:", user);
     if (!user?.token) return;
 
-    const loadTasks = async () => {
+    // получение задач
+    const loadTasks = async () => { 
       setLoading(true);
       try {
         const data = await fetchKanban({ token: user?.token });
 
+        // console.log("Ответ сервера (data):", data);
         setTasks(data);
       } catch (err) {
         console.error("Ошибка загрузки задач:", err);
@@ -25,13 +28,13 @@ export const TasksProvider = ({ children }) => {
         setLoading(false);
       }
     };
-
     loadTasks();
   }, [user?.token]);
 
+  // создание задачи
   const createNewTask = async (task) => {
     try {
-      const newTasks = await postKanban({ token: user?.token, task: task });
+      const newTasks = await postKanban({ token: user.token, task }); // user?.token
       setTasks(newTasks);
     } catch (err) {
       console.error("Ошибка создания задачи:", err);
@@ -39,9 +42,22 @@ export const TasksProvider = ({ children }) => {
     }
   };
 
+  // получение одной задачи по id
+  const getTaskById = async (id) => {
+    try {
+      const singleTask = await getTask({ token: user.token, id });
+      return singleTask;
+    } catch (err) {
+      console.error("Ошибка получения задачи:", err);
+      setError(err.message);
+      return null;
+    }
+  };
+
+  // редактирование
   const updateTask = async (id, task) => {
     try {
-      const newTasks = await editTask({ token: user?.token, id, task });
+      const newTasks = await editTask({ token: user.token, id, task }); //user?.token
       setTasks(newTasks);
     } catch (err) {
       console.error("Ошибка редактирования задачи:", err);
@@ -49,9 +65,10 @@ export const TasksProvider = ({ children }) => {
     }
   };
 
+  // удаление
   const deleteTaskById = async (id) => {
     try {
-      const updatedTasks = await deleteTask(user?.token, id);
+      const updatedTasks = await deleteTask({ token: user.token, id });  //user?.token
       setTasks(updatedTasks);
     } catch (err) {
       console.error("Ошибка удаления задачи:", err);
@@ -66,6 +83,7 @@ export const TasksProvider = ({ children }) => {
         loading,
         error,
         createNewTask,
+        getTaskById,
         updateTask,
         deleteTaskById,
       }}
@@ -74,7 +92,6 @@ export const TasksProvider = ({ children }) => {
     </TasksContext.Provider>
   );
 };
-
 
 // import { useContext, useState, useEffect } from "react";
 // import {
@@ -91,7 +108,7 @@ export const TasksProvider = ({ children }) => {
 //   const [tasks, setTasks] = useState([]); // состояние массива с задачами
 //   const [loading, setLoading] = useState(false); // состояние загрузки
 //   const [error, setError] = useState(""); // состояние текста ошибки
-//   const { user } = useContext(AuthContext); // 
+//   const { user } = useContext(AuthContext); //
 
 //   // Загрузка задач при входе пользователя
 //   useEffect(() => {
@@ -185,8 +202,6 @@ export const TasksProvider = ({ children }) => {
 // } from "../services/api";
 // import { AuthContext } from "./AuthContext";
 // import { TasksContext } from "./TasksContext";
-
-
 
 // export const TasksProvider = ({ children }) => {
 //   const [tasks, setTasks] = useState([]);
@@ -285,12 +300,10 @@ export const TasksProvider = ({ children }) => {
 //   );
 // };
 
-
 // import { useContext, useState, useEffect } from "react";
 // import { AuthContext } from "./AuthContext";
 // import { fetchKanban, postKanban, editTask, deleteTask } from "../services/api";
 // import { TasksContext } from "./TasksContext";
-
 
 // export const TasksProvider = ({ children }) => {
 //   const { user } = useContext(AuthContext);
@@ -385,7 +398,6 @@ export const TasksProvider = ({ children }) => {
 //   );
 // };
 
-
 // import { useContext, useState, useEffect } from "react";
 // import { fetchKanban, getTask, postKanban, editTask, deleteTask } from "../services/api";
 // import { AuthContext } from "./AuthContext";
@@ -469,7 +481,6 @@ export const TasksProvider = ({ children }) => {
 //     </TasksContext.Provider>
 //   );
 // };
-
 
 // import { useContext, useState, useEffect } from "react";
 // import { fetchKanban, getTask, postKanban, editTask, deleteTask } from "../services/api";
@@ -572,7 +583,6 @@ export const TasksProvider = ({ children }) => {
 //    const [error, setError] = useState("");
 //    const { user } = useContext(AuthContext);
 
-
 //    useEffect(() => {
 //       const loadWords = async () => {
 //          try {
@@ -585,8 +595,6 @@ export const TasksProvider = ({ children }) => {
 //       loadWords();
 //    }, []);
 
-
-   
 // // export const TasksProvider = ({ children }) => {
 // //   const [tasks, setTasks] = useState([]);
 // //   const [loading, setLoading] = useState(false);
@@ -611,7 +619,6 @@ export const TasksProvider = ({ children }) => {
 // //     loadTasks();
 // //   }, [user?.token]);
 
-
 //    const addNewWord = async ({ word }) => {
 //       try {
 //          const newWords = await postWord({ token: user?.token, word });
@@ -620,7 +627,6 @@ export const TasksProvider = ({ children }) => {
 //          console.error("Ошибка добавления слова", error);
 //       }
 //    };
-
 
 //    const updateWord = async ({ word, id }) => {
 //       try {
@@ -631,12 +637,9 @@ export const TasksProvider = ({ children }) => {
 //    }
 //    };
 
-
 //    return (
 //       <WordsContext.Provider value={{ words, setWords, loading, error }}>
 //          {children}
 //       </WordsContext.Provider>
 //    );
 // };
-
-
