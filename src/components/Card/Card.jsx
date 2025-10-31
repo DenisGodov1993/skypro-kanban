@@ -12,69 +12,533 @@ import {
 } from "./Card.styled";
 
 const Card = ({ data }) => {
-  const { theme, title, date, color } = data;
+  if (!data) return null;
+
+  const { topic, title, date, _id, id } = data;
+
+  const getColorClass = {
+    "Web Design": "_orange",
+    Research: "_green",
+    Copywriting: "_purple",
+  };
+
+  const colorClass = getColorClass[topic] || "_gray";
+  const taskId = _id || id;
+
   return (
-    <>
-      <SCardsItem>
-        <SCardsCard>
-          <SCardGroup>
-            <SCardTheme className={`card__theme _${color}`}>
-              <SCardThemeP className={`${color}`}>{theme}</SCardThemeP>
-            </SCardTheme>
-            <Link to={"/card/" + data?.id}>
-              <SCardBtn>
-                <div />
-                <div />
-                <div />
-              </SCardBtn>
-            </Link>
-          </SCardGroup>
-          <SCardContent>
-            {/* <a href="" target="_blank"> */}
-            <a href="#" onClick={(e) => e.preventDefault()}>
-              <SCardTitle>{title}</SCardTitle>
-            </a>
-            <SCardDate>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width={13}
-                height={13}
-                viewBox="0 0 13 13"
-                fill="none"
-              >
-                <g clipPath="url(#clip0_1_415)">
-                  <path
-                    d="M10.5625 2.03125H2.4375C1.7644 2.03125 1.21875 2.5769 1.21875 3.25V10.5625C1.21875 11.2356 1.7644 11.7812 2.4375 11.7812H10.5625C11.2356 11.7812 11.7812 11.2356 11.7812 10.5625V3.25C11.7812 2.5769 11.2356 2.03125 10.5625 2.03125Z"
-                    stroke="#94A6BE"
-                    strokeWidth="0.8"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M11.7812 4.0625H1.21875M3.25 1.21875V2.03125V1.21875ZM9.75 1.21875V2.03125V1.21875Z"
-                    stroke="#94A6BE"
-                    strokeWidth="0.8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </g>
-                <defs>
-                  <clipPath id="clip0_1_415">
-                    <rect width={13} height={13} fill="white" />
-                  </clipPath>
-                </defs>
-              </svg>
-              <p>{date}</p>
-            </SCardDate>
-          </SCardContent>
-        </SCardsCard>
-      </SCardsItem>
-    </>
+    <SCardsItem>
+      <SCardsCard>
+        <SCardGroup>
+          <SCardTheme className={`${colorClass}`}>
+            <SCardThemeP>{topic}</SCardThemeP>
+          </SCardTheme>
+          <Link to={`/card/${taskId}`}>
+            <SCardBtn>
+              <div />
+              <div />
+              <div />
+            </SCardBtn>
+          </Link>
+        </SCardGroup>
+
+        <SCardContent>
+          <SCardTitle>{title}</SCardTitle>
+          <SCardDate>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width={13}
+              height={13}
+              viewBox="0 0 13 13"
+              fill="none"
+            >
+              <g clipPath="url(#clip0_1_415)">
+                <path
+                  d="M10.5625 2.03125H2.4375C1.7644 2.03125 1.21875 2.5769 1.21875 3.25V10.5625C1.21875 11.2356 1.7644 11.7812 2.4375 11.7812H10.5625C11.2356 11.7812 11.7812 11.2356 11.7812 10.5625V3.25C11.7812 2.5769 11.2356 2.03125 10.5625 2.03125Z"
+                  stroke="#94A6BE"
+                  strokeWidth="0.8"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M11.7812 4.0625H1.21875M3.25 1.21875V2.03125V1.21875ZM9.75 1.21875V2.03125V1.21875Z"
+                  stroke="#94A6BE"
+                  strokeWidth="0.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_1_415">
+                  <rect width={13} height={13} fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+            <p>
+              {new Date(date).toLocaleDateString("ru-RU", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "2-digit",
+              })}
+            </p>
+          </SCardDate>
+        </SCardContent>
+      </SCardsCard>
+    </SCardsItem>
   );
 };
 
 export default Card;
 
+// import { Link } from "react-router-dom";
+// import {
+//   SCardsItem,
+//   SCardsCard,
+//   SCardGroup,
+//   SCardTheme,
+//   SCardThemeP,
+//   SCardBtn,
+//   SCardContent,
+//   SCardTitle,
+//   SCardDate,
+// } from "./Card.styled";
 
+// const Card = ({ data }) => {
+//   if (!data) return null;
+
+//   const { topic, title, date, _id, id } = data;
+//   // const { topic, title, date, color } = data;
+
+//   // Привязываем тему к цвету (как в PopNewCard)
+//   // const getColorClass = (topic) => {
+//   //   switch (topic) {
+//   //     case "Web Design":
+//   //       return "_orange";
+//   //     case "Research":
+//   //       return "_green";
+//   //     case "Copywriting":
+//   //       return "_purple";
+//   //     default:
+//   //       return "_gray";
+//   //   }
+//   // };
+
+//   // const colorClass = getColorClass(topic);
+//   // const taskId = _id || id;
+
+//   const getColorClass = {
+//   "Web Design": "_orange",
+//   "Research": "_green",
+//   "Copywriting": "_purple",
+// };
+
+// const colorClass = getColorClass[topic] || "_gray";
+// const taskId = _id || id;
+
+//   // const task = data;
+
+//   return (
+//     <SCardsItem>
+//       <SCardsCard>
+//         <SCardGroup>
+//           {/* Цвет определяется по названию темы */}
+//           <SCardTheme className={`${colorClass}`}>
+//             <SCardThemeP>{topic}</SCardThemeP>
+//           </SCardTheme>
+
+//           {/* <SCardTheme className={`card__theme _${color || "orange"}`}>
+//             <SCardThemeP className={color || "orange"}>{topic}</SCardThemeP>
+//           </SCardTheme> */}
+
+//           {/* <Link to={`/card/${task._id || task.id}`}> */}
+
+//           <Link to={`/card/${taskId}`}>
+//             <SCardBtn>
+//               <div />
+//               <div />
+//               <div />
+//             </SCardBtn>
+//           </Link>
+//         </SCardGroup>
+
+//         <SCardContent>
+//           <SCardTitle>{title}</SCardTitle>
+//           <SCardDate>
+//             <svg
+//               xmlns="http://www.w3.org/2000/svg"
+//               width={13}
+//               height={13}
+//               viewBox="0 0 13 13"
+//               fill="none"
+//             >
+//               <g clipPath="url(#clip0_1_415)">
+//                 <path
+//                   d="M10.5625 2.03125H2.4375C1.7644 2.03125 1.21875 2.5769 1.21875 3.25V10.5625C1.21875 11.2356 1.7644 11.7812 2.4375 11.7812H10.5625C11.2356 11.7812 11.7812 11.2356 11.7812 10.5625V3.25C11.7812 2.5769 11.2356 2.03125 10.5625 2.03125Z"
+//                   stroke="#94A6BE"
+//                   strokeWidth="0.8"
+//                   strokeLinejoin="round"
+//                 />
+//                 <path
+//                   d="M11.7812 4.0625H1.21875M3.25 1.21875V2.03125V1.21875ZM9.75 1.21875V2.03125V1.21875Z"
+//                   stroke="#94A6BE"
+//                   strokeWidth="0.8"
+//                   strokeLinecap="round"
+//                   strokeLinejoin="round"
+//                 />
+//               </g>
+//               <defs>
+//                 <clipPath id="clip0_1_415">
+//                   <rect width={13} height={13} fill="white" />
+//                 </clipPath>
+//               </defs>
+//             </svg>
+//             {/* <p>{new Date(date).toLocaleDateString()}</p> */}
+//             <p>
+//               {new Date(date).toLocaleDateString("ru-RU", {
+//                 day: "2-digit",
+//                 month: "2-digit",
+//                 year: "2-digit",
+//               })}
+//             </p>
+//           </SCardDate>
+//         </SCardContent>
+//       </SCardsCard>
+//     </SCardsItem>
+//   );
+// };
+
+// export default Card;
+
+// рабочий вариант
+// import { Link } from "react-router-dom";
+// import {
+//   SCardsItem,
+//   SCardsCard,
+//   SCardGroup,
+//   SCardTheme,
+//   SCardThemeP,
+//   SCardBtn,
+//   SCardContent,
+//   SCardTitle,
+//   SCardDate,
+// } from "./Card.styled";
+
+// const Card = ({ data }) => {
+//   if (!data) return null;
+
+//   const { topic, title, date, color } = data;
+//   // const id = data._id || data.id;
+//   const task = data;
+
+//   return (
+//     <SCardsItem>
+//       <SCardsCard>
+//         <SCardGroup>
+//           <SCardTheme className={`card__theme _${color || "orange"}`}>
+//             <SCardThemeP className={color || "orange"}>{topic}</SCardThemeP>
+//           </SCardTheme>
+
+//           {/* <Link to={`/card/${id}`}> */}
+//           <Link to={`/card/${task._id || task.id}`}>
+//             <SCardBtn>
+//               <div />
+//               <div />
+//               <div />
+//             </SCardBtn>
+//           </Link>
+//         </SCardGroup>
+
+//         <SCardContent>
+//           <SCardTitle>{title}</SCardTitle>
+//           <SCardDate>
+//             <svg
+//               xmlns="http://www.w3.org/2000/svg"
+//               width={13}
+//               height={13}
+//               viewBox="0 0 13 13"
+//               fill="none"
+//             >
+//               <g clipPath="url(#clip0_1_415)">
+//                 <path
+//                   d="M10.5625 2.03125H2.4375C1.7644 2.03125 1.21875 2.5769 1.21875 3.25V10.5625C1.21875 11.2356 1.7644 11.7812 2.4375 11.7812H10.5625C11.2356 11.7812 11.7812 11.2356 11.7812 10.5625V3.25C11.7812 2.5769 11.2356 2.03125 10.5625 2.03125Z"
+//                   stroke="#94A6BE"
+//                   strokeWidth="0.8"
+//                   strokeLinejoin="round"
+//                 />
+//                 <path
+//                   d="M11.7812 4.0625H1.21875M3.25 1.21875V2.03125V1.21875ZM9.75 1.21875V2.03125V1.21875Z"
+//                   stroke="#94A6BE"
+//                   strokeWidth="0.8"
+//                   strokeLinecap="round"
+//                   strokeLinejoin="round"
+//                 />
+//               </g>
+//               <defs>
+//                 <clipPath id="clip0_1_415">
+//                   <rect width={13} height={13} fill="white" />
+//                 </clipPath>
+//               </defs>
+//             </svg>
+//             <p>{new Date(date).toLocaleDateString()}</p>
+//           </SCardDate>
+//         </SCardContent>
+//       </SCardsCard>
+//     </SCardsItem>
+//   );
+// };
+
+// export default Card;
+
+// import { Link } from "react-router-dom";
+// import {
+//   SCardsItem,
+//   SCardsCard,
+//   SCardGroup,
+//   SCardTheme,
+//   SCardThemeP,
+//   SCardBtn,
+//   SCardContent,
+//   SCardTitle,
+//   SCardDate,
+// } from "./Card.styled";
+
+// const Card = ({ data }) => {
+//   if (!data) return null;
+
+//   const { topic, title, date, color } = data;
+//   const id = data._id || data.id;
+
+//   // Временная проверка для отладки
+//   console.log("🎴 Рендер карточки:", title);
+
+//   return (
+//     <SCardsItem style={{ border: "1px solid red", margin: "5px" }}>
+//       <SCardsCard>
+//         <SCardGroup>
+//           <SCardTheme className={`card__theme _${color || "orange"}`}>
+//             <SCardThemeP className={color || "orange"}>{topic}</SCardThemeP>
+//           </SCardTheme>
+
+//           <Link to={`/card/${id}`}>
+//             <SCardBtn>
+//               <div />
+//               <div />
+//               <div />
+//             </SCardBtn>
+//           </Link>
+//         </SCardGroup>
+
+//         <SCardContent>
+//           <SCardTitle>{title}</SCardTitle>
+//           <SCardDate>
+//             <p>{new Date(date).toLocaleDateString()}</p>
+//           </SCardDate>
+//         </SCardContent>
+//       </SCardsCard>
+//     </SCardsItem>
+//   );
+// };
+
+// export default Card;
+
+// import { Link } from "react-router-dom";
+// import {
+//   SCardsItem,
+//   SCardsCard,
+//   SCardGroup,
+//   SCardTheme,
+//   SCardThemeP,
+//   SCardBtn,
+//   SCardContent,
+//   SCardTitle,
+//   SCardDate,
+// } from "./Card.styled";
+
+// const Card = ({ data }) => {
+//   const { topic, title, date, color, _id } = data; // используем _id из API
+
+//   return (
+//     <SCardsItem>
+//       <SCardsCard>
+//         <SCardGroup>
+//           <SCardTheme className={`card__theme _${color || "orange"}`}>
+//             <SCardThemeP className={color || "orange"}>{topic}</SCardThemeP>
+//           </SCardTheme>
+
+//           <Link to={`/card/${_id}`}>
+//             <SCardBtn>
+//               <div />
+//               <div />
+//               <div />
+//             </SCardBtn>
+//           </Link>
+//         </SCardGroup>
+
+//         <SCardContent>
+//           <SCardTitle>{title}</SCardTitle>
+//           <SCardDate>
+//             <p>{new Date(date).toLocaleDateString()}</p>
+//           </SCardDate>
+//         </SCardContent>
+//       </SCardsCard>
+//     </SCardsItem>
+//   );
+// };
+
+// export default Card;
+
+// import { Link } from "react-router-dom";
+// import {
+//   SCardsItem,
+//   SCardsCard,
+//   SCardGroup,
+//   SCardTheme,
+//   SCardThemeP,
+//   SCardBtn,
+//   SCardContent,
+//   SCardTitle,
+//   SCardDate,
+// } from "./Card.styled";
+
+// const Card = ({ data }) => {
+//   const { topic, title, date, color } = data;
+//   return (
+//     <>
+//       <SCardsItem>
+//         <SCardsCard>
+//           <SCardGroup>
+//             <SCardTheme className={`card__theme _${color}`}>
+//               <SCardThemeP className={`${color}`}>{topic}</SCardThemeP>
+//             </SCardTheme>
+
+//             <Link to={"/card/" + data?.id}>
+//               <SCardBtn>
+//                 <div />
+//                 <div />
+//                 <div />
+//               </SCardBtn>
+//             </Link>
+//           </SCardGroup>
+//           <SCardContent>
+//             {/* <a href="" target="_blank"> */}
+//             <a href="#" onClick={(e) => e.preventDefault()}>
+//               <SCardTitle>{title}</SCardTitle>
+//             </a>
+//             <SCardDate>
+//               <svg
+//                 xmlns="http://www.w3.org/2000/svg"
+//                 width={13}
+//                 height={13}
+//                 viewBox="0 0 13 13"
+//                 fill="none"
+//               >
+//                 <g clipPath="url(#clip0_1_415)">
+//                   <path
+//                     d="M10.5625 2.03125H2.4375C1.7644 2.03125 1.21875 2.5769 1.21875 3.25V10.5625C1.21875 11.2356 1.7644 11.7812 2.4375 11.7812H10.5625C11.2356 11.7812 11.7812 11.2356 11.7812 10.5625V3.25C11.7812 2.5769 11.2356 2.03125 10.5625 2.03125Z"
+//                     stroke="#94A6BE"
+//                     strokeWidth="0.8"
+//                     strokeLinejoin="round"
+//                   />
+//                   <path
+//                     d="M11.7812 4.0625H1.21875M3.25 1.21875V2.03125V1.21875ZM9.75 1.21875V2.03125V1.21875Z"
+//                     stroke="#94A6BE"
+//                     strokeWidth="0.8"
+//                     strokeLinecap="round"
+//                     strokeLinejoin="round"
+//                   />
+//                 </g>
+//                 <defs>
+//                   <clipPath id="clip0_1_415">
+//                     <rect width={13} height={13} fill="white" />
+//                   </clipPath>
+//                 </defs>
+//               </svg>
+//               <p>{date}</p>
+//             </SCardDate>
+//           </SCardContent>
+//         </SCardsCard>
+//       </SCardsItem>
+//     </>
+//   );
+// };
+
+// export default Card;
+
+// ДО КОНТЕКСТА
+// import { Link } from "react-router-dom";
+// import {
+//   SCardsItem,
+//   SCardsCard,
+//   SCardGroup,
+//   SCardTheme,
+//   SCardThemeP,
+//   SCardBtn,
+//   SCardContent,
+//   SCardTitle,
+//   SCardDate,
+// } from "./Card.styled";
+
+// const Card = ({ data }) => {
+//   const { topic, title, date, color } = data;
+//   return (
+//     <>
+//       <SCardsItem>
+//         <SCardsCard>
+//           <SCardGroup>
+//             <SCardTheme className={`card__theme _${color}`}>
+//               <SCardThemeP className={`${color}`}>{topic}</SCardThemeP>
+//             </SCardTheme>
+
+//             <Link to={"/card/" + data?.id}>
+//               <SCardBtn>
+//                 <div />
+//                 <div />
+//                 <div />
+//               </SCardBtn>
+//             </Link>
+//           </SCardGroup>
+//           <SCardContent>
+//             {/* <a href="" target="_blank"> */}
+//             <a href="#" onClick={(e) => e.preventDefault()}>
+//               <SCardTitle>{title}</SCardTitle>
+//             </a>
+//             <SCardDate>
+//               <svg
+//                 xmlns="http://www.w3.org/2000/svg"
+//                 width={13}
+//                 height={13}
+//                 viewBox="0 0 13 13"
+//                 fill="none"
+//               >
+//                 <g clipPath="url(#clip0_1_415)">
+//                   <path
+//                     d="M10.5625 2.03125H2.4375C1.7644 2.03125 1.21875 2.5769 1.21875 3.25V10.5625C1.21875 11.2356 1.7644 11.7812 2.4375 11.7812H10.5625C11.2356 11.7812 11.7812 11.2356 11.7812 10.5625V3.25C11.7812 2.5769 11.2356 2.03125 10.5625 2.03125Z"
+//                     stroke="#94A6BE"
+//                     strokeWidth="0.8"
+//                     strokeLinejoin="round"
+//                   />
+//                   <path
+//                     d="M11.7812 4.0625H1.21875M3.25 1.21875V2.03125V1.21875ZM9.75 1.21875V2.03125V1.21875Z"
+//                     stroke="#94A6BE"
+//                     strokeWidth="0.8"
+//                     strokeLinecap="round"
+//                     strokeLinejoin="round"
+//                   />
+//                 </g>
+//                 <defs>
+//                   <clipPath id="clip0_1_415">
+//                     <rect width={13} height={13} fill="white" />
+//                   </clipPath>
+//                 </defs>
+//               </svg>
+//               <p>{date}</p>
+//             </SCardDate>
+//           </SCardContent>
+//         </SCardsCard>
+//       </SCardsItem>
+//     </>
+//   );
+// };
+
+// export default Card;
 
 // ДО РОУТИНГА
 
@@ -238,34 +702,34 @@ export default Card;
 //               <h3 className="card__title">{title}</h3>
 //             </a>
 //             <div className="card__date">
-//               <svg
-//                 xmlns="http://www.w3.org/2000/svg"
-//                 width={13}
-//                 height={13}
-//                 viewBox="0 0 13 13"
-//                 fill="none"
-//               >
-//                 <g clipPath="url(#clip0_1_415)">
-//                   <path
-//                     d="M10.5625 2.03125H2.4375C1.7644 2.03125 1.21875 2.5769 1.21875 3.25V10.5625C1.21875 11.2356 1.7644 11.7812 2.4375 11.7812H10.5625C11.2356 11.7812 11.7812 11.2356 11.7812 10.5625V3.25C11.7812 2.5769 11.2356 2.03125 10.5625 2.03125Z"
-//                     stroke="#94A6BE"
-//                     strokeWidth="0.8"
-//                     strokeLinejoin="round"
-//                   />
-//                   <path
-//                     d="M11.7812 4.0625H1.21875M3.25 1.21875V2.03125V1.21875ZM9.75 1.21875V2.03125V1.21875Z"
-//                     stroke="#94A6BE"
-//                     strokeWidth="0.8"
-//                     strokeLinecap="round"
-//                     strokeLinejoin="round"
-//                   />
-//                 </g>
-//                 <defs>
-//                   <clipPath id="clip0_1_415">
-//                     <rect width={13} height={13} fill="white" />
-//                   </clipPath>
-//                 </defs>
-//               </svg>
+// <svg
+//   xmlns="http://www.w3.org/2000/svg"
+//   width={13}
+//   height={13}
+//   viewBox="0 0 13 13"
+//   fill="none"
+// >
+//   <g clipPath="url(#clip0_1_415)">
+//     <path
+//       d="M10.5625 2.03125H2.4375C1.7644 2.03125 1.21875 2.5769 1.21875 3.25V10.5625C1.21875 11.2356 1.7644 11.7812 2.4375 11.7812H10.5625C11.2356 11.7812 11.7812 11.2356 11.7812 10.5625V3.25C11.7812 2.5769 11.2356 2.03125 10.5625 2.03125Z"
+//       stroke="#94A6BE"
+//       strokeWidth="0.8"
+//       strokeLinejoin="round"
+//     />
+//     <path
+//       d="M11.7812 4.0625H1.21875M3.25 1.21875V2.03125V1.21875ZM9.75 1.21875V2.03125V1.21875Z"
+//       stroke="#94A6BE"
+//       strokeWidth="0.8"
+//       strokeLinecap="round"
+//       strokeLinejoin="round"
+//     />
+//   </g>
+//   <defs>
+//     <clipPath id="clip0_1_415">
+//       <rect width={13} height={13} fill="white" />
+//     </clipPath>
+//   </defs>
+// </svg>
 //               <p>{date}</p>
 //             </div>
 //           </div>

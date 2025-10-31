@@ -1,16 +1,86 @@
 import { GlobalStyles } from "./GlobalStyles";
 import AppRoutes from "./components/AppRoutes/AppRoutes";
+import AuthProvider from "./context/AuthProvider";
+import { TasksProvider } from "./context/TasksProvider";
 
 function App() {
   return (
-    <>
-      <GlobalStyles />
-      <AppRoutes />;
-    </>
+    <AuthProvider>
+      <TasksProvider>
+        <GlobalStyles />
+        <AppRoutes />
+      </TasksProvider> 
+    </AuthProvider>
   );
 }
 
 export default App;
+
+// import AuthProvider from "./context/AuthProvider";
+// import { TasksProvider } from "./context/TasksProvider";
+// import { GlobalStyles } from "./GlobalStyles";
+// // import AppRoutes from "./AppRoutes";
+// import AppRoutes from "./components/AppRoutes/AppRoutes";
+
+// function App() {
+//   return (
+//     <AuthProvider>
+//       <TasksProvider>
+//         <GlobalStyles />
+//         <AppRoutes />
+//       </TasksProvider>
+//     </AuthProvider>
+//   );
+// }
+
+// export default App;
+
+
+
+// import { GlobalStyles } from "./GlobalStyles";
+// import AppRoutes from "./components/AppRoutes/AppRoutes";
+// import AuthProvider from "./context/AuthProvider";
+
+// function App() {
+//   return (
+//     <AuthProvider>
+//       <GlobalStyles />
+//       <AppRoutes />
+//     </AuthProvider>
+//   );
+// }
+
+// export default App;
+
+// import { GlobalStyles } from "./GlobalStyles";
+// import AppRoutes from "./components/AppRoutes/AppRoutes";
+// import AuthProvider from "./context/AuthProvider";
+
+// function App() {
+//   return (
+//     <AuthProvider>
+//       <GlobalStyles />
+//       <AppRoutes />
+//     </AuthProvider>
+//   );
+// }
+
+// export default App;
+
+// КОД ДО КОНТЕКСТА
+// import { GlobalStyles } from "./GlobalStyles";
+// import AppRoutes from "./components/AppRoutes/AppRoutes";
+
+// function App() {
+//   return (
+//     <>
+//       <GlobalStyles />
+//       <AppRoutes />;
+//     </>
+//   );
+// }
+
+// export default App;
 
 // КОД ДО РОУТИНГА
 
