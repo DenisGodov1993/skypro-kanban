@@ -5,15 +5,3 @@ const SignUpPage = ({ setIsAuth }) => {
 };
 
 export default SignUpPage;
-
-// import AuthForm from "../AuthForm/AuthForm";
-
-// const SignUpPage = () => {
-//     return <AuthForm />;
-// };
-
-// export default SignUpPage;
-
-// isSignUp={true}
-
-
