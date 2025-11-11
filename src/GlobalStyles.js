@@ -45,7 +45,11 @@ export const GlobalStyles = createGlobalStyle`
     height: 100%;
      font-family: "Roboto", sans-serif;
     /* font-family: "Roboto", Arial, Helvetica, sans-serif; */
-    color: #000000;
+    /* color: #000000; */
+
+     background-color: ${({ theme }) => theme.background};
+    color: ${({ theme }) => theme.text};
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
  .pop-wrap {

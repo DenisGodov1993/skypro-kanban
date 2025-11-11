@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Column from "../Column/Column";
+import { ThemeContext } from "../../context/ThemeContext";
 import {
   SLoading,
-  SLoadingText,
+  SLoadingText, 
   SMain,
   SContainer,
   SMainBlock,
@@ -14,6 +15,7 @@ import {
 } from "./Main.styled";
 
 const Main = ({ loading }) => {
+  const { theme } = useContext(ThemeContext);
 
   const statuses = [
     "Без статуса",
@@ -33,15 +35,15 @@ const Main = ({ loading }) => {
   // Если лоудер активен — показываем анимацию
   if (showLoader || loading) {
     return (
-      <SLoading>
+      <SLoading themeMode={theme}>
         <SSpinner aria-hidden>
-          <SRing className="ring ring--large" />
-          <SRing className="ring ring--medium" />
-          <SRing className="ring ring--small" />
+          <SRing className="ring ring--large" themeMode={theme} />
+          <SRing className="ring ring--medium" themeMode={theme} />
+          <SRing className="ring ring--small" themeMode={theme} />
           <SDots>
-            <SDot style={{ "--i": 0 }} />
-            <SDot style={{ "--i": 1 }} />
-            <SDot style={{ "--i": 2 }} />
+            <SDot themeMode={theme} style={{ "--i": 0 }} />
+            <SDot themeMode={theme} style={{ "--i": 1 }} />
+            <SDot themeMode={theme} style={{ "--i": 2 }} />
           </SDots>
         </SSpinner>
 
@@ -51,7 +53,7 @@ const Main = ({ loading }) => {
   }
   // Если загрузка закончилась
   return (
-    <SMain>
+    <SMain themeMode={theme}>
       <SContainer>
         <SMainBlock>
           <SMainContent>
@@ -66,6 +68,146 @@ const Main = ({ loading }) => {
 };
 
 export default Main;
+
+// import { useState, useEffect, useContext } from "react";
+// import Column from "../Column/Column";
+// import { ThemeContext } from "../../context/ThemeContext";
+// import {
+//   SLoading,
+//   SLoadingText, 
+//   SMain,
+//   SContainer,
+//   SMainBlock,
+//   SMainContent,
+//   SSpinner,
+//   SRing,
+//   SDots,
+//   SDot,
+// } from "./Main.styled";
+
+// const Main = ({ loading }) => {
+//   const { theme } = useContext(ThemeContext);
+
+//   const statuses = [
+//     "Без статуса",
+//     "Нужно сделать",
+//     "В работе",
+//     "Тестирование",
+//     "Готово",
+//   ];
+
+//   const [showLoader, setShowLoader] = useState(true);
+
+//   useEffect(() => {
+//     const timer = setTimeout(() =>  setShowLoader(false), 3000);
+//     return () => clearTimeout(timer);
+//   }, []);
+
+//   // Если лоудер активен — показываем анимацию
+//   if (showLoader || loading) {
+//     return (
+//       <SLoading>
+//         <SSpinner aria-hidden>
+//           <SRing className="ring ring--large" />
+//           <SRing className="ring ring--medium" />
+//           <SRing className="ring ring--small" />
+//           <SDots>
+//             <SDot style={{ "--i": 0 }} />
+//             <SDot style={{ "--i": 1 }} />
+//             <SDot style={{ "--i": 2 }} />
+//           </SDots>
+//         </SSpinner>
+
+//         <SLoadingText>Данные загружаются . . .</SLoadingText>
+//       </SLoading>
+//     );
+//   }
+//   // Если загрузка закончилась
+//   return (
+//     <SMain themeMode={theme}>
+//       <SContainer>
+//         <SMainBlock>
+//           <SMainContent>
+//             {statuses.map((status) => (
+//               <Column key={status} title={status} />
+//             ))}
+//           </SMainContent>
+//         </SMainBlock>
+//       </SContainer>
+//     </SMain>
+//   );
+// };
+
+// export default Main;
+
+// import { useState, useEffect } from "react";
+// import Column from "../Column/Column";
+// import {
+//   SLoading,
+//   SLoadingText,
+//   SMain,
+//   SContainer,
+//   SMainBlock,
+//   SMainContent,
+//   SSpinner,
+//   SRing,
+//   SDots,
+//   SDot,
+// } from "./Main.styled";
+
+// const Main = ({ loading }) => {
+
+//   const statuses = [
+//     "Без статуса",
+//     "Нужно сделать",
+//     "В работе",
+//     "Тестирование",
+//     "Готово",
+//   ];
+
+//   const [showLoader, setShowLoader] = useState(true);
+
+//   useEffect(() => {
+//     const timer = setTimeout(() =>  setShowLoader(false), 3000);
+//     return () => clearTimeout(timer);
+//   }, []);
+
+//   // Если лоудер активен — показываем анимацию
+//   if (showLoader || loading) {
+//     return (
+//       <SLoading>
+//         <SSpinner aria-hidden>
+//           <SRing className="ring ring--large" />
+//           <SRing className="ring ring--medium" />
+//           <SRing className="ring ring--small" />
+//           <SDots>
+//             <SDot style={{ "--i": 0 }} />
+//             <SDot style={{ "--i": 1 }} />
+//             <SDot style={{ "--i": 2 }} />
+//           </SDots>
+//         </SSpinner>
+
+//         <SLoadingText>Данные загружаются . . .</SLoadingText>
+//       </SLoading>
+//     );
+//   }
+//   // Если загрузка закончилась
+//   return (
+//     <SMain>
+//       <SContainer>
+//         <SMainBlock>
+//           <SMainContent>
+//             {statuses.map((status) => (
+//               <Column key={status} title={status} />
+//             ))}
+//           </SMainContent>
+//         </SMainBlock>
+//       </SContainer>
+//     </SMain>
+//   );
+// };
+
+// export default Main;
 
 // import Column from "../Column/Column";
 // import {

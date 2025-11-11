@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { ThemeContext } from "../../context/ThemeContext";
 import {
   SCardsItem,
   SCardsCard,
@@ -12,6 +14,9 @@ import {
 } from "./Card.styled";
 
 const Card = ({ data }) => {
+
+  const { theme } = useContext(ThemeContext);
+
   if (!data) return null;
 
   const { topic, title, date, _id, id } = data;
@@ -26,14 +31,14 @@ const Card = ({ data }) => {
   const taskId = _id || id;
 
   return (
-    <SCardsItem>
-      <SCardsCard>
+    <SCardsItem themeMode={theme}>
+      <SCardsCard themeMode={theme}>
         <SCardGroup>
-          <SCardTheme className={`${colorClass}`}>
+          <SCardTheme className={`${colorClass}`} themeMode={theme}>
             <SCardThemeP>{topic}</SCardThemeP>
           </SCardTheme>
           <Link to={`/card/${taskId}`}>
-            <SCardBtn>
+            <SCardBtn themeMode={theme}>
               <div />
               <div />
               <div />
@@ -42,8 +47,8 @@ const Card = ({ data }) => {
         </SCardGroup>
 
         <SCardContent>
-          <SCardTitle>{title}</SCardTitle>
-          <SCardDate>
+          <SCardTitle themeMode={theme}>{title}</SCardTitle>
+          <SCardDate themeMode={theme}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width={13}

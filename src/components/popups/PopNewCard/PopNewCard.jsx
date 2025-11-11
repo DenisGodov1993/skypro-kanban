@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { TasksContext } from "../../../context/TasksContext";
+import { ThemeContext } from "../../../context/ThemeContext";
 import Calendar from "../../Calendar/Calendar";
 import {
   SPopNewCard,
@@ -15,13 +16,14 @@ import {
   SFormNewArea,
   SSubttl,
   SPopNewCardCategories,
-  SCategoriesPSubttl,
+  SCategoriesPSubttl, 
   SCategoriesThemes,
   SFormNewCreate,
 } from "./PopNewCard.styled";
 
 const PopNewCard = ({ onClose }) => {
   const { createNewTask } = useContext(TasksContext);
+  const { theme } = useContext(ThemeContext);
 
   // Локальные состояния
   const [title, setTitle] = useState("");
@@ -76,16 +78,17 @@ const PopNewCard = ({ onClose }) => {
   return (
     <SPopNewCard>
       <SPopNewCardContainer>
-        <SPopNewCardBlock>
+        <SPopNewCardBlock themeMode={theme}>
           <SPopNewCardContent>
-            <SPopNewCardTtl>Создание задачи</SPopNewCardTtl>
-            <SPopNewCardClose onClick={onClose}>✖</SPopNewCardClose>
+            <SPopNewCardTtl themeMode={theme}>Создание задачи</SPopNewCardTtl>
+            <SPopNewCardClose themeMode={theme} onClick={onClose}>✖</SPopNewCardClose>
 
             <SPopNewCardWrap>
               <SPopNewCardForm id="newTaskForm" onSubmit={handleSubmit}>
                 <SFormNewBlock>
-                  <SSubttl htmlFor="formTitle">Название задачи</SSubttl>
+                  <SSubttl themeMode={theme}>Название задачи</SSubttl>
                   <SFormNewInput
+                    themeMode={theme}
                     type="text"
                     id="formTitle"
                     name="name"
@@ -97,8 +100,9 @@ const PopNewCard = ({ onClose }) => {
                 </SFormNewBlock>
 
                 <SFormNewBlock>
-                  <SSubttl htmlFor="textArea">Описание задачи</SSubttl>
+                  <SSubttl themeMode={theme}>Описание задачи</SSubttl>
                   <SFormNewArea
+                    themeMode={theme}
                     id="textArea"
                     name="text"
                     placeholder="Введите описание задачи..."
@@ -115,7 +119,7 @@ const PopNewCard = ({ onClose }) => {
             </SPopNewCardWrap>
 
             <SPopNewCardCategories>
-              <SCategoriesPSubttl>Категория</SCategoriesPSubttl>
+              <SCategoriesPSubttl themeMode={theme}>Категория</SCategoriesPSubttl>
               <SCategoriesThemes>
                 {categories.map((cat) => (
                   <div
@@ -125,7 +129,8 @@ const PopNewCard = ({ onClose }) => {
                     } ${cat.color}`}
                     onClick={() => setCategory(cat.name)}
                   >
-                    <p className={cat.color}>{cat.name}</p>
+                    {/* <p className={cat.color}>{cat.name}</p> */}
+                    <p>{cat.name}</p>
                   </div>
                 ))}
               </SCategoriesThemes>
