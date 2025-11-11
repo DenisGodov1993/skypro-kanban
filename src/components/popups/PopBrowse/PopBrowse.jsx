@@ -94,6 +94,13 @@ const PopBrowse = () => {
     setTask((prev) => ({ ...prev, status: newStatus }));
   };
 
+  const categoryColors = {
+    "Web Design": { bg: "#FFE4C2", text: "#FF6D00" },
+    Research: { bg: "#B4FDD1", text: "#06B16E" },
+    Copywriting: { bg: "#E9D4FF", text: "#9A48F1" },
+    default: { bg: "#94A6BE", text: "#FFF" },
+  };
+
   return (
     <PopBrowseWrapper>
       <PopBrowseContainer>
@@ -104,9 +111,17 @@ const PopBrowse = () => {
                 {isEditing ? "Редактирование задачи" : task.title}
               </PopBrowseTitle>
 
-              <CategoriesTheme>
+              {/* <CategoriesTheme>
+                <p>{task.topic || "Без категории"}</p>
+              </CategoriesTheme> */}
+
+              <CategoriesTheme
+                $color={categoryColors[task.topic] || categoryColors.default}
+                $active
+              >
                 <p>{task.topic || "Без категории"}</p>
               </CategoriesTheme>
+              
             </PopBrowseTopBlock>
 
             <PopBrowseStatus>

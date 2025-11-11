@@ -26,7 +26,7 @@ const Header = () => {
   const togglePopup = () => {
     console.log("togglePopup", !open);
     setOpen((prev) => !prev);
-  }
+  };
 
   const onOpenNewCard = () => {
     setIsPopOpen(true);
@@ -44,8 +44,6 @@ const Header = () => {
   const onClosePopUser = () => {
     setIsPopUserOpen(false);
   };
-
-  
 
   return (
     <>
@@ -72,22 +70,22 @@ const Header = () => {
 
               <UserButton onClick={togglePopup}>Ivan Ivanov</UserButton>
 
-             
-              {/* {open && (
+              {open && (
                 <PopupUserSet id="user-set-target">
-                  <p className="pop-user-set__name">Ivan Ivanov</p>
-                  <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
-                  <div className="pop-user-set__theme">
+                  <PopUserName>Ivan Ivanov</PopUserName>
+                  <PopUserMail>ivan.ivanov@gmail.com</PopUserMail>
+
+                  <PopUserTheme>
                     <p>Темная тема</p>
                     <input
                       type="checkbox"
                       className="checkbox"
                       name="checkbox"
                     />
-                  </div>
-                  <button
+                  </PopUserTheme>
+
+                  <PopUserButton
                     type="button"
-                    className="_hover03"
                     onClick={(e) => {
                       e.stopPropagation();
                       setOpen(false);
@@ -95,43 +93,9 @@ const Header = () => {
                     }}
                   >
                     Выйти
-                  </button>
+                  </PopUserButton>
                 </PopupUserSet>
-              )} */}
-
-
-
-
-              {open && (
-  <PopupUserSet id="user-set-target">
-    <PopUserName>Ivan Ivanov</PopUserName>
-    <PopUserMail>ivan.ivanov@gmail.com</PopUserMail>
-
-    <PopUserTheme>
-      <p>Темная тема</p>
-      <input type="checkbox" 
-      className="checkbox" 
-      name="checkbox" />
-    </PopUserTheme>
-
-    <PopUserButton
-      type="button"
-      onClick={(e) => {
-        e.stopPropagation();
-        setOpen(false);
-        onOpenPopUser();
-      }}
-    >
-      Выйти
-    </PopUserButton>
-  </PopupUserSet>
-)}
-
-
-
-
-
-
+              )}
             </Nav>
           </HeaderBlock>
         </Container>
@@ -146,6 +110,144 @@ const Header = () => {
 };
 
 export default Header;
+
+// import { useState } from "react";
+// import { Link } from "react-router-dom";
+// import PopNewCard from "../popups/PopNewCard/PopNewCard";
+// import PopUser from "../popups/PopUser/PopUser";
+// import {
+//   SHeader,
+//   Container,
+//   HeaderBlock,
+//   LogoLight,
+//   LogoDark,
+//   Nav,
+//   MainButton,
+//   UserButton,
+//   PopupUserSet,
+//   PopUserName,
+//   PopUserMail,
+//   PopUserTheme,
+//   PopUserButton,
+// } from "./Header.styled";
+
+// const Header = () => {
+//   const [open, setOpen] = useState(false);
+//   const [isPopOpen, setIsPopOpen] = useState(false);
+//   const [isPopUserOpen, setIsPopUserOpen] = useState(false);
+
+//   const togglePopup = () => {
+//     console.log("togglePopup", !open);
+//     setOpen((prev) => !prev);
+//   }
+
+//   const onOpenNewCard = () => {
+//     setIsPopOpen(true);
+//   };
+
+//   const onCloseNewCard = () => {
+//     setIsPopOpen(false);
+//   };
+
+//   const onOpenPopUser = (e) => {
+//     console.log("onOpenPopUser called", e?.type);
+//     setIsPopUserOpen(true);
+//   };
+
+//   const onClosePopUser = () => {
+//     setIsPopUserOpen(false);
+//   };
+
+//   return (
+//     <>
+//       <SHeader>
+//         <Container>
+//           <HeaderBlock>
+//             {/* Логотипы */}
+//             <LogoLight>
+//               <Link to="/">
+//                 <img src="images/logo.svg" alt="logo" />
+//               </Link>
+//             </LogoLight>
+//             <LogoDark>
+//               <Link to="/">
+//                 <img src="images/logo_dark.svg" alt="logo" />
+//               </Link>
+//             </LogoDark>
+
+//             {/* Навигация */}
+//             <Nav>
+//               <MainButton onClick={onOpenNewCard}>
+//                 Создать новую задачу
+//               </MainButton>
+
+//               <UserButton onClick={togglePopup}>Ivan Ivanov</UserButton>
+
+//               {/* {open && (
+//                 <PopupUserSet id="user-set-target">
+//                   <p className="pop-user-set__name">Ivan Ivanov</p>
+//                   <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
+//                   <div className="pop-user-set__theme">
+//                     <p>Темная тема</p>
+//                     <input
+//                       type="checkbox"
+//                       className="checkbox"
+//                       name="checkbox"
+//                     />
+//                   </div>
+//                   <button
+//                     type="button"
+//                     className="_hover03"
+//                     onClick={(e) => {
+//                       e.stopPropagation();
+//                       setOpen(false);
+//                       onOpenPopUser();
+//                     }}
+//                   >
+//                     Выйти
+//                   </button>
+//                 </PopupUserSet>
+//               )} */}
+
+//               {open && (
+//   <PopupUserSet id="user-set-target">
+//     <PopUserName>Ivan Ivanov</PopUserName>
+//     <PopUserMail>ivan.ivanov@gmail.com</PopUserMail>
+
+//     <PopUserTheme>
+//       <p>Темная тема</p>
+//       <input type="checkbox"
+//       className="checkbox"
+//       name="checkbox" />
+//     </PopUserTheme>
+
+//     <PopUserButton
+//       type="button"
+//       onClick={(e) => {
+//         e.stopPropagation();
+//         setOpen(false);
+//         onOpenPopUser();
+//       }}
+//     >
+//       Выйти
+//     </PopUserButton>
+//   </PopupUserSet>
+// )}
+
+//             </Nav>
+//           </HeaderBlock>
+//         </Container>
+//       </SHeader>
+
+//       {/* Модалка создания карточки */}
+//       {isPopOpen && <PopNewCard onClose={onCloseNewCard} />}
+//       {/* Модалка выхода */}
+//       {isPopUserOpen && <PopUser onClose={onClosePopUser} />}
+//     </>
+//   );
+// };
+
+// export default Header;
 
 // до курсовой
 // import { useState } from "react";
@@ -191,8 +293,6 @@ export default Header;
 //     setIsPopUserOpen(false);
 //   };
 
-  
-
 //   return (
 //     <>
 //       <SHeader>
@@ -227,11 +327,11 @@ export default Header;
 //                     <input
 //                       type="checkbox"
 //                       className="checkbox"
-//                       name="checkbox" 
+//                       name="checkbox"
 //                     />
 //                   </div>
 //                   <button onClick={onOpenPopUser} type="button" className="_hover03">
-//                     Выйти 
+//                     Выйти
 //                   </button>
 //                 </PopupUserSet>
 //               )} */}
@@ -274,7 +374,6 @@ export default Header;
 // };
 
 // export default Header;
-
 
 // ПЕРВОНАЧАЛЬНЫЙ ВАРИАНТ КОДА
 

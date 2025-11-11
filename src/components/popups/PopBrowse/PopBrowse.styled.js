@@ -25,7 +25,7 @@ export const PopBrowseContainer = styled.div`
 `;
 
 export const PopBrowseBlock = styled.div`
-  display: block;
+  display: block; 
   margin: 0 auto;
   background-color: #ffffff;
   max-width: 630px;
@@ -60,61 +60,92 @@ export const PopBrowseTitle = styled.h3`
   line-height: 24px;
 `;
 
+// export const CategoriesTheme = styled.div`
+//   display: inline-block;
+//   width: auto;
+//   height: 30px;
+//   padding: 8px 20px;
+//   border-radius: 24px;
+//   margin-right: 7px;
+//   opacity: 0.4;
+//   cursor: pointer;
+//   /* transition: opacity 0.15s ease, transform 0.12s ease; */
+
+//   &._active-category {
+//     opacity: 1 !important;
+//     /* transform: none; */
+//   }
+
+//   p {
+//     /* margin: 0; */
+//     /* margin-bottom: 14px; было */
+//     font-size: 14px;
+//     font-weight: 600;
+//     line-height: 14px;
+//     white-space: nowrap;
+
+//     /* display: inline-block;
+//     padding: 2px 6px;
+//     border-radius: 18px; */
+
+//     padding: 8px 20px;
+//     border-radius: 24px;
+//     margin-right: 7px;
+//   }
+
+//   /* Вспомогательные классы для цветов категорий (применяются к внутреннему тегу <p>) */
+
+//   ._orange {
+//     background-color: #ffe4c2;
+//     color: #ff6d00;
+//   }
+
+//   ._green {
+//     background-color: #b4fdd1;
+//     color: #06b16e;
+//   }
+
+//   ._purple {
+//     background-color: #e9d4ff;
+//     color: #9a48f1;
+//   }
+
+//   ._gray {
+//     background: #94a6be;
+//     color: #ffffff;
+//   }
+// `;
+
+
 export const CategoriesTheme = styled.div`
   display: inline-block;
-  width: auto;
   height: 30px;
   padding: 8px 20px;
   border-radius: 24px;
   margin-right: 7px;
-  opacity: 0.4;
+  opacity: ${({ $active }) => ($active ? 1 : 0.4)};
   cursor: pointer;
-  /* transition: opacity 0.15s ease, transform 0.12s ease; */
-
-  &._active-category {
-    opacity: 1 !important;
-    /* transform: none; */
-  }
+  transition: all 0.2s ease;
 
   p {
-    /* margin: 0; */
-    /* margin-bottom: 14px; было */
     font-size: 14px;
     font-weight: 600;
     line-height: 14px;
     white-space: nowrap;
-
-    /* display: inline-block;
-    padding: 2px 6px;
-    border-radius: 18px; */
-
-    padding: 8px 20px;
+    background-color: ${({ $color }) => $color?.bg || "#94A6BE"};
+    color: ${({ $color }) => $color?.text || "#FFFFFF"};
     border-radius: 24px;
-    margin-right: 7px;
+    padding: 8px 20px;
   }
 
-  /* Вспомогательные классы для цветов категорий (применяются к внутреннему тегу <p>) */
-
-  ._orange {
-    background-color: #ffe4c2;
-    color: #ff6d00;
-  }
-
-  ._green {
-    background-color: #b4fdd1;
-    color: #06b16e;
-  }
-
-  ._purple {
-    background-color: #e9d4ff;
-    color: #9a48f1;
-  }
-
-  ._gray {
-    background: #94a6be;
-    color: #ffffff;
+  &:hover {
+    opacity: 1;
+    transform: scale(1.02);
   }
 `;
+
+
+
 
 export const PopBrowseStatus = styled.div`
   margin-bottom: 11px;
