@@ -22,15 +22,15 @@ export const SLoading = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: ${({ themeMode }) =>
-    themeMode === "light" ? "#f5f7fb" : "#151419"};
+  background-color: ${({ $themeMode }) =>
+    $themeMode === "light" ? "#f5f7fb" : "#151419"};
   transition: background-color 0.3s ease;
 `;
 
 export const SLoadingText = styled.p`
   font-size: 16px;
   font-weight: 600;
-  color: ${({ themeMode }) => (themeMode === "light" ? "#3657c8" : "#8c8cff")};
+  color: ${({ $themeMode }) => ($themeMode === "light" ? "#3657c8" : "#8c8cff")};
   letter-spacing: 0.3px;
   margin: 0;
   opacity: 0;
@@ -53,8 +53,8 @@ export const SRing = styled.div`
   border-radius: 50%;
   /* border: 6px solid rgba(54, 87, 200, 0.12); */
   border: 6px solid
-    ${({ themeMode }) =>
-      themeMode === "light"
+    ${({ $themeMode }) =>
+      $themeMode === "light"
         ? "rgba(54, 87, 200, 0.12)"
         : "rgba(255, 255, 255, 0.1)"};
   box-sizing: border-box;
@@ -66,7 +66,7 @@ export const SRing = styled.div`
     border-radius: 50%;
     /* border-top: 6px solid #3657c8; */
     border-top: 6px solid
-      ${({ themeMode }) => (themeMode === "light" ? "#3657c8" : "#8c8cff")};
+      ${({ $themeMode }) => ($themeMode === "light" ? "#3657c8" : "#8c8cff")};
     border-left: 6px solid transparent;
     border-bottom: 6px solid transparent;
     border-right: 6px solid transparent;
@@ -92,8 +92,8 @@ export const SRing = styled.div`
     &:before {
       border-width: 5px;
       /* border-top-color: #6b7ff0; */
-      border-top-color: ${({ themeMode }) =>
-        themeMode === "light" ? "#6b7ff0" : "#b3b3ff"};
+      border-top-color: ${({ $themeMode }) =>
+        $themeMode === "light" ? "#6b7ff0" : "#b3b3ff"};
 
     }
   }
@@ -109,8 +109,8 @@ export const SRing = styled.div`
     &:before {
       border-width: 4px;
       /* border-top-color: rgba(54, 87, 200, 0.9); */
-      border-top-color: ${({ themeMode }) =>
-        themeMode === "light" ? "#3657c8" : "#9a9aff"};
+      border-top-color: ${({ $themeMode }) =>
+        $themeMode === "light" ? "#3657c8" : "#9a9aff"};
     }
   }
 `;
@@ -131,8 +131,8 @@ export const SDot = styled.span`
   width: var(--size);
   height: var(--size);
   /* background: linear-gradient(180deg, #3657c8, #6b7ff0); */
-  background: ${({ themeMode }) =>
-    themeMode === "light"
+  background: ${({ $themeMode }) =>
+    $themeMode === "light"
       ? "linear-gradient(180deg, #3657c8, #6b7ff0)"
       : "linear-gradient(180deg, #8c8cff, #6b7ff0)"};
   border-radius: 50%;
@@ -144,8 +144,8 @@ export const SDot = styled.span`
   animation-delay: calc(var(--i, 0) * 0.15s);
   /* box-shadow: 0 6px 18px rgba(54, 87, 200, 0.14); */
   box-shadow: 0 6px 18px
-    ${({ themeMode }) =>
-      themeMode === "light"
+    ${({ $themeMode }) =>
+      $themeMode === "light"
         ? "rgba(54, 87, 200, 0.14)"
         : "rgba(255, 255, 255, 0.15)"};
 `;
@@ -153,9 +153,9 @@ export const SDot = styled.span`
 export const SMain = styled.main`
   width: 100%;
   /* background-color: #eaeef6; */
-  background-color: ${({ themeMode }) =>
-    themeMode === "light" ? "#eaeef6" : "#151419"};
-  color: ${({ themeMode }) => (themeMode === "light" ? "#000" : "#fff")}; 
+  background-color: ${({ $themeMode }) =>
+    $themeMode === "light" ? "#eaeef6" : "#151419"};
+  color: ${({ $themeMode }) => ($themeMode === "light" ? "#000" : "#fff")}; 
 `;
 
 export const SContainer = styled.div`
