@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { TasksContext } from "../../../context/TasksContext";
 import { ThemeContext } from "../../../context/ThemeContext";
 import Calendar from "../../Calendar/Calendar";
+import { toast } from "react-toastify";
 import {
   SPopNewCard,
   SPopNewCardContainer,
@@ -69,8 +70,10 @@ const PopNewCard = ({ onClose }) => {
       setCategory("Web Design");
       setDate(new Date().toISOString());
       onClose(); // Закрываем модалку
+      toast.success("Задача успешно создана!");
     } catch (error) {
       console.error("Ошибка создания задачи:", error);
+      toast.error("Не удалось создать задачу. Попробуйте позже.");
       alert("Не удалось создать задачу. Попробуйте позже.");
     }
   };

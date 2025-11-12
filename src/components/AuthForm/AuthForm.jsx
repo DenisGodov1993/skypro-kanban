@@ -5,6 +5,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { ThemeContext } from "../../context/ThemeContext";
 import BaseButton from "../Button/Button";
 import BaseInput from "../Input/Input";
+import { toast } from "react-toastify";
 
 import {
   SWrapper,
@@ -62,6 +63,7 @@ const AuthForm = ({ isSignUp }) => {
           email: user.email || user.login,
           token: user.token,
         });
+        toast.success(`Привет, ${user.name}!`);
         navigate("/");
       }
     } catch (err) {
@@ -70,6 +72,7 @@ const AuthForm = ({ isSignUp }) => {
       } else {
         setError(err.message || "Ошибка при авторизации.");
       }
+      toast.error(err.message || "Ошибка при авторизации.");
     }
   };
 

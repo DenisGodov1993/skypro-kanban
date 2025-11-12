@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { ThemeContext } from "../../../context/ThemeContext";
+import { toast } from "react-toastify";
 import {
   PopExit,
   PopExitContainer,
   PopExitBlock,
   PopExitTtl,
-  PopExitFormGroup,
+  PopExitFormGroup, 
   PopExitYes,
   PopExitNo,
 } from "./PopUser.styled";
@@ -17,6 +18,7 @@ const PopUser = ({ onClose }) => {
 
   const handleLogout = () => {
     console.log("handleLogout called");
+    toast.info("Вы вышли из аккаунта")
     navigate("/sign-in");
   };
 

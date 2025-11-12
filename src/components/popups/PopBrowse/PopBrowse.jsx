@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Calendar from "../../Calendar/Calendar";
 import { TasksContext } from "../../../context/TasksContext";
 import { ThemeContext } from "../../../context/ThemeContext";
+import { toast } from "react-toastify";
 import {
   PopBrowseWrapper,
   PopBrowseContainer,
@@ -76,8 +77,10 @@ const PopBrowse = () => {
     try {
       await updateTask(task._id, task);
       setIsEditing(false);
+      toast.success("Задача успешно обновлена!");
     } catch (err) {
       console.error("Ошибка сохранения:", err);
+      toast.error("Не удалось обновить задачу.");
     }
   };
 
@@ -87,8 +90,16 @@ const PopBrowse = () => {
   };
 
   const handleDelete = async () => {
-    await deleteTaskById(task._id);
-    navigate(-1);
+    // await deleteTaskById(task._id);
+    // navigate(-1);
+    try {
+      await deleteTaskById(task._id);
+      toast.success("Задача успешно удалена!");
+      navigate(-1);
+    } catch (err) {
+      console.error("Ошибка удаления:", err);
+      toast.error("Не удалось удалить задачу.");
+    }
   };
 
   const handleStatusChange = (newStatus) => {
