@@ -4,6 +4,6 @@ export function checkLs() {
       ? JSON.parse(window.localStorage.getItem("userInfo"))
       : null;
   } catch {
-    return null; 
+    return null;
   }
 }
