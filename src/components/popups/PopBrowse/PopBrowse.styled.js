@@ -22,22 +22,23 @@ export const PopBrowseContainer = styled.div`
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.4);
+  position: fixed;
 `;
 
 export const PopBrowseBlock = styled.div`
   display: block; 
   margin: 0 auto;
   /* background-color: #ffffff; */
-  background-color: ${({ themeMode }) =>
-    themeMode === "dark" ? "#20202c" : "#ffffff"};
-  color: ${({ themeMode }) => (themeMode === "dark" ? "#f0f0f0" : "#000000")};
+  background-color: ${({ $themeMode }) =>
+    $themeMode === "dark" ? "#20202c" : "#ffffff"};
+  color: ${({ $themeMode }) => ($themeMode === "dark" ? "#f0f0f0" : "#000000")};
   max-width: 630px;
   width: 100%;
   padding: 40px 30px 38px;
   border-radius: 10px;
   /* border: 0.7px solid #d4dbe5; */
   border: 0.7px solid
-    ${({ themeMode }) => (themeMode === "dark" ? "#444" : "#d4dbe5")};
+    ${({ $themeMode }) => ($themeMode === "dark" ? "#444" : "#d4dbe5")};
   position: relative;
 
   transition: all 0.3s ease;
@@ -60,13 +61,27 @@ export const PopBrowseTopBlock = styled.div`
   }
 `;
 
+// export const PopBrowseTitle = styled.h3`
+//   /* color: #000; */
+//   color: ${({ $themeMode }) => ($themeMode === "dark" ? "#ffffff" : "#000000")};
+//   font-size: 20px;
+//   font-weight: 600;
+//   line-height: 24px;
+// `;
+
 export const PopBrowseTitle = styled.h3`
-  /* color: #000; */
-  color: ${({ themeMode }) => (themeMode === "dark" ? "#ffffff" : "#000000")};
+  color: ${({ $themeMode }) => ($themeMode === "dark" ? "#ffffff" : "#000000")};
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
+
+  /* ✅ Добавляем перенос и защиту от выхода текста за границы */
+  white-space: normal;        /* разрешаем перенос строк */
+  word-break: break-word;     /* переносим длинные слова */
+  overflow-wrap: anywhere;    /* перенос без пробелов */
+  max-width: 70%;             /* чтобы не упирался в категорию */
 `;
+
 
 export const CategoriesTheme = styled.div`
   display: inline-block;
@@ -106,7 +121,7 @@ export const StatusTitle = styled.p`
   margin-bottom: 14px;
 
   /* color: #000; */
-  color: ${({ themeMode }) => (themeMode === "dark" ? "#ddd" : "#000")};
+  color: ${({ $themeMode }) => ($themeMode === "dark" ? "#ddd" : "#000")};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -186,10 +201,10 @@ export const FormArea = styled.textarea`
   padding: 14px;
   /* background: #eaeef6; */
   /* border: 0.7px solid ${({ $editable }) => ($editable ? "#94A6BE" : "#D4DBE5")}; */
-  background: ${({ themeMode }) =>
-    themeMode === "dark" ? "#2a2a3a" : "#eaeef6"};
-  border: 0.7px solid ${({ themeMode }) =>
-    themeMode === "dark" ? "#555" : "#d4dbe5"};
+  background: ${({ $themeMode }) =>
+    $themeMode === "dark" ? "#2a2a3a" : "#eaeef6"};
+  border: 0.7px solid ${({ $themeMode }) =>
+    $themeMode === "dark" ? "#555" : "#d4dbe5"};
   border-radius: 8px;
   font-size: 14px;
   line-height: 1;
@@ -198,14 +213,14 @@ export const FormArea = styled.textarea`
   height: 200px;
   /* color: ${({ $editable }) => ($editable ? "#000" : "#666")}; */
   /* transition: all 0.2s ease; */
-  color: ${({ themeMode }) => (themeMode === "dark" ? "#f0f0f0" : "#000000")};
+  color: ${({ $themeMode }) => ($themeMode === "dark" ? "#f0f0f0" : "#000000")};
   transition: all 0.3s ease;
 
   &:focus {
-    border-color: ${({ themeMode }) =>
-      themeMode === "dark" ? "#6b7ff0" : "#565eef"};
-    box-shadow: ${({ themeMode }) =>
-      themeMode === "dark"
+    border-color: ${({ $themeMode }) =>
+      $themeMode === "dark" ? "#6b7ff0" : "#565eef"};
+    box-shadow: ${({ $themeMode }) =>
+      $themeMode === "dark"
         ? "0 0 0 2px rgba(107, 127, 240, 0.3)"
         : "0 0 0 2px rgba(86, 94, 239, 0.2)"};
   }

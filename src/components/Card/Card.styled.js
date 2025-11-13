@@ -105,15 +105,31 @@ export const SCardContent = styled.div`
   justify-content: space-between;
 `;
 
+// export const SCardTitle = styled.h3`
+//   font-size: 14px;
+//   font-weight: 500;
+//   line-height: 18px;
+//   /* color: #000000; */
+//   color: ${({ $themeMode }) =>
+//     $themeMode === "light" ? "#000000" : "#ffffff"};
+//   margin-bottom: 10px;
+// `;
+
 export const SCardTitle = styled.h3`
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
-  /* color: #000000; */
   color: ${({ $themeMode }) =>
     $themeMode === "light" ? "#000000" : "#ffffff"};
   margin-bottom: 10px;
+
+  /* ✅ предотвращаем выход текста за границы */
+  white-space: normal;        /* Разрешаем перенос строк */
+  word-break: break-word;     /* Переносим длинные слова */
+  overflow-wrap: anywhere;    /* Дополнительно помогает переносить без пробелов */
+  max-width: 100%;            /* Гарантируем, что не выйдет за карточку */
 `;
+
 
 export const SCardDate = styled.div`
   display: flex;

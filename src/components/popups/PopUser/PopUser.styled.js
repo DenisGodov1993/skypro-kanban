@@ -10,7 +10,7 @@ export const PopExit = styled.div`
   top: 0;
   left: 0;
   z-index: 5;
-`;
+`; 
 
 export const PopExitContainer = styled.div`
   width: 100%;
@@ -34,11 +34,11 @@ export const PopExitBlock = styled.div`
   border-radius: 10px;
   /* border: 0.7px solid #d4dbe5; */
   border: 0.7px solid
-    ${({ themeMode }) => (themeMode === "dark" ? "#444" : "#d4dbe5")};
+    ${({ $themeMode }) => ($themeMode === "dark" ? "#444" : "#d4dbe5")};
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
-  background-color: ${({ themeMode }) =>
-    themeMode === "dark" ? "#20202c" : "#ffffff"};
-  color: ${({ themeMode }) => (themeMode === "dark" ? "#f0f0f0" : "#000000")};
+  background-color: ${({ $themeMode }) =>
+    $themeMode === "dark" ? "#20202c" : "#ffffff"};
+  color: ${({ $themeMode }) => ($themeMode === "dark" ? "#f0f0f0" : "#000000")};
 `;
 
 export const PopExitTtl = styled.div`
@@ -49,7 +49,7 @@ export const PopExitTtl = styled.div`
     line-height: 30px;
     letter-spacing: -0.4px;
     margin-bottom: 20px;
-    color: ${({ themeMode }) => (themeMode === "dark" ? "#f0f0f0" : "#000")};
+    color: ${({ $themeMode }) => ($themeMode === "dark" ? "#f0f0f0" : "#000")};
   }
 `;
 
@@ -64,8 +64,8 @@ export const PopExitYes = styled.button`
   width: 153px;
   height: 30px;
   /* background-color: #565eef; */
-  background-color: ${({ themeMode }) =>
-    themeMode === "dark" ? "#6b7ff0" : "#565eef"};
+  background-color: ${({ $themeMode }) =>
+    $themeMode === "dark" ? "#6b7ff0" : "#565eef"};
   border-radius: 4px;
   border: none;
   outline: none;
@@ -85,8 +85,8 @@ export const PopExitYes = styled.button`
 
   &:hover {
     /* background-color: #33399b; */
-    background-color: ${({ themeMode }) =>
-      themeMode === "dark" ? "#565eef" : "#33399b"};
+    background-color: ${({ $themeMode }) =>
+      $themeMode === "dark" ? "#565eef" : "#33399b"};
   }
 `;
 
@@ -97,7 +97,7 @@ export const PopExitNo = styled.button`
   border-radius: 4px;
   /* border: 0.7px solid var(--palette-navy-60, #565eef); */
   border: 0.7px solid
-    ${({ themeMode }) => (themeMode === "dark" ? "#888" : "#565eef")};
+    ${({ $themeMode }) => ($themeMode === "dark" ? "#888" : "#565eef")};
   outline: none;
   display: flex;
   align-items: center;
@@ -109,14 +109,14 @@ export const PopExitNo = styled.button`
   /* color: #FFFFFF;  */
 
   /* color: #565eef; */
-  color: ${({ themeMode }) => (themeMode === "dark" ? "#f0f0f0" : "#565eef")};
+  color: ${({ $themeMode }) => ($themeMode === "dark" ? "#f0f0f0" : "#565eef")};
   cursor: pointer;
   transition: 0.3s;
 
   &:hover {
     /* background-color: #565eef; */
-    background-color: ${({ themeMode }) =>
-      themeMode === "dark" ? "#565eef" : "#565eef"};
+    background-color: ${({ $themeMode }) =>
+      $themeMode === "dark" ? "#565eef" : "#565eef"};
     color: #ffffff;
   }
 `;

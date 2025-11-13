@@ -5,8 +5,8 @@ export const SWrapper = styled.div`
   height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
-  background-color: ${({ themeMode }) =>
-    themeMode === "light" ? "#eaeef6" : "#151419"};
+  background-color: ${({ $themeMode }) =>
+    $themeMode === "light" ? "#eaeef6" : "#151419"};
 `;
 
 export const SContainerSignIn = styled.div`
@@ -30,26 +30,26 @@ export const SModal = styled.div`
 export const SModalBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: ${({ themeMode }) =>
-    themeMode === "light" ? "#ffffff" : "#20202C"};
+  background-color: ${({ $themeMode }) =>
+    $themeMode === "light" ? "#ffffff" : "#20202C"};
   max-width: 368px;
   width: 100%;
   padding: 50px 60px;
   border-radius: 10px;
   border: 0.7px solid
-    ${({ themeMode }) => (themeMode === "light" ? "#d4dbe5" : "#20202C")};
-  box-shadow: 0px 4px 67px -12px ${({ themeMode }) => (themeMode === "light" ? "rgba(0,0,0,0.13)" : "rgba(0,0,0,0.5)")};
+    ${({ $themeMode }) => ($themeMode === "light" ? "#d4dbe5" : "#20202C")};
+  box-shadow: 0px 4px 67px -12px ${({ $themeMode }) => ($themeMode === "light" ? "rgba(0,0,0,0.13)" : "rgba(0,0,0,0.5)")};
 `;
 
 export const SModalTtl = styled.div`
-  & h2 {
+   h2 {
     text-align: center;
     font-size: 20px;
     font-weight: 700;
     line-height: 30px;
     letter-spacing: -0.6px;
     margin-bottom: 20px;
-    color: ${({ themeMode }) => (themeMode === "light" ? "#000" : "#fff")};
+    color: ${({ $themeMode }) => ($themeMode === "light" ? "#000" : "#fff")};
   }
 `;
 
@@ -83,7 +83,7 @@ export const SFormGroup = styled.div`
 `;
 
 export const SErrorText = styled.p`
-  color: ${({ themeMode }) => (themeMode === "light" ? "#e74c3c" : "#ff6b6b")};
+  color: ${({ $themeMode }) => ($themeMode === "light" ? "#e74c3c" : "#ff6b6b")};
   font-size: 14px;
   font-weight: 500;
   margin-top: 5px;

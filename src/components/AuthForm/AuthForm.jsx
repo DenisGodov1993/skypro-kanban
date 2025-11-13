@@ -84,11 +84,11 @@ const AuthForm = ({ isSignUp }) => {
   };
 
   return (
-    <SWrapper themeMode={theme}>
+    <SWrapper $themeMode={theme}>
       <SContainerSignIn>
         <SModal>
-          <SModalBlock themeMode={theme}>
-            <SModalTtl themeMode={theme}>
+          <SModalBlock $themeMode={theme}>
+            <SModalTtl $themeMode={theme}>
               <h2>{isSignUp ? "Регистрация" : "Вход"}</h2>
             </SModalTtl>
 
@@ -119,7 +119,7 @@ const AuthForm = ({ isSignUp }) => {
                 onChange={handleChange}
               />
 
-              {error && <SErrorText themeMode={theme}>{error}</SErrorText>}
+              {error && <SErrorText $themeMode={theme}>{error}</SErrorText>}
 
               <BaseButton
                 type="secondary"
