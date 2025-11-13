@@ -10,7 +10,6 @@ export const SCardsItem = styled.div`
 export const SCardsCard = styled.div`
   width: 220px;
   height: 130px;
-  /* background-color: #ffffff; */
   background-color: ${({ $themeMode }) =>
     $themeMode === "light" ? "#ffffff" : "#1e1e2f"};
   border-radius: 10px;
@@ -39,8 +38,6 @@ export const SCardTheme = styled.div`
   border-radius: 18px;
 
   &._orange {
-    /* background-color: #ffe4c2;
-    color: #ff6d00; */
     background-color: ${({ $themeMode }) =>
       $themeMode === "light" ? "#ffe4c2" : "#b36e3f"};
     color: ${({ $themeMode }) =>
@@ -48,24 +45,18 @@ export const SCardTheme = styled.div`
   }
 
   &._green {
-    /* background-color: #b4fdd1;
-    color: #06b16e; */
     background-color: ${({ $themeMode }) =>
       $themeMode === "light" ? "#b4fdd1" : "#1c5c3b"};
     color: ${({ $themeMode }) =>
       $themeMode === "light" ? "#06b16e" : "#7bffb0"};
   }
   &._purple {
-    /* background-color: #e9d4ff;
-    color: #9a48f1; */
     background-color: ${({ $themeMode }) =>
       $themeMode === "light" ? "#e9d4ff" : "#5d2f72"};
     color: ${({ $themeMode }) =>
       $themeMode === "light" ? "#9a48f1" : "#d1a6ff"};
   }
   &._gray {
-    /* background: #94a6be;
-    color: #ffffff; */
     background-color: ${({ $themeMode }) =>
       $themeMode === "light" ? "#94a6be" : "#5a5f7a"};
     color: ${({ $themeMode }) =>
@@ -91,7 +82,6 @@ export const SCardBtn = styled.div`
     width: 4px;
     height: 4px;
     border-radius: 50%;
-    /* background-color: #94a6be; */
     background-color: ${({ $themeMode }) =>
       $themeMode === "light" ? "#94a6be" : "#8c8cff"};
   }
@@ -105,16 +95,6 @@ export const SCardContent = styled.div`
   justify-content: space-between;
 `;
 
-// export const SCardTitle = styled.h3`
-//   font-size: 14px;
-//   font-weight: 500;
-//   line-height: 18px;
-//   /* color: #000000; */
-//   color: ${({ $themeMode }) =>
-//     $themeMode === "light" ? "#000000" : "#ffffff"};
-//   margin-bottom: 10px;
-// `;
-
 export const SCardTitle = styled.h3`
   font-size: 14px;
   font-weight: 500;
@@ -123,13 +103,12 @@ export const SCardTitle = styled.h3`
     $themeMode === "light" ? "#000000" : "#ffffff"};
   margin-bottom: 10px;
 
-  /* ✅ предотвращаем выход текста за границы */
-  white-space: normal;        /* Разрешаем перенос строк */
-  word-break: break-word;     /* Переносим длинные слова */
-  overflow-wrap: anywhere;    /* Дополнительно помогает переносить без пробелов */
-  max-width: 100%;            /* Гарантируем, что не выйдет за карточку */
+  /* предотвращаем выход текста за границы */
+  white-space: normal; /* Разрешаем перенос строк */
+  word-break: break-word; /* Переносим длинные слова */
+  overflow-wrap: anywhere; /* Дополнительно помогает переносить без пробелов */
+  max-width: 100%; /* Гарантируем, что не выйдет за карточку */
 `;
-
 
 export const SCardDate = styled.div`
   display: flex;
@@ -144,7 +123,6 @@ export const SCardDate = styled.div`
     margin-left: 6px;
     font-size: 10px;
     line-height: 13px;
-    /* color: #94a6be; */
     color: ${({ $themeMode }) =>
       $themeMode === "light" ? "#94a6be" : "#8c8cff"};
     letter-spacing: 0.2px;

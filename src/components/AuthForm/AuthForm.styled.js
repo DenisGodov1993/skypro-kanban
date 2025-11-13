@@ -42,7 +42,7 @@ export const SModalBlock = styled.div`
 `;
 
 export const SModalTtl = styled.div`
-   h2 {
+  h2 {
     text-align: center;
     font-size: 20px;
     font-weight: 700;
@@ -83,7 +83,8 @@ export const SFormGroup = styled.div`
 `;
 
 export const SErrorText = styled.p`
-  color: ${({ $themeMode }) => ($themeMode === "light" ? "#e74c3c" : "#ff6b6b")};
+  color: ${({ $themeMode }) =>
+    $themeMode === "light" ? "#e74c3c" : "#ff6b6b"};
   font-size: 14px;
   font-weight: 500;
   margin-top: 5px;

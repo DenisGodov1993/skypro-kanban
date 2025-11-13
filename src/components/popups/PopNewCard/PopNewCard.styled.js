@@ -1,355 +1,7 @@
-// import styled from "styled-components";
-
-// export const SPopNewCard = styled.div`
-//   position: fixed; /* фиксируем поверх всего контента */
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 100%;
-//   min-width: 375px;
-//   min-height: 100vh; /* на случай, если body меньше viewport */
-//   z-index: 999;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   background: rgba(0, 0, 0, 0.4); /* затемненный фон */
-//   overflow: auto; /* чтобы скролл работал, если контент большой */
-// `;
-
-// // Контейнер модалки по центру
-// export const SPopNewCardContainer = styled.div`
-//   width: 100%;
-//   max-width: 630px;
-//   margin: 16px; /* отступы от краев экрана */
-//   padding: 40px 30px 48px;
-//   background-color: ${({ $themeMode }) =>
-//     $themeMode === "dark" ? "#20202c" : "#ffffff"};
-//   color: ${({ $themeMode }) => ($themeMode === "dark" ? "#f0f0f0" : "#000000")};
-//   border-radius: 10px;
-//   border: 0.7px solid
-//     ${({ $themeMode }) =>
-//       $themeMode === "dark" ? "#444" : "rgba(212, 219, 229, 1)"};
-//   box-shadow: 0px 10px 39px rgba(26, 56, 101, 0.21);
-//   position: relative;
-
-//   @media screen and (max-width: 660px) {
-//     border-radius: 0;
-//     padding: 20px 16px 32px;
-//   }
-// `;
-
-// export const SPopNewCardBlock = styled.div`
-//   display: block;
-//   margin: 0 auto;
-//   /* background-color: #ffffff; */
-//   background-color: ${({ $themeMode }) =>
-//     $themeMode === "dark" ? "#20202c" : "#ffffff"};
-//   color: ${({ $themeMode }) => ($themeMode === "dark" ? "#f0f0f0" : "#000000")};
-//   max-width: 630px;
-//   width: 100%;
-//   padding: 40px 30px 48px;
-//   border-radius: 10px;
-//   /* border: 0.7px solid #d4dbe5; */
-//   border: 0.7px solid
-//     ${({ $themeMode }) =>
-//       $themeMode === "dark" ? "#444" : "rgba(212, 219, 229, 1)"};
-//   position: relative;
-
-//   @media screen and (max-width: 660px) {
-//     border-radius: 0;
-//   }
-
-//   @media screen and (max-width: 495px) {
-//     padding: 20px 16px 32px;
-//   }
-// `;
-
-// export const SPopNewCardContent = styled.div`
-//   display: block;
-//   text-align: left;
-// `;
-
-// // export const SPopNewCardTtl = styled.h3`
-// //   color: ${({ $themeMode }) => ($themeMode === "dark" ? "#f0f0f0" : "#000")};
-// //   font-size: 20px;
-// //   font-weight: 600;
-// //   line-height: 24px;
-// //   margin-bottom: 20px;
-
-// //   max-width: 100%; /* ограничивает внутри карточки */
-// //   /* white-space: nowrap; */
-// //   overflow: hidden;
-// //   text-overflow: ellipsis;
-
-// //   white-space: normal;
-// //   word-wrap: break-word;
-// //   overflow-wrap: break-word;
-// //   /* overflow-wrap: anywhere; */
-  
-// //   @media screen and (max-width: 495px) {
-// //     white-space: normal;
-// //     word-wrap: break-word;
-// //   }
-// // `;
-
-// export const SPopNewCardTtl = styled.h3`
-//   color: ${({ $themeMode }) => ($themeMode === "dark" ? "#f0f0f0" : "#000")};
-//   font-size: 20px;
-//   font-weight: 600;
-//   line-height: 24px;
-//   margin-bottom: 20px;
-
-//   /* ✅ Ключевые свойства для переноса длинных строк */
-//   white-space: normal;        /* Разрешаем перенос строк */
-//   word-break: break-word;     /* Переносим длинные слова */
-//   overflow-wrap: anywhere;    /* Перенос без пробелов */
-//   max-width: 100%;            /* Ограничиваем внутри карточки */
-//   text-align: left;           /* Чтобы не центрировалось при переносе */
-
-//   /* Адаптив — чтобы на маленьких экранах не ломало верстку */
-//   @media screen and (max-width: 495px) {
-//     font-size: 18px;
-//     line-height: 22px;
-//   }
-// `;
-
-// export const SPopNewCardClose = styled.button`
-//   position: absolute;
-//   top: 20px;
-//   right: 30px;
-//   color: #94a6be;
-//   cursor: pointer;
-//   background: none;
-//   border: none;
-
-//   &:hover {
-//     color: #000000;
-//   }
-// `;
-
-// export const SPopNewCardWrap = styled.div`
-//   display: flex;
-//   align-items: flex-start;
-//   justify-content: space-between;
-
-//   @media screen and (max-width: 660px) {
-//     display: block;
-//   }
-// `;
-
-// export const SPopNewCardForm = styled.form`
-//   width: 100%;
-//   display: block;
-//   margin-bottom: 20px;
-// `;
-
-// export const SFormNewBlock = styled.div`
-//   display: flex;
-//   flex-direction: column;
-// `;
-
-// // export const SFormNewInput = styled.input`
-// //   width: 100%;
-// //   outline: none;
-// //   padding: 14px;
-// //   background: transparent;
-// //   /* border: 0.7px solid rgba(148, 166, 190, 0.4); */
-// //   border: 0.7px solid
-// //     ${({ $themeMode }) =>
-// //       $themeMode === "dark"
-// //         ? "rgba(255,255,255,0.2)"
-// //         : "rgba(148, 166, 190, 0.4)"};
-// //   background-color: ${({ $themeMode }) =>
-// //     $themeMode === "dark" ? "#2a2a38" : "#fff"};
-// //   color: ${({ $themeMode }) => ($themeMode === "dark" ? "#f0f0f0" : "#000")};
-// //   border-radius: 8px;
-// //   font-size: 14px;
-// //   margin: 20px 0;
-
-// //   line-height: 1;
-// //   letter-spacing: -0.14px;
-
-// //   &::placeholder {
-// //     /* color: #94a6be; */
-// //     color: ${({ $themeMode }) => ($themeMode === "dark" ? "#888" : "#94a6be")};
-// //     font-weight: 400;
-
-// //     font-size: 14px;
-// //     line-height: 1;
-// //     letter-spacing: -0.14px;
-// //   }
-// // `;
-
-// export const SFormNewInput = styled.input`
-//   width: 100%;
-//   padding: 14px;
-//   border-radius: 8px;
-//   border: 0.7px solid
-//     ${({ $themeMode }) =>
-//       $themeMode === "dark"
-//         ? "rgba(255,255,255,0.2)"
-//         : "rgba(148, 166, 190, 0.4)"};
-//   background-color: ${({ $themeMode }) =>
-//     $themeMode === "dark" ? "#2a2a38" : "#fff"};
-//   color: ${({ $themeMode }) => ($themeMode === "dark" ? "#f0f0f0" : "#000")};
-//   outline: none;
-//   font-size: 14px;
-//   margin: 20px 0;
-
-//   &::placeholder {
-//     color: ${({ $themeMode }) => ($themeMode === "dark" ? "#888" : "#94a6be")};
-//   }
-// `;
-
-// // export const SFormNewArea = styled.textarea`
-// //   width: 100%;
-// //   outline: none;
-// //   padding: 14px;
-// //   background: transparent;
-// //   /* border: 0.7px solid rgba(148, 166, 190, 0.4); */
-// //   border: 1px solid
-// //     ${({ $themeMode }) =>
-// //       $themeMode === "dark"
-// //         ? "rgba(255,255,255,0.2)"
-// //         : "rgba(148, 166, 190, 0.4)"};
-// //   background-color: ${({ $themeMode }) =>
-// //     $themeMode === "dark" ? "#2a2a38" : "#fff"};
-// //   color: ${({ $themeMode }) => ($themeMode === "dark" ? "#f0f0f0" : "#000")};
-// //   border-radius: 8px;
-// //   font-size: 14px;
-// //   height: 200px;
-// //   margin-top: 14px;
-
-// //   line-height: 1;
-// //   letter-spacing: -0.14px;
-
-// //   &::placeholder {
-// //     /* color: #94a6be; */
-// //     color: ${({ $themeMode }) => ($themeMode === "dark" ? "#888" : "#94a6be")};
-// //     font-weight: 400;
-
-// //     font-size: 14px;
-// //     line-height: 1;
-// //     letter-spacing: -0.14px;
-
-// //     @media screen and (max-width: 495px) {
-// //       max-width: 100%;
-// //       height: 134px;
-// //     }
-// //   }
-// // `;
-
-// export const SFormNewArea = styled.textarea`
-//   width: 100%;
-//   padding: 14px;
-//   border-radius: 8px;
-//   border: 1px solid
-//     ${({ $themeMode }) =>
-//       $themeMode === "dark"
-//         ? "rgba(255,255,255,0.2)"
-//         : "rgba(148, 166, 190, 0.4)"};
-//   background-color: ${({ $themeMode }) =>
-//     $themeMode === "dark" ? "#2a2a38" : "#fff"};
-//   color: ${({ $themeMode }) => ($themeMode === "dark" ? "#f0f0f0" : "#000")};
-//   font-size: 14px;
-//   height: 200px;
-//   margin-top: 14px;
-//   outline: none;
-// `;
-
-// export const SSubttl = styled.label`
-//   /* color: #000; */
-//   color: ${({ $themeMode }) => ($themeMode === "dark" ? "#f0f0f0" : "#000")};
-//   font-size: 14px;
-//   font-weight: 600;
-//   line-height: 1;
-// `;
-
-// export const SPopNewCardCategories = styled.div`
-//   margin-bottom: 20px;
-// `;
-
-// export const SCategoriesPSubttl = styled.p`
-//   margin-bottom: 14px;
-//   /* color: #000; */
-//   color: ${({ $themeMode }) => ($themeMode === "dark" ? "#f0f0f0" : "#000")};
-//   font-size: 14px;
-//   font-weight: 600;
-//   line-height: 1;
-// `;
-
-// export const SCategoriesThemes = styled.div`
-//   margin-bottom: 20px;
-//   display: flex;
-//   flex-wrap: nowrap;
-//   align-items: flex-start;
-//   justify-content: flex-start;
-
-//   .categories__theme {
-//     display: inline-block;
-//     width: auto;
-//     height: 30px;
-//     padding: 8px 20px;
-//     border-radius: 24px;
-//     margin-right: 7px;
-//     opacity: 0.4;
-//     cursor: pointer;
-
-//     &._orange {
-//       background-color: #ffe4c2;
-//       color: #ff6d00;
-//     }
-
-//     &._green {
-//       background-color: #b4fdd1;
-//       color: #06b16e;
-//     }
-//     &._purple {
-//       background-color: #e9d4ff;
-//       color: #9a48f1;
-//     }
-//     &._gray {
-//       background: #94a6be;
-//       color: #ffffff;
-//     }
-
-//     &._active-category {
-//       opacity: 1 !important;
-//     }
-
-//     p {
-//       /* margin-bottom: 14px;  */
-//       font-size: 14px;
-//       font-weight: 600;
-//       line-height: 14px;
-//       white-space: nowrap;
-//     }
-//   }
-// `;
-
-// export const SFormNewCreate = styled.button`
-//   width: 132px;
-//   height: 30px;
-//   background-color: #565eef;
-//   border-radius: 4px;
-//   border: 0;
-//   font-size: 14px;
-//   font-weight: 500;
-//   color: #ffffff;
-//   cursor: pointer;
-//   float: right;
-
-//   @media screen and (max-width: 495px) {
-//     width: 100%;
-//     height: 40px;
-//   }
-// `;
-
 import styled from "styled-components";
 
 export const SPopNewCard = styled.div`
   display: flex;
-  /* display: none; */
   width: 100%;
   min-width: 375px;
   height: 100%;
@@ -385,7 +37,6 @@ export const SPopNewCardContainer = styled.div`
 export const SPopNewCardBlock = styled.div`
   display: block;
   margin: 0 auto;
-  /* background-color: #ffffff; */
   background-color: ${({ $themeMode }) =>
     $themeMode === "dark" ? "#20202c" : "#ffffff"};
   color: ${({ $themeMode }) => ($themeMode === "dark" ? "#f0f0f0" : "#000000")};
@@ -393,7 +44,6 @@ export const SPopNewCardBlock = styled.div`
   width: 100%;
   padding: 40px 30px 48px;
   border-radius: 10px;
-  /* border: 0.7px solid #d4dbe5; */
   border: 0.7px solid
     ${({ $themeMode }) =>
       $themeMode === "dark" ? "#444" : "rgba(212, 219, 229, 1)"};
@@ -414,7 +64,6 @@ export const SPopNewCardContent = styled.div`
 `;
 
 export const SPopNewCardTtl = styled.h3`
-  /* color: #000; */
   color: ${({ $themeMode }) => ($themeMode === "dark" ? "#f0f0f0" : "#000")};
   font-size: 20px;
   font-weight: 600;
@@ -433,7 +82,6 @@ export const SPopNewCardClose = styled.button`
   right: 30px;
   color: #94a6be;
   cursor: pointer;
-  /* text-decoration: none; */
   background: none;
   border: none;
 
@@ -474,7 +122,6 @@ export const SFormNewInput = styled.input`
   outline: none;
   padding: 14px;
   background: transparent;
-  /* border: 0.7px solid rgba(148, 166, 190, 0.4); */
   border: 0.7px solid
     ${({ $themeMode }) =>
       $themeMode === "dark"
@@ -491,10 +138,8 @@ export const SFormNewInput = styled.input`
   letter-spacing: -0.14px;
 
   &::placeholder {
-    /* color: #94a6be; */
     color: ${({ $themeMode }) => ($themeMode === "dark" ? "#888" : "#94a6be")};
     font-weight: 400;
-
     font-size: 14px;
     line-height: 1;
     letter-spacing: -0.14px;
@@ -506,7 +151,6 @@ export const SFormNewArea = styled.textarea`
   outline: none;
   padding: 14px;
   background: transparent;
-  /* border: 0.7px solid rgba(148, 166, 190, 0.4); */
   border: 1px solid
     ${({ $themeMode }) =>
       $themeMode === "dark"
@@ -519,15 +163,12 @@ export const SFormNewArea = styled.textarea`
   font-size: 14px;
   height: 200px;
   margin-top: 14px;
-
   line-height: 1;
   letter-spacing: -0.14px;
 
   &::placeholder {
-    /* color: #94a6be; */
     color: ${({ $themeMode }) => ($themeMode === "dark" ? "#888" : "#94a6be")};
     font-weight: 400;
-
     font-size: 14px;
     line-height: 1;
     letter-spacing: -0.14px;
@@ -540,7 +181,6 @@ export const SFormNewArea = styled.textarea`
 `;
 
 export const SSubttl = styled.label`
-  /* color: #000; */
   color: ${({ $themeMode }) => ($themeMode === "dark" ? "#f0f0f0" : "#000")};
   font-size: 14px;
   font-weight: 600;
@@ -553,7 +193,6 @@ export const SPopNewCardCategories = styled.div`
 
 export const SCategoriesPSubttl = styled.p`
   margin-bottom: 14px;
-  /* color: #000; */
   color: ${({ $themeMode }) => ($themeMode === "dark" ? "#f0f0f0" : "#000")};
   font-size: 14px;
   font-weight: 600;
@@ -600,7 +239,6 @@ export const SCategoriesThemes = styled.div`
     }
 
     p {
-      /* margin-bottom: 14px;  */
       font-size: 14px;
       font-weight: 600;
       line-height: 14px;
