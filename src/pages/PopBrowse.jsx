@@ -1,13 +1,7 @@
 import PopBrowse from "../components/popups/PopBrowse/PopBrowse";
 
 const PopBrowsePage = () => {
-    return <PopBrowse />;
+  return <PopBrowse />;
 };
 
-export default PopBrowsePage; 
-
-// // { setIsAuth } , setIsAuth={setIsAuth}
-
-
-
- 
+export default PopBrowsePage;

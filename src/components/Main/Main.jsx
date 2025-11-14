@@ -1,8 +1,29 @@
+import { useState, useEffect, useContext } from "react";
 import Column from "../Column/Column";
-import { SMain, SContainer, SMainBlock, SMainContent } from "./Main.styled";
+import { ThemeContext } from "../../context/ThemeContext";
+import { TasksContext } from "../../context/TasksContext";
+import { DragDropContext } from "@hello-pangea/dnd";
+import {
+  SLoading,
+  SLoadingText,
+  SMain,
+  SContainer,
+  SMainBlock,
+  SMainContent,
+  SSpinner,
+  SRing,
+  SDots,
+  SDot,
+} from "./Main.styled";
 
-const Main = () => {
-  // Все статусы колонок
+const Main = ({ loading }) => {
+  const { theme } = useContext(ThemeContext);
+  const { tasks, updateTask } = useContext(TasksContext);
+
+  const [showLoader, setShowLoader] = useState(true);
+  const [draggingTaskId, setDraggingTaskId] = useState(null);
+  const [sourceStatus, setSourceStatus] = useState(null);
+
   const statuses = [
     "Без статуса",
     "Нужно сделать",
@@ -11,15 +32,80 @@ const Main = () => {
     "Готово",
   ];
 
+  useEffect(() => {
+    const timer = setTimeout(() => setShowLoader(false), 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Начало перетаскивания
+  const onDragStart = (start) => {
+    const task = tasks.find(
+      (t) => (t._id || t.id).toString() === start.draggableId.toString()
+    );
+    if (!task) return;
+    setDraggingTaskId(start.draggableId);
+    setSourceStatus(task.status);
+  };
+
+  // Завершение перетаскивания
+  const onDragEnd = async (result) => {
+    const { destination, source, draggableId } = result;
+    setDraggingTaskId(null);
+    setSourceStatus(null);
+
+    if (!destination) return;
+
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    )
+      return;
+
+    const task = tasks.find(
+      (t) => (t._id || t.id).toString() === draggableId.toString()
+    );
+    if (!task) return;
+
+    const updatedTask = { ...task, status: destination.droppableId };
+    await updateTask(draggableId, updatedTask);
+  };
+
+  // Если лоудер активен — показываем анимацию
+  if (showLoader || loading) {
+    return (
+      <SLoading $themeMode={theme}>
+        <SSpinner aria-hidden>
+          <SRing className="ring ring--large" $themeMode={theme} />
+          <SRing className="ring ring--medium" $themeMode={theme} />
+          <SRing className="ring ring--small" $themeMode={theme} />
+          <SDots>
+            <SDot $themeMode={theme} style={{ "--i": 0 }} />
+            <SDot $themeMode={theme} style={{ "--i": 1 }} />
+            <SDot $themeMode={theme} style={{ "--i": 2 }} />
+          </SDots>
+        </SSpinner>
+
+        <SLoadingText>Данные загружаются . . .</SLoadingText>
+      </SLoading>
+    );
+  }
+  // после загрузки
   return (
-    <SMain>
+    <SMain $themeMode={theme}>
       <SContainer>
         <SMainBlock>
-          <SMainContent>
-            {statuses.map((status) => (
-              <Column key={status} title={status} />
-            ))}
-          </SMainContent>
+          <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
+            <SMainContent>
+              {statuses.map((status) => (
+                <Column
+                  key={status}
+                  title={status}
+                  draggingTaskId={draggingTaskId}
+                  sourceStatus={sourceStatus}
+                />
+              ))}
+            </SMainContent>
+          </DragDropContext>
         </SMainBlock>
       </SContainer>
     </SMain>
@@ -27,236 +113,3 @@ const Main = () => {
 };
 
 export default Main;
-
-
-// import Column from "../Column/Column";
-// import {
-//   // SLoading,
-//   // SLoadingText,
-//   SMain,
-//   SContainer,
-//   SMainBlock,
-//   SMainContent,
-// } from "./Main.styled";
-// // import { useContext } from "react";
-// // import { TasksContext } from "../../context/TasksContext";
-// // import { useState } from "react";
-
-// const Main = () => {
-
-//   // Статусы колонок
-//   const statuses = [
-//     "Без статуса",
-//     "Нужно сделать",
-//     "В работе",
-//     "Тестирование",
-//     "Готово",
-//   ];
-
-  
-
-
-//   return (
-//     <SMain>
-//       <SContainer>
-//         <SMainBlock>
-//           <SMainContent>
-//             {statuses.map((status) => (
-//               <Column key={status} title={status} />
-//             ))}
-//           </SMainContent>
-//         </SMainBlock>
-//       </SContainer>
-
-//     </SMain>
-//   );
-// };
-
-// export default Main; 
-
-// import Column from "../Column/Column";
-// import {
-//   // SLoading,
-//   // SLoadingText,
-//   SMain,
-//   SContainer,
-//   SMainBlock,
-//   SMainContent,
-// } from "./Main.styled";
-// // import { useContext } from "react";
-// // import { TasksContext } from "../../context/TasksContext";
-// // import { useState } from "react";
-
-// const Main = () => {
-//   // const { tasks, loading, error } = useContext(TasksContext);
-
-//   // Статусы колонок
-//   const statuses = [
-//     "Без статуса",
-//     "Нужно сделать",
-//     "В работе",
-//     "Тестирование",
-//     "Готово",
-//   ];
-
-  
-
-//   // if (loading) {
-//   //   return (
-//   //     <SLoading>
-//   //       <SLoadingText>Данные загружаются . . .</SLoadingText>
-//   //     </SLoading>
-//   //   );
-//   // }
-
-//   return (
-//     <SMain>
-//       <SContainer>
-//         <SMainBlock>
-//           <SMainContent>
-//             {statuses.map((status) => (
-//               <Column key={status} title={status} />
-//             ))}
-//           </SMainContent>
-//         </SMainBlock>
-//       </SContainer>
-// {/* 
-//       {error && (
-//         <p style={{ color: "red", textAlign: "center", marginTop: "10px" }}>
-//           Ошибка: {error}
-//         </p>
-//       )} */}
-//     </SMain>
-//   );
-// };
-
-// export default Main;
-
-
-// import Column from "../Column/Column";
-// import {
-//   SLoading,
-//   SLoadingText,
-//   SMain,
-//   SContainer,
-//   SMainBlock,
-//   SMainContent,
-// } from "./Main.styled";
-
-// const Main = ({ loading, tasks, error }) => {
-//   const statuses = [
-//     "Без статуса",
-//     "Нужно сделать",
-//     "В работе",
-//     "Тестирование",
-//     "Готово",
-//   ];
-
-//   return loading ? (
-//     <SLoading>
-//       <SLoadingText>Данные загружаются . . . </SLoadingText>
-//     </SLoading>
-//   ) : (
-//     <SMain>
-//       <SContainer>
-//         <SMainBlock>
-//           <SMainContent>
-//             {statuses.map((title) => (
-//               <Column tasks={tasks} key={title} loading={loading} title={title} />
-//             ))}
-//           </SMainContent>
-//         </SMainBlock>
-//       </SContainer> 
-//       <p>{error}</p>
-//     </SMain>
-//   );
-// };
-
-// export default Main; 
-
-
-// import Column from "../Column/Column";
-// import { SLoading, SLoadingText, SMain, SContainer, SMainBlock, SMainContent } from "./Main.styled";
-// import { useContext } from "react";
-// import { TasksContext } from "../../context/TasksContext";
-
-// const Main = () => {
-//   const { loading, error } = useContext(TasksContext);
-
-//   const statuses = ["Без статуса", "Нужно сделать", "В работе", "Тестирование", "Готово"];
-
-//   return loading ? (
-//     <SLoading>
-//       <SLoadingText>Данные загружаются . . . </SLoadingText>
-//     </SLoading>
-//   ) : (
-//     <SMain>
-//       <SContainer>
-//         <SMainBlock>
-//           <SMainContent>
-//             {statuses.map((status) => (
-//               <Column key={status} title={status} />
-//             ))}
-//           </SMainContent>
-//         </SMainBlock>
-//       </SContainer>
-//       <p>{error}</p>
-//     </SMain>
-//   );
-// };
-
-// export default Main;
-
-
-
-
-// import Column from "../Column/Column";
-
-// const Main = ({ loading }) => {
-//   const statuses = [
-//     "Без статуса",
-//     "Нужно сделать",
-//     "В работе",
-//     "Тестирование",
-//     "Готово",
-//   ];
-
-//   return (
-//     <main className="main">
-//       <div className="container">
-//         <div className="main__block">
-//           <div className="main__content">
-//             {statuses.map((title) => (
-//               <Column
-//                 key={title}
-//                 loading={loading}
-//                 title={title}
-//               />
-//             ))}
-//           </div>
-//         </div>
-//       </div>
-//     </main>
-//   );
-// };
-
-// export default Main;
-
-// ПЕРВОНАЧАЛЬНЫЙ КОД
-// import Column from "../Column/Column";
-
-// const Main = () => {
-//   return (
-//     <main className="main">
-//       <div className="container">
-//         <div className="main__block">
-//           <div className="main__content">
-//             <Column />
-//           </div>
-//         </div>
-//       </div>
-//     </main>
-//   );
-// };
-
-// export default Main;

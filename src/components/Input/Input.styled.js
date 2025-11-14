@@ -9,4 +9,10 @@ export const STag = styled.input`
   padding: 10px 8px;
   margin-bottom: 7px;
   font-family: "Roboto", sans-serif;
+  background-color: ${({ themeMode }) =>
+    themeMode === "light" ? "#FFFFFF" : "#20202C"};
+
+  &::placeholder {
+    color: #94a6be;
+  }
 `;

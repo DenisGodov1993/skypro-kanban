@@ -1,7 +1,7 @@
 import PopUser from "../components/popups/PopUser/PopUser";
 
 const PopUserPage = () => {
-    return <PopUser />;
+  return <PopUser />;
 };
 
-export default PopUserPage; 
+export default PopUserPage;
